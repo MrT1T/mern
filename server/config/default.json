@@ -1,4 +1,4 @@
 {
-  "port": 3000,
-  "mongoUrl": "mongodb+srv://eugene:12345qwerty@cluster0.yx442.mongodb.net/mernDB?retryWrites=true&w=majority"
+  "port": 4000,
+  "mongoUrl": "mongodb+srv://eugene:12345qwerty@cluster0.yx442.mongodb.net/Mern?retryWrites=true&w=majority"
 }
