@@ -25,7 +25,13 @@ module.exports = {
     'comma-dangle': 0,
     quotes: [2, 'single', { avoidEscape: true }],
     'react/jsx-props-no-spreading': 'off',
-    'jsx-a11y/label-has-associated-control': 'off'
+    'jsx-a11y/label-has-associated-control': 'off',
+    'no-unused-vars': 'warn',
+    'react/require-default-props': 'off',
+    'react/forbid-prop-types': 0,
+    'import/prefer-default-export': 'off',
+
+    'node/no-unsupported-features/es-syntax': 'off'
   },
   overrides: [
     {

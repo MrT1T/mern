@@ -1,11 +1,23 @@
 const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const apiRouter = require('./src/routers');
 // const initial = require('./src/data');
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+};
+
 const app = express();
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
 app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRouter());
 
