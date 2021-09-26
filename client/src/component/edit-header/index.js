@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Background from '../../img/night.png';
 
 const useStyles = makeStyles({
   header: {
-    backgroundImage:
-      'url(https://bipbap.ru/wp-content/uploads/2017/07/2ec44ae0527285899bda6e361d96aa88-700.jpg)',
+    backgroundImage: `url(${Background})`,
     height: '20%',
     marginBottom: '2%',
     display: 'flex'

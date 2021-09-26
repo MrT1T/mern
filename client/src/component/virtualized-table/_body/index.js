@@ -1,8 +1,9 @@
-import { makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
 import React from 'react';
 import PropTypes from 'prop-types';
+import InfiniteLoader from 'react-window-infinite-loader';
 import Row from '../_row';
 
 const useStyles = makeStyles({
@@ -11,31 +12,59 @@ const useStyles = makeStyles({
   }
 });
 
-const TableContent = ({ cellData }) => {
+const TableContent = ({
+  cellData,
+  className,
+  loadNextPage,
+  status,
+  hasNextPage
+}) => {
   const classes = useStyles();
 
+  const isNextPageLoading = ['loading', 'idle'].includes(status);
+  const isItemLoaded = (index) => !hasNextPage || index < cellData.length;
+  const itemCount = hasNextPage ? cellData.length + 1 : cellData.length;
+  const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
+
   return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <FixedSizeList
-          className={classes.body}
-          height={height}
-          itemCount={cellData.length}
-          itemData={{
-            cellData
-          }}
-          itemSize={55}
-          width={width}
-        >
-          {Row}
-        </FixedSizeList>
-      )}
-    </AutoSizer>
+    <Box className={className}>
+      <AutoSizer>
+        {({ height, width }) => (
+          <InfiniteLoader
+            isItemLoaded={isItemLoaded}
+            itemCount={itemCount}
+            loadMoreItems={loadMoreItems}
+          >
+            {({ onItemsRendered, ref }) => (
+              <FixedSizeList
+                className={classes.body}
+                height={height}
+                itemCount={itemCount}
+                itemData={{
+                  cellData,
+                  isItemLoaded
+                }}
+                itemSize={55}
+                ref={ref}
+                width={width}
+                onItemsRendered={onItemsRendered}
+              >
+                {Row}
+              </FixedSizeList>
+            )}
+          </InfiniteLoader>
+        )}
+      </AutoSizer>
+    </Box>
   );
 };
 
 export default TableContent;
 
 TableContent.propTypes = {
-  cellData: PropTypes.array
+  cellData: PropTypes.array,
+  loadNextPage: PropTypes.func,
+  status: PropTypes.string,
+  hasNextPage: PropTypes.bool,
+  className: PropTypes.string
 };

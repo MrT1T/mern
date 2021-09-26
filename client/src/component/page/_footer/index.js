@@ -4,6 +4,7 @@ import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 const useStyles = makeStyles({
   footer: {
     zIndex: 100,
+    height: '60px',
     padding: '24px 0',
     color: '#fff',
     backgroundColor: '#3f51b5'

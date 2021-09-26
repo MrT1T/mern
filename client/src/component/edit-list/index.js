@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import Image from '../../img/icon.png';
 
 const useStyles = makeStyles({
   cardMedia: {
@@ -19,10 +21,15 @@ const useStyles = makeStyles({
   }
 });
 
-const EditList = ({ labelList, list, onChange, name, buttonText }) => {
+const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
   const classes = useStyles();
-  const handleClick = (item) => {
+  const history = useHistory();
+  const handleClickCard = (item) => {
+    history.push(link(item));
+  };
+  const handleClickButton = (event, item) => {
     onChange(name, item);
+    event.stopPropagation();
   };
   return (
     <Container>
@@ -39,9 +46,9 @@ const EditList = ({ labelList, list, onChange, name, buttonText }) => {
       <Grid justifyContent="center" container spacing={4}>
         {list?.map((item) => (
           <Grid item key={item}>
-            <Card>
+            <Card onClick={() => handleClickCard(item)}>
               <CardMedia
-                image="https://source.unsplash.com/random"
+                image={Image}
                 title="Image"
                 className={classes.cardMedia}
               />
@@ -51,7 +58,12 @@ const EditList = ({ labelList, list, onChange, name, buttonText }) => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => handleClick(item)} color="primary">
+                <Button
+                  onClick={(event) => {
+                    handleClickButton(event, item);
+                  }}
+                  color="primary"
+                >
                   {buttonText}
                 </Button>
               </CardActions>
@@ -70,5 +82,6 @@ EditList.propTypes = {
   buttonText: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
+  link: PropTypes.func,
   list: PropTypes.array
 };

@@ -4,14 +4,15 @@ import {
   setGroupsSuccess
 } from '../slices/groups.slice';
 import { GroupsService } from '../../services/groups.service';
+import { STATUS } from '../../constant/status.const';
 
-export const getAllGroups = () => async (dispatch) => {
+export const getAllGroups = (query) => async (dispatch) => {
   try {
-    dispatch(setGroupsStatus('loading'));
-    const data = await GroupsService.getAllGroups();
+    dispatch(setGroupsStatus(STATUS.LOADING));
+    const data = await GroupsService.getAllGroups(query);
     dispatch(setGroupsSuccess({ data }));
   } catch (error) {
-    error.clientMessage = "Can't get user profile";
+    error.clientMessage = "Can't get user user-edit";
     dispatch(setGroupsError({ errorMessage: error.clientMessage }));
   }
 };

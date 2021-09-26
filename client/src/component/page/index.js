@@ -10,11 +10,12 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     minHeight: '100vh',
     height: '100%',
-    overflowX: 'hidden'
+    overflow: 'hidden'
   },
   main: {
     flexGrow: 1,
-    height: '100%'
+    display: 'flex',
+    flexDirection: 'column'
   }
 });
 

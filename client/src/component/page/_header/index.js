@@ -10,6 +10,9 @@ import NavBar from '../_navbar';
 
 const useStyles = makeStyles({
   header: {
+    height: '60px'
+  },
+  toolbar: {
     justifyContent: 'space-between'
   }
 });
@@ -18,8 +21,8 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static">
-      <Toolbar className={classes.header}>
+    <AppBar className={classes.header} position="static">
+      <Toolbar className={classes.toolbar}>
         <NavBar />
         <Box>
           <Typography variant="h6"> Smile you can do everything </Typography>

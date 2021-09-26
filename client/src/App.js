@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import GroupsPage from './pages/groups';
 import UsersPage from './pages/users';
-import UserEditPage from './pages/profile';
+import UserEditPage from './pages/user-edit';
 import Page from './component/page';
-import GroupEditPage from './pages/group';
+import GroupEditPage from './pages/group-edit';
 
 function App() {
   return (

@@ -1,0 +1,1 @@
+exports.quantityPage = 18;

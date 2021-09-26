@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { STATUS } from '../../constant/status.const';
 
 const initialState = {
   users: [],
-  status: 'idle',
+  pagesCount: null,
+  status: STATUS.IDLE,
   error: null
 };
 
@@ -15,11 +17,12 @@ const usersSlice = createSlice({
       state.status = action.payload;
     },
     setUsersSuccess: (state, action) => {
-      state.users = action.payload.data;
-      state.status = 'success';
+      state.users = action.payload.data.users;
+      state.pagesCount = action.payload.data.pagesCount;
+      state.status = STATUS.SUCCESS;
     },
     setUsersError: (state, action) => {
-      state.status = 'failed';
+      state.status = STATUS.FAILED;
       state.error = action.payload.errorMessage;
     }
   }
