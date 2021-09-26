@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { useGroup } from '../../hooks/use-group';
 import { PAGES_LINKS } from '../../constant/links.const';
 import EditHeader from '../../component/edit-header';
 import EditField from '../../component/edit-field';
 import EditList from '../../component/edit-list';
-import { firstLetterUpperCase } from '../../helpers/firstLetterUpperCase.helper';
+import { firstLetterUpperCase } from '../../helpers/first-letter-upper-case.helper';
+import { resetStore } from '../../store/thunks/reset-store.thunk';
+import { GroupsService } from '../../services/groups.service';
+import { groupEditFields } from '../../constant/table-header.const';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -22,6 +26,9 @@ const GroupEditPage = () => {
   const { groupname } = useParams();
   const group = useGroup(groupname);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
     if (group) {
       setGroupData({
@@ -43,25 +50,22 @@ const GroupEditPage = () => {
     }));
   };
 
-  const handlerSaveGroupData = () => {
-    console.log(groupData);
+  const handlerSaveGroupData = async () => {
+    const body = { ...groupData, groupId: group.groupId };
+    await GroupsService.updateGroup(body);
+    dispatch(resetStore());
+    return history.push(PAGES_LINKS.GROUPS);
   };
 
-  // eslint-disable-next-line array-callback-return,consistent-return
-  const needEditFields = Object.keys(groupData).map((item) => {
-    if (item !== 'usersList') {
-      return (
-        <EditField
-          fieldLabel={firstLetterUpperCase(item)}
-          placeholder="Change username"
-          value={groupData[item]}
-          name={item}
-          key={item}
-          onChange={handlerChangeGroupData}
-        />
-      );
-    }
-  });
+  const editTableFields = groupEditFields.map((item) => (
+    <EditField
+      fieldLabel={firstLetterUpperCase(item)}
+      value={groupData[item]}
+      name={item}
+      key={item}
+      onChange={handlerChangeGroupData}
+    />
+  ));
 
   return (
     <>
@@ -81,21 +85,7 @@ const GroupEditPage = () => {
           >
             Edit Fields
           </Typography>
-          {needEditFields}
-          {/* <EditField */}
-          {/*  fieldLabel="Group name" */}
-          {/*  placeholder="Change group name" */}
-          {/*  value={groupData?.name} */}
-          {/*  name="name" */}
-          {/*  onChange={handlerChangeGroupData} */}
-          {/* /> */}
-          {/* <EditField */}
-          {/*  fieldLabel="Group title" */}
-          {/*  placeholder="Change group title" */}
-          {/*  value={groupData?.title} */}
-          {/*  name="title" */}
-          {/*  onChange={handlerChangeGroupData} */}
-          {/* /> */}
+          {editTableFields}
         </Container>
         <EditList
           list={groupData?.usersList}
@@ -103,6 +93,7 @@ const GroupEditPage = () => {
           onChange={handlerChangeGroupData}
           name="usersList"
           buttonText="Delete user from group"
+          link={PAGES_LINKS.PROFILE}
         />
       </Box>
     </>

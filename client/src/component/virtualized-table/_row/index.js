@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, TableRow } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import CellGroup from '../_cellGroup';
+import CellGroup from '../_cell-group';
 import { PAGES_LINKS } from '../../../constant/links.const';
 
 const useStyles = makeStyles({
@@ -21,6 +21,19 @@ const Row = ({ data, index, style }) => {
   const history = useHistory();
 
   const currentElement = data.cellData[index];
+
+  if (!data.isItemLoaded(index)) {
+    return (
+      <TableRow
+        component="div"
+        className={classes.row}
+        data-even={index % 2 === 0}
+        style={style}
+      >
+        Loading...
+      </TableRow>
+    );
+  }
 
   const onClick = () => {
     if (currentElement.username) {

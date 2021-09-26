@@ -11,7 +11,12 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Input({ name, value = '', placeholder, onChange }) {
+export default function Input({
+  name,
+  value = '',
+  placeholder = '',
+  onChange
+}) {
   const classes = useStyles();
   const handleChange = (e) => {
     onChange(e.target.name, e.target.value);

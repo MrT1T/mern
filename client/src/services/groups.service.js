@@ -1,5 +1,8 @@
 import { Api } from './api.service';
 
 export const GroupsService = {
-  getAllGroups: () => Api.get('group/all').then((response) => response.data)
+  getAllGroups: (query = '') =>
+    Api.get(`group/all/${query}`).then((response) => response.data),
+  updateGroup: (body) =>
+    Api.put('group/update', body).then((response) => response.data)
 };

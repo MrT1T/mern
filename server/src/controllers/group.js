@@ -1,30 +1,25 @@
-const Group = require('../models/Group.model');
+const { getFilteredGroups, updateGroup } = require('../services/group.service');
+const { createErrorMessage } = require('../services/errors.service');
 
 const groupController = {
   getGroups: async (req, res) => {
     try {
-      const groups = await Group.find();
-      res.send(groups);
+      const result = await getFilteredGroups(req.query);
+
+      res.send(result);
     } catch (e) {
-      res.status(500).send({ message: e.message });
+      const message = await createErrorMessage(500);
+      res.status(500).send({ message });
     }
   },
   updateGroup: async (req, res) => {
     try {
-      await Group.updateOne(
-        {
-          groupId: req.body.groupId
-        },
-        {
-          name: req.body.name,
-          title: req.body.title,
-          usersList: req.body.usersList
-        }
-      );
+      await updateGroup(req.body);
 
       res.send('Group has been changed');
     } catch (e) {
-      res.status(500).send({ message: e.message });
+      const message = await createErrorMessage(500);
+      res.status(500).send({ message });
     }
   }
 };

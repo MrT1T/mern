@@ -6,7 +6,7 @@ module.exports = {
   },
   parserOptions: {
     parser: 'babel-eslint',
-    ecmaVersion: 2020,
+    ecmaVersion: 2021,
     sourceType: 'module'
   },
   extends: [
@@ -30,6 +30,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 0,
     'import/prefer-default-export': 'off',
+    'react-hooks/exhaustive-deps': 'off',
 
     'node/no-unsupported-features/es-syntax': 'off'
   },

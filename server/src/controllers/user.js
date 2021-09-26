@@ -1,31 +1,24 @@
-const User = require('../models/User.model');
+const { updateUser, getFilteredUsers } = require('../services/user.service');
+const { createErrorMessage } = require('../services/errors.service');
 
 const userController = {
   getUsers: async (req, res) => {
     try {
-      const users = await User.find();
+      const users = await getFilteredUsers(req.query);
       res.send(users);
     } catch (e) {
-      res.status(500).send({ message: e.message });
+      const message = await createErrorMessage(500);
+      res.status(500).send({ message });
     }
   },
   updateUser: async (req, res) => {
     try {
-      await User.updateOne(
-        {
-          id: req.body.id
-        },
-        {
-          username: req.body.username,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email
-        }
-      );
+      await updateUser(req.body);
 
       res.send('User has been changed');
     } catch (e) {
-      res.status(500).send({ message: e.message });
+      const message = await createErrorMessage(500);
+      res.status(500).send({ message });
     }
   }
 };

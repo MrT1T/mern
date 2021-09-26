@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { STATUS } from '../../constant/status.const';
 
 const initialState = {
   groups: [],
-  status: 'idle',
+  pagesCount: null,
+  status: STATUS.IDLE,
   error: null
 };
 
@@ -15,11 +17,12 @@ const groupsSlice = createSlice({
       state.status = action.payload;
     },
     setGroupsSuccess: (state, action) => {
-      state.groups = action.payload.data;
-      state.status = 'success';
+      state.groups = action.payload.data.groups;
+      state.pagesCount = action.payload.data.pagesCount;
+      state.status = STATUS.SUCCESS;
     },
     setGroupsError: (state, action) => {
-      state.status = 'failed';
+      state.status = STATUS.FAILED;
       state.error = action.payload.errorMessage;
     }
   }

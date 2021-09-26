@@ -1,9 +1,13 @@
-export const usersTableHeader = [
-  'Username',
-  'First Name',
-  'Last Name',
-  'Email',
-  'Groups List'
+export const usersFields = [
+  'username',
+  'firstName',
+  'lastName',
+  'email',
+  'groupsList'
 ];
 
-export const groupTableHeader = ['Groups', 'Title', 'Users List'];
+export const groupFields = ['name', 'title', 'usersList'];
+
+export const usersEditFields = usersFields.slice(0, 4);
+
+export const groupEditFields = groupFields.slice(0, 2);

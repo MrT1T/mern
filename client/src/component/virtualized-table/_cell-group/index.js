@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Cell from '../_cell';
 
 const CellGroup = ({ item }) => {
-  if (item.username) {
+  if (item?.username) {
     return (
       <>
         <Cell>{item.username}</Cell>
@@ -16,9 +16,9 @@ const CellGroup = ({ item }) => {
   }
   return (
     <>
-      <Cell>{item.name}</Cell>
-      <Cell>{item.title}</Cell>
-      <Cell>{item.usersList.join(', ')}</Cell>
+      <Cell>{item?.name}</Cell>
+      <Cell>{item?.title}</Cell>
+      <Cell>{item?.usersList.join(', ')}</Cell>
     </>
   );
 };

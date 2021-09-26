@@ -3,7 +3,8 @@ const config = require('config');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const apiRouter = require('./src/routers');
-// const initial = require('./src/data');
+const { createErrorMessage } = require('./src/services/errors.service');
+// const initial = require('./src/fixtures');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -21,8 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRouter());
 
-app.use((req, res) => {
-  res.status(404).send('PAGE NOT FOUND');
+app.use(async (req, res) => {
+  const message = await createErrorMessage(404);
+  res.status(404).send(message);
 });
 
 const PORT = config.get('port');

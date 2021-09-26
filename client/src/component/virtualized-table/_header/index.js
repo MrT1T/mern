@@ -1,6 +1,7 @@
 import { makeStyles, TableCell, TableHead, TableRow } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { firstLetterUpperCase } from '../../../helpers/first-letter-upper-case.helper';
 
 const useStyles = makeStyles({
   row: {
@@ -23,7 +24,7 @@ const TableHeader = ({ cellData }) => {
       align="center"
       key={item}
     >
-      {item}
+      {firstLetterUpperCase(item)}
     </TableCell>
   ));
   return (

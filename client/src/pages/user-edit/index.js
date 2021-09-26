@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import EditHeader from '../../component/edit-header';
 import { PAGES_LINKS } from '../../constant/links.const';
 import EditField from '../../component/edit-field';
 import EditList from '../../component/edit-list';
 import { useUser } from '../../hooks/use-user';
-import { firstLetterUpperCase } from '../../helpers/firstLetterUpperCase.helper';
+import { firstLetterUpperCase } from '../../helpers/first-letter-upper-case.helper';
+import { resetStore } from '../../store/thunks/reset-store.thunk';
+import { UsersService } from '../../services/users.service';
+import { usersEditFields } from '../../constant/table-header.const';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -22,6 +26,9 @@ const UserEditPage = () => {
   const { username } = useParams();
   const user = useUser(username);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
     if (user) {
       setUserData({
@@ -45,30 +52,27 @@ const UserEditPage = () => {
     }));
   };
 
-  const handlerSaveGroupData = () => {
-    console.log(userData);
+  const handlerSaveGroupData = async () => {
+    const body = { ...userData, id: user.id };
+    await UsersService.updateUser(body);
+    dispatch(resetStore());
+    return history.push(PAGES_LINKS.USERS);
   };
 
-  // eslint-disable-next-line array-callback-return,consistent-return
-  const needEditFields = Object.keys(userData).map((item) => {
-    if (item !== 'groupsList') {
-      return (
-        <EditField
-          fieldLabel={firstLetterUpperCase(item)}
-          placeholder="Change username"
-          value={userData[item]}
-          name={item}
-          key={item}
-          onChange={handlerChangeUserData}
-        />
-      );
-    }
-  });
+  const editTableFields = usersEditFields.map((item) => (
+    <EditField
+      fieldLabel={firstLetterUpperCase(item)}
+      value={userData[item]}
+      name={item}
+      key={item}
+      onChange={handlerChangeUserData}
+    />
+  ));
 
   return (
     <>
       <EditHeader
-        breadcrumbLabel="Group"
+        breadcrumbLabel="Users"
         breadcrumbLink={PAGES_LINKS.GROUPS}
         pageName={user?.username}
         onClick={handlerSaveGroupData}
@@ -83,7 +87,7 @@ const UserEditPage = () => {
           >
             Edit Fields
           </Typography>
-          {needEditFields}
+          {editTableFields}
         </Container>
         <EditList
           list={userData?.groupsList}
@@ -91,6 +95,7 @@ const UserEditPage = () => {
           onChange={handlerChangeUserData}
           name="groupsList"
           buttonText="Delete group from user"
+          link={PAGES_LINKS.GROUP}
         />
       </Box>
     </>
