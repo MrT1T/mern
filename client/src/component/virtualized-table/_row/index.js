@@ -39,7 +39,7 @@ const Row = ({ data, index, style }) => {
     if (currentElement.username) {
       history.push(PAGES_LINKS.PROFILE(currentElement.username));
     } else {
-      history.push(PAGES_LINKS.GROUP(currentElement.title));
+      history.push(PAGES_LINKS.GROUP(currentElement.name));
     }
   };
 
