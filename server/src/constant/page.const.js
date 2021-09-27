@@ -1,1 +1,1 @@
-exports.quantityPage = 18;
+exports.quantityPage = 20;
