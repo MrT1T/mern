@@ -18,13 +18,16 @@ const GroupsPage = () => {
   }
 
   const handleChangeFilters = (name, value) => {
-    setFilterData((prevValues) => ({ ...prevValues, [name]: value }));
+    setFilterData((prevValues) => ({ ...prevValues, [name]: value, page: 1 }));
   };
 
   const loadNextPage = () => {
     setHasNextPage(pagesCount > filterData.page);
     if (hasNextPage) {
-      handleChangeFilters('page', filterData.page + 1);
+      setFilterData((prevValues) => ({
+        ...prevValues,
+        page: filterData.page + 1
+      }));
     }
   };
 
