@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { stringify } from 'query-string';
 import { getAllUsers } from '../store/thunks/users.thunk';
+import { STATUS } from '../constant/status.const';
 
 export const useAllUsers = (filterData) => {
   const dispatch = useDispatch();
@@ -13,13 +14,13 @@ export const useAllUsers = (filterData) => {
   }));
 
   useEffect(() => {
-    if (usersStatus === 'idle') {
+    if (usersStatus === STATUS.IDLE) {
       dispatch(getAllUsers());
     }
   }, [dispatch, users, usersStatus]);
 
   useEffect(() => {
-    if (usersStatus === 'success' && filterData) {
+    if (usersStatus === STATUS.SUCCESS && filterData) {
       const filterParams = stringify(filterData, {
         skipEmptyString: true,
         skipNull: true

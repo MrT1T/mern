@@ -25,6 +25,11 @@ const SelectField = ({
     if (!selectedOptions) return onChange(name, '');
     return onChange(name, selectedOptions.value);
   };
+  const handleInputChange = (searchText, actionMeta) => {
+    if (actionMeta.action === 'input-change') {
+      onChange(name, searchText);
+    }
+  };
 
   const parsedOptions = useMemo(
     () =>
@@ -35,10 +40,18 @@ const SelectField = ({
     [options]
   );
 
-  const parsedValue = useMemo(
-    () => parsedOptions.filter((option) => option.value === value),
-    [value, parsedOptions]
-  );
+  const parsedValue = useMemo(() => {
+    const currentValue = parsedOptions.filter(
+      (option) => option.value === value
+    );
+    if (currentValue.length === 0 && value) {
+      currentValue.push({
+        value,
+        label: `${value}`
+      });
+    }
+    return currentValue;
+  }, [value, parsedOptions]);
 
   return (
     <Box className={classes.selectContainer}>
@@ -47,6 +60,7 @@ const SelectField = ({
         id={name}
         value={parsedValue}
         onChange={handleChange}
+        onInputChange={handleInputChange}
         options={parsedOptions}
         isClearable
         className={classes.select}

@@ -5,11 +5,12 @@ import FilterPanel from '../../component/filter-panel';
 import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
 import { groupFields } from '../../constant/table-header.const';
+import { useNextPage } from '../../hooks/use-next-page';
 
 const GroupsPage = () => {
   const [filterData, setFilterData] = useState({ page: 1 });
-  const [hasNextPage, setHasNextPage] = useState(true);
   const { groups, groupsStatus, pagesCount } = useAllGroups(filterData);
+  const hasNextPage = useNextPage(pagesCount, filterData.page, groups);
 
   let filterOptions = getFilterOptions(groups);
 
@@ -22,8 +23,7 @@ const GroupsPage = () => {
   };
 
   const loadNextPage = () => {
-    setHasNextPage(pagesCount > filterData.page);
-    if (hasNextPage) {
+    if (pagesCount !== filterData.page) {
       setFilterData((prevValues) => ({
         ...prevValues,
         page: filterData.page + 1
@@ -41,10 +41,13 @@ const GroupsPage = () => {
       />
       <VirtualizedTable
         cellHeaderData={groupFields}
-        cellBodyData={groups}
-        loadNextPage={loadNextPage}
-        status={groupsStatus}
-        hasNextPage={hasNextPage}
+        cellBodyData={{
+          cellData: groups,
+          hasNextPage,
+          status: groupsStatus,
+          pagesCount,
+          loadNextPage
+        }}
       />
     </>
   );

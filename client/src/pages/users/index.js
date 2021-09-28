@@ -5,11 +5,12 @@ import { useAllUsers } from '../../hooks/use-all-users';
 import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
 import FilterPanel from '../../component/filter-panel';
+import { useNextPage } from '../../hooks/use-next-page';
 
 const UsersPage = () => {
   const [filterData, setFilterData] = useState({ page: 1 });
-  const [hasNextPage, setHasNextPage] = useState(false);
   const { users, usersStatus, pagesCount } = useAllUsers(filterData);
+  const hasNextPage = useNextPage(pagesCount, filterData.page, users);
 
   let filterOptions = getFilterOptions(users);
 
@@ -18,13 +19,15 @@ const UsersPage = () => {
   }
 
   const handleChangeFilters = (name, value) => {
-    setFilterData((prevValues) => ({ ...prevValues, [name]: value }));
+    setFilterData((prevValues) => ({ ...prevValues, [name]: value, page: 1 }));
   };
 
   const loadNextPage = () => {
-    setHasNextPage(pagesCount > filterData.page);
-    if (hasNextPage) {
-      handleChangeFilters('page', filterData.page + 1);
+    if (pagesCount !== filterData.page) {
+      setFilterData((prevValues) => ({
+        ...prevValues,
+        page: filterData.page + 1
+      }));
     }
   };
 
@@ -37,11 +40,14 @@ const UsersPage = () => {
         fields={usersFields}
       />
       <VirtualizedTable
-        cellBodyData={users}
+        cellBodyData={{
+          cellData: users,
+          hasNextPage,
+          status: usersStatus,
+          pagesCount,
+          loadNextPage
+        }}
         cellHeaderData={usersFields}
-        loadNextPage={loadNextPage}
-        hasNextPage={hasNextPage}
-        status={usersStatus}
       />
     </>
   );

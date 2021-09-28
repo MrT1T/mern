@@ -18,7 +18,7 @@ const groupsSlice = createSlice({
     },
     setGroupsSuccess: (state, action) => {
       state.groups = action.payload.data.groups;
-      state.pagesCount = action.payload.data.pagesCount;
+      state.pagesCount = action.payload.data.countPages;
       state.status = STATUS.SUCCESS;
     },
     setGroupsError: (state, action) => {

@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteLoader from 'react-window-infinite-loader';
 import Row from '../_row';
+import { STATUS } from '../../../constant/status.const';
 
 const useStyles = makeStyles({
   body: {
@@ -12,16 +13,13 @@ const useStyles = makeStyles({
   }
 });
 
-const TableContent = ({
-  cellData,
-  className,
-  loadNextPage,
-  status,
-  hasNextPage
-}) => {
+const TableContent = ({ cellBodyData, className }) => {
   const classes = useStyles();
 
-  const isNextPageLoading = ['loading', 'idle'].includes(status);
+  const { loadNextPage, status, hasNextPage, pagesCount, cellData } =
+    cellBodyData;
+
+  const isNextPageLoading = [STATUS.LOADING, STATUS.IDLE].includes(status);
   const isItemLoaded = (index) => !hasNextPage || index < cellData.length;
   const itemCount = hasNextPage ? cellData.length + 1 : cellData.length;
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
@@ -43,7 +41,8 @@ const TableContent = ({
                 itemCount={itemCount}
                 itemData={{
                   cellData,
-                  isItemLoaded
+                  isItemLoaded,
+                  pagesCount
                 }}
                 itemSize={55}
                 ref={ref}
@@ -63,9 +62,6 @@ const TableContent = ({
 export default TableContent;
 
 TableContent.propTypes = {
-  cellData: PropTypes.array,
-  loadNextPage: PropTypes.func,
-  status: PropTypes.string,
-  hasNextPage: PropTypes.bool,
+  cellBodyData: PropTypes.object,
   className: PropTypes.string
 };

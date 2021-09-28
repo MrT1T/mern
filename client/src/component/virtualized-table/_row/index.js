@@ -19,23 +19,24 @@ const useStyles = makeStyles({
 const Row = ({ data, index, style }) => {
   const classes = useStyles();
   const history = useHistory();
+  // const { cellData, isItemLoaded, pagesCount } = data;
 
   const currentElement = data.cellData[index];
 
-  if (!data.isItemLoaded(index)) {
-    return (
-      <TableRow
-        component="div"
-        className={classes.row}
-        data-even={index % 2 === 0}
-        style={style}
-      >
-        Loading...
-      </TableRow>
-    );
-  }
+  const rowData = () => {
+    if (data.cellData.length === 0 && data.pagesCount === 0) {
+      return 'Result is empty';
+    }
+    if (!data.isItemLoaded(index)) {
+      return 'Loading...';
+    }
+    return <CellGroup item={currentElement} />;
+  };
 
   const onClick = () => {
+    if (data.cellData.length === 0) {
+      return;
+    }
     if (currentElement.username) {
       history.push(PAGES_LINKS.PROFILE(currentElement.username));
     } else {
@@ -51,7 +52,7 @@ const Row = ({ data, index, style }) => {
       style={style}
       onClick={onClick}
     >
-      <CellGroup item={currentElement} />
+      {rowData()}
     </TableRow>
   );
 };

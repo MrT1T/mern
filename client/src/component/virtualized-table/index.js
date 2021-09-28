@@ -16,24 +16,12 @@ const useStyles = makeStyles({
   }
 });
 
-const VirtualizedTable = ({
-  cellHeaderData,
-  cellBodyData,
-  loadNextPage,
-  status,
-  hasNextPage
-}) => {
+const VirtualizedTable = ({ cellHeaderData, cellBodyData }) => {
   const classes = useStyles();
   return (
     <Table component="div" className={classes.table}>
       <TableHeader cellData={cellHeaderData} />
-      <TableContent
-        className={classes.tableBody}
-        cellData={cellBodyData}
-        loadNextPage={loadNextPage}
-        status={status}
-        hasNextPage={hasNextPage}
-      />
+      <TableContent cellBodyData={cellBodyData} className={classes.tableBody} />
     </Table>
   );
 };
@@ -42,8 +30,5 @@ export default VirtualizedTable;
 
 VirtualizedTable.propTypes = {
   cellHeaderData: PropTypes.array,
-  loadNextPage: PropTypes.func,
-  status: PropTypes.string,
-  hasNextPage: PropTypes.bool,
-  cellBodyData: PropTypes.array
+  cellBodyData: PropTypes.object
 };
