@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { makeStyles, Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { useDebounced } from '../../hooks/use-debounced';
 
 const useStyles = makeStyles({
   selectContainer: {
@@ -22,12 +23,15 @@ const SelectField = ({
   const classes = useStyles();
 
   const handleChange = (selectedOptions) => {
-    if (!selectedOptions) return onChange(name, '');
+    if (!selectedOptions) return onChange(name, null);
     return onChange(name, selectedOptions.value);
   };
+
+  const onInputChange = useDebounced(onChange, 500);
+
   const handleInputChange = (searchText, actionMeta) => {
     if (actionMeta.action === 'input-change') {
-      onChange(name, searchText);
+      onInputChange(name, searchText);
     }
   };
 
