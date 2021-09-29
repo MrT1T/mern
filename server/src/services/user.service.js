@@ -1,33 +1,13 @@
 const User = require('../models/User.model');
 const { quantityPage } = require('../constant/page.const');
-const { filter, listFilter } = require('../helpers/filter.helper');
+const { regField } = require('../helpers/filter.helper');
 
 const userService = {
-  getFilteredUsers: async ({
-    username,
-    firstName,
-    lastName,
-    email,
-    groupsList,
-    page
-  }) => {
-    let users = await User.find();
+  getFilteredUsers: async (data) => {
+    const { page, ...filter } = data;
+    const filterItem = regField(filter);
 
-    if (username) {
-      users = filter(users, 'username', username);
-    }
-    if (firstName) {
-      users = filter(users, 'firstName', firstName);
-    }
-    if (lastName) {
-      users = filter(users, 'lastName', lastName);
-    }
-    if (email) {
-      users = filter(users, 'email', email);
-    }
-    if (groupsList) {
-      users = listFilter(users, 'groupsList', groupsList);
-    }
+    const users = await User.find(filterItem, { _id: 0 });
 
     const countPages = Math.ceil(users.length / quantityPage);
 
