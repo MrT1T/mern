@@ -1,4 +1,8 @@
-const { getFilteredGroups, updateGroup } = require('../services/group.service');
+const {
+  getFilteredGroups,
+  updateGroup,
+  getGroup
+} = require('../services/group.service');
 const { createErrorMessage } = require('../services/errors.service');
 
 const groupController = {
@@ -17,6 +21,16 @@ const groupController = {
       await updateGroup(req.body);
 
       res.send('Group has been changed');
+    } catch (e) {
+      const message = await createErrorMessage(500);
+      res.status(500).send({ message });
+    }
+  },
+  getGroup: async (req, res) => {
+    try {
+      const group = await getGroup(req.params.groupname);
+
+      res.send(group);
     } catch (e) {
       const message = await createErrorMessage(500);
       res.status(500).send({ message });

@@ -5,6 +5,7 @@ const groupRouter = () => {
   const router = express.Router();
 
   router.get('/all', groupController.getGroups);
+  router.get('/:groupname', groupController.getGroup);
   router.put('/update', groupController.updateGroup);
 
   return router;

@@ -24,17 +24,18 @@ const groupService = {
 
     return { groups, countPages };
   },
-  updateGroup: async (data) => {
+  updateGroup: async ({ groupId, name, title, usersList }) => {
     await Group.updateOne(
       {
-        groupId: data.groupId
+        groupId
       },
       {
-        name: data.name,
-        title: data.title,
-        usersList: data.usersList
+        name,
+        title,
+        usersList
       }
     );
-  }
+  },
+  getGroup: async (name) => Group.findOne({ name })
 };
 module.exports = groupService;
