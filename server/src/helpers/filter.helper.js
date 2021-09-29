@@ -1,13 +1,7 @@
-const filter = (array, key, searchElement) =>
-  array.filter((item) =>
-    item[key].toLowerCase().includes(searchElement.toLowerCase())
+const regField = (obj) =>
+  Object.keys(obj).reduce(
+    (newObj, key) => ({ ...newObj, [key]: new RegExp(`${obj[key]}`, 'i') }),
+    {}
   );
 
-const listFilter = (array, key, searchElement) =>
-  array.filter((item) =>
-    item[key].some((el) =>
-      el.toLowerCase().includes(searchElement.toLowerCase())
-    )
-  );
-
-module.exports = { filter, listFilter };
+module.exports = { regField };

@@ -1,21 +1,13 @@
 const Group = require('../models/Group.model');
 const { quantityPage } = require('../constant/page.const');
-const { filter, listFilter } = require('../helpers/filter.helper');
+const { regField } = require('../helpers/filter.helper');
 
 const groupService = {
-  getFilteredGroups: async ({ name, title, usersList, page }) => {
-    let groups = await Group.find();
+  getFilteredGroups: async (data) => {
+    const { page, ...filter } = data;
+    const filterItem = regField(filter);
 
-    if (name) {
-      groups = filter(groups, 'name', name);
-    }
-    if (title) {
-      groups = filter(groups, 'title', title);
-    }
-
-    if (usersList) {
-      groups = listFilter(groups, 'usersList', usersList);
-    }
+    const groups = await Group.find(filterItem, { _id: 0 });
 
     const countPages = Math.ceil(groups.length / quantityPage);
 
