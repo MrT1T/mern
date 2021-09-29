@@ -36,19 +36,27 @@ const userService = {
 
     return { users, countPages };
   },
-  updateUser: async (data) => {
+  updateUser: async ({
+    id,
+    username,
+    firstName,
+    lastName,
+    email,
+    groupsList
+  }) => {
     await User.updateOne(
       {
-        id: data.id
+        id
       },
       {
-        username: data.username,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        groupsList: data.groupsList
+        username,
+        firstName,
+        lastName,
+        email,
+        groupsList
       }
     );
-  }
+  },
+  getUser: async (username) => User.findOne({ username })
 };
 module.exports = userService;

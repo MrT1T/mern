@@ -6,6 +6,7 @@ const usersRouter = () => {
 
   router.get('/all', usersController.getUsers);
   router.put('/update', usersController.updateUser);
+  router.get('/:username', usersController.getUser);
 
   return router;
 };
