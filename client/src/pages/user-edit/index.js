@@ -11,6 +11,7 @@ import { firstLetterUpperCase } from '../../helpers/first-letter-upper-case.help
 import { resetStore } from '../../store/thunks/reset-store.thunk';
 import { UsersService } from '../../services/users.service';
 import { usersEditFields } from '../../constant/table-header.const';
+import notificationCreator from '../../helpers/notification.helper';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -52,11 +53,17 @@ const UserEditPage = () => {
     }));
   };
 
-  const handlerSaveGroupData = async () => {
+  const handlerSaveUserData = async () => {
     const body = { ...userData, id: user.id };
-    await UsersService.updateUser(body);
-    dispatch(resetStore());
-    return history.push(PAGES_LINKS.USERS);
+    await UsersService.updateUser(body)
+      .then(() => {
+        notificationCreator.showOnSuccess('The user has been changed');
+        dispatch(resetStore());
+        return history.push(PAGES_LINKS.USERS);
+      })
+      .catch((error) => {
+        notificationCreator.showOnFailure(`${error.data[0].message}`);
+      });
   };
 
   const editTableFields = usersEditFields.map((item) => (
@@ -75,7 +82,7 @@ const UserEditPage = () => {
         breadcrumbLabel="Users"
         breadcrumbLink={PAGES_LINKS.GROUPS}
         pageName={user?.username}
-        onClick={handlerSaveGroupData}
+        onClick={handlerSaveUserData}
       />
       <Box className={classes.editContainer}>
         <Container className={classes.editFields}>
