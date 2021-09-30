@@ -6,6 +6,7 @@ import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
 import FilterPanel from '../../component/filter-panel';
 import { useNextPage } from '../../hooks/use-next-page';
+import { PAGES_LINKS } from '../../constant/links.const';
 
 const UsersPage = () => {
   const [filterData, setFilterData] = useState({ page: 1 });
@@ -44,6 +45,7 @@ const UsersPage = () => {
           cellData: users,
           hasNextPage,
           status: usersStatus,
+          link: PAGES_LINKS.PROFILE,
           pagesCount,
           loadNextPage
         }}

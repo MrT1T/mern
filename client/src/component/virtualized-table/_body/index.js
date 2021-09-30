@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 const TableContent = ({ cellBodyData, className }) => {
   const classes = useStyles();
 
-  const { loadNextPage, status, hasNextPage, pagesCount, cellData } =
+  const { loadNextPage, status, hasNextPage, pagesCount, cellData, link } =
     cellBodyData;
 
   const isNextPageLoading = [STATUS.LOADING, STATUS.IDLE].includes(status);
@@ -42,7 +42,8 @@ const TableContent = ({ cellBodyData, className }) => {
                 itemData={{
                   cellData,
                   isItemLoaded,
-                  pagesCount
+                  pagesCount,
+                  link
                 }}
                 itemSize={55}
                 ref={ref}

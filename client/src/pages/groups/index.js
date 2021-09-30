@@ -6,6 +6,7 @@ import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
 import { groupFields } from '../../constant/table-header.const';
 import { useNextPage } from '../../hooks/use-next-page';
+import { PAGES_LINKS } from '../../constant/links.const';
 
 const GroupsPage = () => {
   const [filterData, setFilterData] = useState({ page: 1 });
@@ -45,6 +46,7 @@ const GroupsPage = () => {
           cellData: groups,
           hasNextPage,
           status: groupsStatus,
+          link: PAGES_LINKS.GROUP,
           pagesCount,
           loadNextPage
         }}

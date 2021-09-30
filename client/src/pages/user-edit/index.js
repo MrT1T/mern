@@ -12,6 +12,10 @@ import { resetStore } from '../../store/thunks/reset-store.thunk';
 import { UsersService } from '../../services/users.service';
 import { usersEditFields } from '../../constant/table-header.const';
 import notificationCreator from '../../helpers/notification.helper';
+import {
+  validateData,
+  validateUserEdit
+} from '../../helpers/validation.helper';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -24,6 +28,7 @@ const useStyles = makeStyles({
 
 const UserEditPage = () => {
   const [userData, setUserData] = useState({});
+  const [errors, setErrors] = useState({});
   const { username } = useParams();
   const user = useUser(username);
   const classes = useStyles();
@@ -44,26 +49,33 @@ const UserEditPage = () => {
 
   const handlerChangeUserData = (name, value) => {
     if (name === 'groupsList') {
-      // eslint-disable-next-line no-param-reassign
       value = userData.groupsList.filter((item) => item !== value);
     }
     setUserData((prevFormData) => ({
       ...prevFormData,
       [name]: value
     }));
+
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
   };
 
   const handlerSaveUserData = async () => {
-    const body = { ...userData, id: user.id };
-    await UsersService.updateUser(body)
-      .then(() => {
-        notificationCreator.showOnSuccess('The user has been changed');
-        dispatch(resetStore());
-        return history.push(PAGES_LINKS.USERS);
-      })
-      .catch((error) => {
-        notificationCreator.showOnFailure(`${error.data[0].message}`);
-      });
+    const resultUserData = validateData(userData, validateUserEdit);
+
+    if (resultUserData.isValid) {
+      const body = { ...userData, id: user.id };
+      await UsersService.updateUser(body)
+        .then(() => {
+          notificationCreator.showOnSuccess('The user has been changed');
+          dispatch(resetStore());
+          return history.push(PAGES_LINKS.USERS);
+        })
+        .catch((error) => {
+          notificationCreator.showOnFailure(`${error.data[0].message}`);
+        });
+    } else {
+      setErrors(resultUserData.errors);
+    }
   };
 
   const editTableFields = usersEditFields.map((item) => (
@@ -73,6 +85,7 @@ const UserEditPage = () => {
       name={item}
       key={item}
       onChange={handlerChangeUserData}
+      error={errors[item]}
     />
   ));
 

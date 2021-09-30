@@ -3,7 +3,6 @@ import { makeStyles, TableRow } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import CellGroup from '../_cell-group';
-import { PAGES_LINKS } from '../../../constant/links.const';
 
 const useStyles = makeStyles({
   row: {
@@ -19,28 +18,23 @@ const useStyles = makeStyles({
 const Row = ({ data, index, style }) => {
   const classes = useStyles();
   const history = useHistory();
-  // const { cellData, isItemLoaded, pagesCount } = data;
+  const { cellData, isItemLoaded, pagesCount, link } = data;
 
-  const currentElement = data.cellData[index];
+  const currentElement = cellData[index];
 
   const rowData = () => {
-    if (data.cellData.length === 0 && data.pagesCount === 0) {
+    if (cellData.length === 0 && pagesCount === 0) {
       return 'Result is empty';
     }
-    if (!data.isItemLoaded(index)) {
+    if (!isItemLoaded(index)) {
       return 'Loading...';
     }
     return <CellGroup item={currentElement} />;
   };
 
   const onClick = () => {
-    if (data.cellData.length === 0) {
-      return;
-    }
-    if (currentElement.username) {
-      history.push(PAGES_LINKS.PROFILE(currentElement.username));
-    } else {
-      history.push(PAGES_LINKS.GROUP(currentElement.name));
+    if (data.cellData.length !== 0) {
+      history.push(link(currentElement.username || currentElement.name));
     }
   };
 
