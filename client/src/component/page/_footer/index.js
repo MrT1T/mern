@@ -6,8 +6,8 @@ const useStyles = makeStyles({
     zIndex: 100,
     height: '60px',
     padding: '24px 0',
-    color: '#fff',
-    backgroundColor: '#3f51b5'
+    color: 'var(--white)',
+    backgroundColor: 'var(--azure-blue)'
   }
 });
 

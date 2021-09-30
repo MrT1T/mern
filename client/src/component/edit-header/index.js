@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   breadcrumb: {
     paddingTop: '20px',
     fontSize: '48px',
-    color: '#fff'
+    color: 'var(--white)'
   },
   saveButtonContainer: {
     display: 'flex',
@@ -29,9 +29,9 @@ const useStyles = makeStyles({
   },
   button: {
     margin: '5% 3%',
-    backgroundColor: '#3f51b5',
+    backgroundColor: 'var(--azure-blue)',
     height: '40px',
-    color: '#fff'
+    color: 'var(--white)'
   }
 });
 

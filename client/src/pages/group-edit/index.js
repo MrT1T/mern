@@ -11,6 +11,7 @@ import { firstLetterUpperCase } from '../../helpers/first-letter-upper-case.help
 import { resetStore } from '../../store/thunks/reset-store.thunk';
 import { GroupsService } from '../../services/groups.service';
 import { groupEditFields } from '../../constant/table-header.const';
+import notificationCreator from '../../helpers/notification.helper';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -52,9 +53,15 @@ const GroupEditPage = () => {
 
   const handlerSaveGroupData = async () => {
     const body = { ...groupData, groupId: group.groupId };
-    await GroupsService.updateGroup(body);
-    dispatch(resetStore());
-    return history.push(PAGES_LINKS.GROUPS);
+    await GroupsService.updateGroup(body)
+      .then(() => {
+        notificationCreator.showOnSuccess('The group has been changed');
+        dispatch(resetStore());
+        return history.push(PAGES_LINKS.GROUPS);
+      })
+      .catch((error) => {
+        notificationCreator.showOnFailure(`${error.data[0].message}`);
+      });
   };
 
   const editTableFields = groupEditFields.map((item) => (
