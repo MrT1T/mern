@@ -31,6 +31,7 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'import/prefer-default-export': 'off',
     'react-hooks/exhaustive-deps': 'off',
+    'no-param-reassign': 'off',
 
     'node/no-unsupported-features/es-syntax': 'off'
   },

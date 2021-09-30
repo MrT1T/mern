@@ -12,6 +12,10 @@ import { resetStore } from '../../store/thunks/reset-store.thunk';
 import { GroupsService } from '../../services/groups.service';
 import { groupEditFields } from '../../constant/table-header.const';
 import notificationCreator from '../../helpers/notification.helper';
+import {
+  validateData,
+  validateGroupEdit
+} from '../../helpers/validation.helper';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -24,6 +28,7 @@ const useStyles = makeStyles({
 
 const GroupEditPage = () => {
   const [groupData, setGroupData] = useState({});
+  const [errors, setErrors] = useState({});
   const { groupname } = useParams();
   const group = useGroup(groupname);
   const classes = useStyles();
@@ -42,26 +47,33 @@ const GroupEditPage = () => {
 
   const handlerChangeGroupData = (name, value) => {
     if (name === 'usersList') {
-      // eslint-disable-next-line no-param-reassign
       value = groupData.usersList.filter((item) => item !== value);
     }
     setGroupData((prevFormData) => ({
       ...prevFormData,
       [name]: value
     }));
+
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
   };
 
   const handlerSaveGroupData = async () => {
-    const body = { ...groupData, groupId: group.groupId };
-    await GroupsService.updateGroup(body)
-      .then(() => {
-        notificationCreator.showOnSuccess('The group has been changed');
-        dispatch(resetStore());
-        return history.push(PAGES_LINKS.GROUPS);
-      })
-      .catch((error) => {
-        notificationCreator.showOnFailure(`${error.data[0].message}`);
-      });
+    const resultUserData = validateData(groupData, validateGroupEdit);
+
+    if (resultUserData.isValid) {
+      const body = { ...groupData, groupId: group.groupId };
+      await GroupsService.updateGroup(body)
+        .then(() => {
+          notificationCreator.showOnSuccess('The group has been changed');
+          dispatch(resetStore());
+          return history.push(PAGES_LINKS.GROUPS);
+        })
+        .catch((error) => {
+          notificationCreator.showOnFailure(`${error.data[0].message}`);
+        });
+    } else {
+      setErrors(resultUserData.errors);
+    }
   };
 
   const editTableFields = groupEditFields.map((item) => (
@@ -71,6 +83,7 @@ const GroupEditPage = () => {
       name={item}
       key={item}
       onChange={handlerChangeGroupData}
+      error={errors[item]}
     />
   ));
 
