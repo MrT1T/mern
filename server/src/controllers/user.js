@@ -1,38 +1,39 @@
+const createError = require('http-errors');
 const {
   updateUser,
   getFilteredUsers,
   getUser
 } = require('../services/user.service');
-const { createErrorMessage } = require('../services/errors.service');
 
 const userController = {
-  getUsers: async (req, res) => {
+  getUsers: async (req, res, next) => {
     try {
       const users = await getFilteredUsers(req.query);
       res.send(users);
-    } catch (e) {
-      const message = await createErrorMessage(500);
-      res.status(500).send({ message });
+    } catch (error) {
+      next(error);
     }
   },
-  updateUser: async (req, res) => {
+  updateUser: async (req, res, next) => {
     try {
       await updateUser(req.body);
 
       res.send('User has been changed');
-    } catch (e) {
-      const message = await createErrorMessage(500);
-      res.status(500).send({ message });
+    } catch (error) {
+      next(error);
     }
   },
-  getUser: async (req, res) => {
+  getUser: async (req, res, next) => {
     try {
       const user = await getUser(req.params.username);
 
+      if (!user) {
+        throw createError(405);
+      }
+
       res.send(user);
-    } catch (e) {
-      const message = await createErrorMessage(500);
-      res.status(500).send({ message });
+    } catch (error) {
+      next(error);
     }
   }
 };
