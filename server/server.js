@@ -3,7 +3,10 @@ const config = require('config');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const apiRouter = require('./src/routers');
-const { createErrorMessage } = require('./src/services/errors.service');
+const {
+  errorsHandler,
+  noPageError
+} = require('./src/middleware/erorrs.meddleware');
 // const initial = require('./src/fixtures');
 
 const corsOptions = {
@@ -22,10 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRouter());
 
-app.use(async (req, res) => {
-  const message = await createErrorMessage(404);
-  res.status(404).send(message);
-});
+app.use(errorsHandler);
+
+app.use(noPageError);
 
 const PORT = config.get('port');
 
