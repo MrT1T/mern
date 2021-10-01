@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { makeStyles, Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import classNames from 'classnames';
 import { useDebounced } from '../../hooks/use-debounced';
 
 const useStyles = makeStyles({
@@ -18,7 +19,8 @@ const SelectField = ({
   options = [],
   name = '',
   placeholder = '',
-  value = ''
+  value = '',
+  className = ''
 }) => {
   const classes = useStyles();
 
@@ -67,7 +69,7 @@ const SelectField = ({
         onInputChange={handleInputChange}
         options={parsedOptions}
         isClearable
-        className={classes.select}
+        className={classNames(classes.select, className)}
       />
     </Box>
   );
@@ -80,5 +82,6 @@ SelectField.propTypes = {
   value: PropTypes.string,
   options: PropTypes.array,
   placeholder: PropTypes.string,
+  className: PropTypes.string,
   onChange: PropTypes.func
 };

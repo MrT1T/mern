@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,8 @@ import {
   validateData,
   validateUserEdit
 } from '../../helpers/validation.helper';
+import SelectField from '../../component/select';
+import { useAllGroups } from '../../hooks/use-all-groups';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -23,6 +25,10 @@ const useStyles = makeStyles({
   },
   editFields: {
     width: '20%'
+  },
+  selectFields: {
+    width: '300px',
+    margin: '30px 0 0 10px'
   }
 });
 
@@ -34,6 +40,7 @@ const UserEditPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const groups = useAllGroups();
 
   useEffect(() => {
     if (user) {
@@ -47,16 +54,25 @@ const UserEditPage = () => {
     }
   }, [user]);
 
+  const groupsField = useMemo(
+    () => groups.filter((group) => !userData.groupsList?.includes(group)),
+    [userData, groups]
+  );
+
   const handlerChangeUserData = (name, value) => {
     if (name === 'groupsList') {
       value = userData.groupsList.filter((item) => item !== value);
+    }
+    if (name === 'addGroup') {
+      name = 'groupsList';
+      value = userData.groupsList.concat(value);
     }
     setUserData((prevFormData) => ({
       ...prevFormData,
       [name]: value
     }));
 
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
+    return setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
   };
 
   const handlerSaveUserData = async () => {
@@ -108,6 +124,13 @@ const UserEditPage = () => {
             Edit Fields
           </Typography>
           {editTableFields}
+          <SelectField
+            name="addGroup"
+            options={groupsField}
+            placeholder="Add Group"
+            onChange={handlerChangeUserData}
+            className={classes.selectFields}
+          />
         </Container>
         <EditList
           list={userData?.groupsList}

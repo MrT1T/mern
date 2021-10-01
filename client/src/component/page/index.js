@@ -9,8 +9,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    height: '100%',
-    overflow: 'hidden'
+    height: '100%'
   },
   main: {
     flexGrow: 1,

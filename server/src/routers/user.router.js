@@ -6,6 +6,7 @@ const { updateUserValidation } = require('../middleware/validation.middleware');
 const usersRouter = () => {
   const router = express.Router();
 
+  router.get('/filter', usersController.getFilteredUsers);
   router.get('/all', usersController.getUsers);
   router.put(
     '/update',

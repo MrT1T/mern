@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,8 @@ import {
   validateData,
   validateGroupEdit
 } from '../../helpers/validation.helper';
+import { useAllUsers } from '../../hooks/use-all-users';
+import SelectField from '../../component/select';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -23,6 +25,10 @@ const useStyles = makeStyles({
   },
   editFields: {
     width: '20%'
+  },
+  selectFields: {
+    width: '300px',
+    margin: '30px 0 0 10px'
   }
 });
 
@@ -34,6 +40,7 @@ const GroupEditPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const users = useAllUsers();
 
   useEffect(() => {
     if (group) {
@@ -45,10 +52,21 @@ const GroupEditPage = () => {
     }
   }, [group]);
 
+  const usersField = useMemo(
+    () => users.filter((user) => !groupData.usersList?.includes(user)),
+    [groupData, users]
+  );
+
   const handlerChangeGroupData = (name, value) => {
     if (name === 'usersList') {
       value = groupData.usersList.filter((item) => item !== value);
     }
+
+    if (name === 'addUser') {
+      name = 'usersList';
+      value = groupData.usersList.concat(value);
+    }
+
     setGroupData((prevFormData) => ({
       ...prevFormData,
       [name]: value
@@ -106,6 +124,13 @@ const GroupEditPage = () => {
             Edit Fields
           </Typography>
           {editTableFields}
+          <SelectField
+            name="addUser"
+            options={usersField}
+            placeholder="Add User"
+            onChange={handlerChangeGroupData}
+            className={classes.selectFields}
+          />
         </Container>
         <EditList
           list={groupData?.usersList}

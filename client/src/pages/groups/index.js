@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import VirtualizedTable from '../../component/virtualized-table';
-import { useAllGroups } from '../../hooks/use-all-groups';
+import { useFilteredGroups } from '../../hooks/use-filtered-groups';
 import FilterPanel from '../../component/filter-panel';
 import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
@@ -10,7 +10,7 @@ import { PAGES_LINKS } from '../../constant/links.const';
 
 const GroupsPage = () => {
   const [filterData, setFilterData] = useState({ page: 1 });
-  const { groups, groupsStatus, pagesCount } = useAllGroups(filterData);
+  const { groups, groupsStatus, pagesCount } = useFilteredGroups(filterData);
   const hasNextPage = useNextPage(pagesCount, filterData.page, groups);
 
   let filterOptions = getFilterOptions(groups);
