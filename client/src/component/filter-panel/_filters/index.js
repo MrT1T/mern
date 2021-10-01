@@ -21,6 +21,7 @@ const Filters = ({ filterOptions, filterData, onChange, fields }) => {
       placeholder={firstLetterUpperCase(item)}
       value={filterData[item]}
       onChange={onChange}
+      onInputChange={onChange}
     />
   ));
 

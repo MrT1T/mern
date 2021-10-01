@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 
 const SelectField = ({
   onChange,
+  onInputChange = () => {},
   options = [],
   name = '',
   placeholder = '',
@@ -29,11 +30,11 @@ const SelectField = ({
     return onChange(name, selectedOptions.value);
   };
 
-  const onInputChange = useDebounced(onChange, 500);
+  const onInputChangeDelay = useDebounced(onInputChange, 500);
 
   const handleInputChange = (searchText, actionMeta) => {
     if (actionMeta.action === 'input-change') {
-      onInputChange(name, searchText);
+      onInputChangeDelay(name, searchText);
     }
   };
 
@@ -83,5 +84,6 @@ SelectField.propTypes = {
   options: PropTypes.array,
   placeholder: PropTypes.string,
   className: PropTypes.string,
+  onInputChange: PropTypes.func,
   onChange: PropTypes.func
 };

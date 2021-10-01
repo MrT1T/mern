@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import EditHeader from '../../component/edit-header';
@@ -21,10 +21,11 @@ import { useAllGroups } from '../../hooks/use-all-groups';
 
 const useStyles = makeStyles({
   editContainer: {
-    display: 'flex'
+    display: 'flex',
+    marginBottom: '30px'
   },
   editFields: {
-    width: '20%'
+    width: '330px'
   },
   selectFields: {
     width: '300px',
@@ -114,7 +115,7 @@ const UserEditPage = () => {
         onClick={handlerSaveUserData}
       />
       <Box className={classes.editContainer}>
-        <Container className={classes.editFields}>
+        <Box className={classes.editFields}>
           <Typography
             variant="h3"
             align="center"
@@ -131,7 +132,7 @@ const UserEditPage = () => {
             onChange={handlerChangeUserData}
             className={classes.selectFields}
           />
-        </Container>
+        </Box>
         <EditList
           list={userData?.groupsList}
           labelList="Groups List"

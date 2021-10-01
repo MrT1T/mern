@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useGroup } from '../../hooks/use-group';
 import { PAGES_LINKS } from '../../constant/links.const';
@@ -21,10 +21,11 @@ import SelectField from '../../component/select';
 
 const useStyles = makeStyles({
   editContainer: {
-    display: 'flex'
+    display: 'flex',
+    marginBottom: '30px'
   },
   editFields: {
-    width: '20%'
+    width: '330px'
   },
   selectFields: {
     width: '300px',
@@ -114,7 +115,7 @@ const GroupEditPage = () => {
         onClick={handlerSaveGroupData}
       />
       <Box className={classes.editContainer}>
-        <Container className={classes.editFields}>
+        <Box className={classes.editFields}>
           <Typography
             variant="h3"
             align="center"
@@ -131,7 +132,7 @@ const GroupEditPage = () => {
             onChange={handlerChangeGroupData}
             className={classes.selectFields}
           />
-        </Container>
+        </Box>
         <EditList
           list={groupData?.usersList}
           labelList="Users List"

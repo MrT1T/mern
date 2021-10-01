@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   footer: {
@@ -8,6 +8,9 @@ const useStyles = makeStyles({
     padding: '24px 0',
     color: 'var(--white)',
     backgroundColor: 'var(--azure-blue)'
+  },
+  text: {
+    marginLeft: '100px'
   }
 });
 
@@ -15,11 +18,9 @@ export default function Footer() {
   const classes = useStyles();
   return (
     <Box component="footer" className={classes.footer}>
-      <Container>
-        <Typography variant="body2">
-          Copyright &#169; Your Smile site 2021
-        </Typography>
-      </Container>
+      <Typography className={classes.text} variant="body2">
+        Copyright &#169; Your Smile site 2021
+      </Typography>
     </Box>
   );
 }
