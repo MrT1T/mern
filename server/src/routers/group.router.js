@@ -8,6 +8,7 @@ const validationError = require('../helpers/validationError.helper');
 const groupRouter = () => {
   const router = express.Router();
 
+  router.get('/filter', groupController.getFilteredGroups);
   router.get('/all', groupController.getGroups);
   router.get('/:groupname', groupController.getGroup);
   router.put(

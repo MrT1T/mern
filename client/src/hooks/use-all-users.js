@@ -1,34 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { stringify } from 'query-string';
-import { getAllUsers } from '../store/thunks/users.thunk';
-import { STATUS } from '../constant/status.const';
+import { useEffect, useState } from 'react';
+import { UsersService } from '../services/users.service';
 
-export const useAllUsers = (filterData) => {
-  const dispatch = useDispatch();
+export const useAllUsers = () => {
+  const [users, setUsers] = useState([]);
 
-  const { users, usersStatus, pagesCount } = useSelector((state) => ({
-    users: state.usersData.users,
-    pagesCount: state.usersData.pagesCount,
-    usersStatus: state.usersData.status
-  }));
-
-  useEffect(() => {
-    if (usersStatus === STATUS.IDLE) {
-      dispatch(getAllUsers());
+  useEffect(async () => {
+    if (users.length === 0) {
+      const data = await UsersService.getUsers();
+      setUsers(data);
     }
-  }, [dispatch, users, usersStatus]);
+  }, []);
 
-  useEffect(() => {
-    if (usersStatus === STATUS.SUCCESS && filterData) {
-      const filterParams = stringify(filterData, {
-        skipEmptyString: true,
-        skipNull: true
-      });
-      const filterUrl = `?${filterParams}`;
-      dispatch(getAllUsers(filterUrl));
-    }
-  }, [dispatch, filterData]);
-
-  return { users, usersStatus, pagesCount };
+  return users;
 };

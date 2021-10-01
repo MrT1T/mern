@@ -28,6 +28,8 @@ const groupService = {
       }
     );
   },
-  getGroup: async (name) => Group.findOne({ name })
+  getGroup: async (name) => Group.findOne({ name }),
+  getGroups: async () =>
+    Group.find({}, { _id: 0, title: 0, usersList: 0, groupId: 0 })
 };
 module.exports = groupService;

@@ -37,6 +37,11 @@ const userService = {
       }
     );
   },
-  getUser: async (username) => User.findOne({ username })
+  getUser: async (username) => User.findOne({ username }),
+  getUsers: async () =>
+    User.find(
+      {},
+      { _id: 0, firstName: 0, lastName: 0, email: 0, id: 0, groupsList: 0 }
+    )
 };
 module.exports = userService;

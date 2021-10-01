@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import VirtualizedTable from '../../component/virtualized-table';
 import { usersFields } from '../../constant/table-header.const';
-import { useAllUsers } from '../../hooks/use-all-users';
+import { useFilteredUsers } from '../../hooks/use-filtered-users';
 import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
 import FilterPanel from '../../component/filter-panel';
@@ -10,7 +10,7 @@ import { PAGES_LINKS } from '../../constant/links.const';
 
 const UsersPage = () => {
   const [filterData, setFilterData] = useState({ page: 1 });
-  const { users, usersStatus, pagesCount } = useAllUsers(filterData);
+  const { users, usersStatus, pagesCount } = useFilteredUsers(filterData);
   const hasNextPage = useNextPage(pagesCount, filterData.page, users);
 
   let filterOptions = getFilterOptions(users);

@@ -16,6 +16,9 @@ import { useHistory } from 'react-router-dom';
 import Image from '../../img/icon.png';
 
 const useStyles = makeStyles({
+  card: {
+    width: '20%'
+  },
   cardMedia: {
     paddingTop: '60%'
   }
@@ -45,7 +48,7 @@ const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
       </Box>
       <Grid justifyContent="center" container spacing={4}>
         {list?.map((item) => (
-          <Grid item key={item}>
+          <Grid item key={item} className={classes.card}>
             <Card onClick={() => handleClickCard(item)}>
               <CardMedia
                 image={Image}

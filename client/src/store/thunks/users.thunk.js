@@ -9,7 +9,7 @@ import { STATUS } from '../../constant/status.const';
 export const getAllUsers = (query) => async (dispatch) => {
   try {
     await dispatch(setUsersStatus(STATUS.LOADING));
-    const data = await UsersService.getAllUsers(query);
+    const data = await UsersService.getFilteredUsers(query);
     await dispatch(setUsersSuccess({ data }));
   } catch (error) {
     error.clientMessage = "Can't get user user-edit";

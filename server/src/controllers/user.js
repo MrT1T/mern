@@ -2,13 +2,25 @@ const createError = require('http-errors');
 const {
   updateUser,
   getFilteredUsers,
-  getUser
+  getUser,
+  getUsers
 } = require('../services/user.service');
 
 const userController = {
-  getUsers: async (req, res, next) => {
+  getFilteredUsers: async (req, res, next) => {
     try {
       const users = await getFilteredUsers(req.query);
+      res.send(users);
+    } catch (error) {
+      next(error);
+    }
+  },
+  getUsers: async (req, res, next) => {
+    try {
+      const users = await getUsers();
+      if (!users) {
+        throw createError(400);
+      }
       res.send(users);
     } catch (error) {
       next(error);

@@ -2,13 +2,27 @@ const createError = require('http-errors');
 const {
   getFilteredGroups,
   updateGroup,
-  getGroup
+  getGroup,
+  getGroups
 } = require('../services/group.service');
 
 const groupController = {
-  getGroups: async (req, res, next) => {
+  getFilteredGroups: async (req, res, next) => {
     try {
       const result = await getFilteredGroups(req.query);
+
+      res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  },
+  getGroups: async (req, res, next) => {
+    try {
+      const result = await getGroups();
+
+      if (!result) {
+        throw createError(500);
+      }
 
       res.send(result);
     } catch (error) {
