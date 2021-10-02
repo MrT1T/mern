@@ -2,5 +2,6 @@ export const PAGES_LINKS = {
   USERS: '/users',
   PROFILE: (id) => `/user/${id}`,
   GROUPS: '/groups',
-  GROUP: (id) => `/group/${id}`
+  GROUP: (id) => `/group/${id}`,
+  NOTFOUND: '/not-found'
 };
