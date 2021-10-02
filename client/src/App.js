@@ -5,6 +5,7 @@ import UsersPage from './pages/users';
 import UserEditPage from './pages/user-edit';
 import Page from './component/page';
 import GroupEditPage from './pages/group-edit';
+import NotFound from './pages/not-found';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/user/:username" component={UserEditPage} />
         <Route exact path="/groups" component={GroupsPage} />
         <Route exact path="/group/:groupname" component={GroupEditPage} />
+        <Route exact path="/*" component={NotFound} />
       </Switch>
     </Page>
   );

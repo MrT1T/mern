@@ -18,6 +18,8 @@ import {
 } from '../../helpers/validation.helper';
 import { useAllUsers } from '../../hooks/use-all-users';
 import SelectField from '../../component/select';
+import NotFound from '../not-found';
+import Loading from '../../component/loading';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -37,7 +39,7 @@ const GroupEditPage = () => {
   const [groupData, setGroupData] = useState({});
   const [errors, setErrors] = useState({});
   const { groupname } = useParams();
-  const group = useGroup(groupname);
+  const { group, isLoading, error } = useGroup(groupname);
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -57,6 +59,14 @@ const GroupEditPage = () => {
     () => users.filter((user) => !groupData.usersList?.includes(user)),
     [groupData, users]
   );
+
+  if (error) {
+    return <NotFound />;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const handlerChangeGroupData = (name, value) => {
     if (name === 'usersList') {
@@ -87,8 +97,10 @@ const GroupEditPage = () => {
           dispatch(resetStore());
           return history.push(PAGES_LINKS.GROUPS);
         })
-        .catch((error) => {
-          notificationCreator.showOnFailure(`${error.data[0].message}`);
+        .catch(() => {
+          notificationCreator.showOnFailure(
+            'Group changes have not been saved'
+          );
         });
     } else {
       setErrors(resultUserData.errors);
@@ -124,7 +136,6 @@ const GroupEditPage = () => {
           >
             Edit Fields
           </Typography>
-          {editTableFields}
           <SelectField
             name="addUser"
             options={usersField}
@@ -132,6 +143,7 @@ const GroupEditPage = () => {
             onChange={handlerChangeGroupData}
             className={classes.selectFields}
           />
+          {editTableFields}
         </Box>
         <EditList
           list={groupData?.usersList}
