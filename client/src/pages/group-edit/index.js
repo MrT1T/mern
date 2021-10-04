@@ -74,8 +74,10 @@ const GroupEditPage = () => {
     }
 
     if (name === 'addUser') {
-      name = 'usersList';
-      value = groupData.usersList.concat(value);
+      if (value) {
+        name = 'usersList';
+        value = groupData.usersList.concat(value);
+      }
     }
 
     setGroupData((prevFormData) => ({
