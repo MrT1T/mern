@@ -58,7 +58,11 @@ const UserEditPage = () => {
   }, [user]);
 
   const groupsField = useMemo(
-    () => groups.filter((group) => !userData.groupsList?.includes(group)),
+    () =>
+      groups.filter(
+        ({ name }) =>
+          !userData?.groupsList?.map((group) => group.name).includes(name)
+      ),
     [userData, groups]
   );
 
@@ -72,7 +76,7 @@ const UserEditPage = () => {
 
   const handlerChangeUserData = (name, value) => {
     if (name === 'groupsList') {
-      value = userData.groupsList.filter((item) => item !== value);
+      value = userData.groupsList.filter((item) => item.value !== value);
     }
     if (name === 'addGroup') {
       name = 'groupsList';
@@ -91,6 +95,7 @@ const UserEditPage = () => {
 
     if (resultUserData.isValid) {
       const body = { ...userData, id: user.id };
+      body.groupsList = body.groupsList.map(({ value }) => value);
       await UsersService.updateUser(body)
         .then(() => {
           notificationCreator.showOnSuccess('The user has been changed');

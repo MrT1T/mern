@@ -47,9 +47,10 @@ const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
         </Typography>
       </Box>
       <Grid justifyContent="center" container spacing={4}>
-        {list?.map((item) => (
-          <Grid item key={item} className={classes.card}>
-            <Card onClick={() => handleClickCard(item)}>
+        {/* eslint-disable-next-line no-shadow */}
+        {list?.map(({ name, value }) => (
+          <Grid item key={name} className={classes.card}>
+            <Card onClick={() => handleClickCard(name)}>
               <CardMedia
                 image={Image}
                 title="Image"
@@ -57,13 +58,13 @@ const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
               />
               <CardContent>
                 <Typography variant="h5" gutterBottom>
-                  {item}
+                  {name}
                 </Typography>
               </CardContent>
               <CardActions>
                 <Button
                   onClick={(event) => {
-                    handleClickButton(event, item);
+                    handleClickButton(event, value);
                   }}
                   color="primary"
                 >

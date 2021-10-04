@@ -38,14 +38,18 @@ const SelectField = ({
     }
   };
 
-  const parsedOptions = useMemo(
-    () =>
-      options.map((option) => ({
+  const parsedOptions = useMemo(() => {
+    if (options[0] !== Object(options[0])) {
+      return options.map((option) => ({
         value: option,
         label: `${option}`
-      })),
-    [options]
-  );
+      }));
+    }
+    return options.map((option) => ({
+      value: option,
+      label: option.name
+    }));
+  }, [options]);
 
   const parsedValue = useMemo(() => {
     const currentValue = parsedOptions.filter(

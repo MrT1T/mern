@@ -3,7 +3,7 @@ const groupController = require('../controllers/group');
 const {
   updateGroupValidation
 } = require('../middleware/validation.middleware');
-const validationError = require('../helpers/validationError.helper');
+const validationError = require('../helpers/validation-error.helper');
 
 const groupRouter = () => {
   const router = express.Router();
