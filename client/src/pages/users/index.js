@@ -24,7 +24,7 @@ const UsersPage = () => {
   };
 
   const loadNextPage = () => {
-    if (pagesCount !== filterData.page) {
+    if (pagesCount > filterData.page) {
       setFilterData((prevValues) => ({
         ...prevValues,
         page: filterData.page + 1

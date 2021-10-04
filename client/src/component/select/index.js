@@ -30,7 +30,7 @@ const SelectField = ({
     return onChange(name, selectedOptions.value);
   };
 
-  const onInputChangeDelay = useDebounced(onInputChange, 500);
+  const onInputChangeDelay = useDebounced(onInputChange, 1000);
 
   const handleInputChange = (searchText, actionMeta) => {
     if (actionMeta.action === 'input-change') {
