@@ -6,7 +6,7 @@ const schema = new Schema(
   {
     name: { type: String, required: true, unique: true },
     title: { type: String, required: true },
-    usersList: [{ type: String, ref: 'User' }]
+    usersList: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   },
   {
     versionKey: false

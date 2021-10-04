@@ -70,7 +70,7 @@ const GroupEditPage = () => {
 
   const handlerChangeGroupData = (name, value) => {
     if (name === 'usersList') {
-      value = groupData.usersList.filter((item) => item !== value);
+      value = groupData.usersList.filter((item) => item.value !== value);
     }
 
     if (name === 'addUser') {
@@ -91,6 +91,7 @@ const GroupEditPage = () => {
 
     if (resultUserData.isValid) {
       const body = { ...groupData, groupId: group.groupId };
+      body.usersList = body.usersList.map(({ value }) => value);
       await GroupsService.updateGroup(body)
         .then(() => {
           notificationCreator.showOnSuccess('The group has been changed');

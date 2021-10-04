@@ -1,6 +1,6 @@
 const express = require('express');
 const usersController = require('../controllers/user');
-const validationError = require('../helpers/validationError.helper');
+const validationError = require('../helpers/validation-error.helper');
 const { updateUserValidation } = require('../middleware/validation.middleware');
 
 const usersRouter = () => {

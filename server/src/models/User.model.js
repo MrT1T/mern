@@ -8,7 +8,7 @@ const schema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    groupsList: [{ type: String, ref: 'Group' }]
+    groupsList: [{ type: Schema.Types.ObjectId, ref: 'Group' }]
   },
   {
     versionKey: false

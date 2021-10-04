@@ -1,4 +1,4 @@
-const createErrorMessage = require('../helpers/createErrorMessage.helper');
+const createErrorMessage = require('../helpers/create-error-message.helper');
 
 const errorsHandler = (error, req, res, next) => {
   if (error.status) {
