@@ -61,7 +61,7 @@ const UserEditPage = () => {
     () =>
       groups.filter(
         ({ name }) =>
-          !userData?.groupsList?.map((group) => group.name).includes(name)
+          !userData?.groupsList?.some((item) => item.name.includes(name))
       ),
     [userData, groups]
   );
