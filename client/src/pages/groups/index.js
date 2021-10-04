@@ -20,7 +20,13 @@ const GroupsPage = () => {
   }
 
   const handleChangeFilters = (name, value) => {
-    setFilterData((prevValues) => ({ ...prevValues, [name]: value, page: 1 }));
+    if (filterData[name] !== value) {
+      setFilterData((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+        page: 1
+      }));
+    }
   };
 
   const loadNextPage = () => {
