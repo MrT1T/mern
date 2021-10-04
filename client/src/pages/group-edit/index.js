@@ -56,7 +56,11 @@ const GroupEditPage = () => {
   }, [group]);
 
   const usersField = useMemo(
-    () => users.filter((user) => !groupData.usersList?.includes(user)),
+    () =>
+      users.filter(
+        ({ name }) =>
+          !groupData.usersList?.some((item) => item.name.includes(name))
+      ),
     [groupData, users]
   );
 
