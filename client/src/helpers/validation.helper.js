@@ -2,8 +2,7 @@ import { ERROR_MESSAGES } from '../constant/errors.const';
 import { validEmailReg } from '../constant/variable.const';
 
 const validateMaxLength = (data, errors) => {
-  // eslint-disable-next-line array-callback-return
-  Object.keys(data).map((item) => {
+  Object.keys(data).forEach((item) => {
     if (data[item].length > 30) {
       errors[item] = ERROR_MESSAGES.MAX_LENGTH;
     }
