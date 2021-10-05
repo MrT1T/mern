@@ -47,12 +47,10 @@ const groupService = {
     const removedUsers = difference(oldUsersList, usersList);
     await User.updateMany(
       { _id: addedUsers },
-      // eslint-disable-next-line no-underscore-dangle
       { $addToSet: { groupsList: oldGroup._id } }
     );
     await User.updateMany(
       { _id: removedUsers },
-      // eslint-disable-next-line no-underscore-dangle
       { $pull: { groupsList: oldGroup._id } }
     );
   },
