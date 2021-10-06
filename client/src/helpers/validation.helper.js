@@ -21,6 +21,18 @@ export function validateData(data, validator) {
   };
 }
 
+const emailValidate = (errors, email) => {
+  if (!email) {
+    errors.email = ERROR_MESSAGES.EMAIL_REQUIRED;
+  } else if (email) {
+    const isEmail = validEmailReg.test(email);
+    if (!isEmail) {
+      errors.email = ERROR_MESSAGES.EMAIL_NOT_VALID;
+    }
+  }
+  return errors;
+};
+
 export function validateUserEdit({ username, firstName, lastName, email }) {
   const errors = {};
   if (!username) {
@@ -34,17 +46,8 @@ export function validateUserEdit({ username, firstName, lastName, email }) {
   if (!lastName) {
     errors.lastName = ERROR_MESSAGES.LASTNAME_REQUIRED;
   }
-  if (!email) {
-    errors.email = ERROR_MESSAGES.EMAIL_REQUIRED;
-  }
-  if (email) {
-    const isEmail = validEmailReg.test(email);
-    if (!isEmail) {
-      errors.email = ERROR_MESSAGES.EMAIL_NOT_VALID;
-    }
-  }
 
-  return errors;
+  return emailValidate(errors, email);
 }
 
 export function validateGroupEdit({ name, title }) {
@@ -58,4 +61,14 @@ export function validateGroupEdit({ name, title }) {
   }
 
   return errors;
+}
+
+export function validateSingIn({ email, password }) {
+  const errors = {};
+
+  if (!password) {
+    errors.password = ERROR_MESSAGES.TITLE_REQUIRED;
+  }
+
+  return emailValidate(errors, email);
 }

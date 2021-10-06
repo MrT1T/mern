@@ -17,6 +17,8 @@ const EditField = ({
   placeholder,
   value,
   name,
+  classNameInput,
+  type,
   onChange,
   error
 }) => {
@@ -27,6 +29,8 @@ const EditField = ({
         {fieldLabel}
       </Typography>
       <Input
+        type={type}
+        className={classNameInput}
         value={value}
         name={name}
         placeholder={placeholder}
@@ -42,7 +46,9 @@ export default EditField;
 EditField.propTypes = {
   fieldLabel: PropTypes.string,
   onChange: PropTypes.func,
+  classNameInput: PropTypes.string,
   value: PropTypes.string,
+  type: PropTypes.string,
   name: PropTypes.string,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   placeholder: PropTypes.string
