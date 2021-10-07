@@ -1,4 +1,6 @@
 {
   "port": 4000,
-  "mongoUrl": "mongodb+srv://eugene:12345qwerty@cluster0.yx442.mongodb.net/Mern?retryWrites=true&w=majority"
+  "mongoUrl": "mongodb+srv://eugene:12345qwerty@cluster0.yx442.mongodb.net/Mern?retryWrites=true&w=majority",
+  "secret": "Smile",
+  "jwtExpires": "7 days"
 }

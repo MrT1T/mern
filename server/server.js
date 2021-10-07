@@ -6,7 +6,7 @@ const apiRouter = require('./src/routers');
 const {
   errorsHandler,
   noPageError
-} = require('./src/middleware/erorrs.meddleware');
+} = require('./src/middlewares/erorrs.middleware');
 // const initial = require('./src/fixtures');
 
 const corsOptions = {

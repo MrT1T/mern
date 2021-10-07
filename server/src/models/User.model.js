@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const schema = new Schema(
   {
@@ -16,5 +17,10 @@ const schema = new Schema(
 );
 
 schema.plugin(AutoIncrement, { inc_field: 'id' });
+schema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
+  usernameLowerCase: true,
+  session: false
+});
 
 module.exports = model('User', schema);

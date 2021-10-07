@@ -10,10 +10,13 @@ import {
   Typography
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
+import PropTypes from 'prop-types';
 import Copyright from '../../component/copyright';
 import Background from '../../img/background.png';
 import EditField from '../../component/edit-field';
 import { validateData, validateSingIn } from '../../helpers/validation.helper';
+import { AuthService } from '../../services/auth.service';
+import notificationCreator from '../../helpers/notification.helper';
 
 const useStyles = makeStyles({
   container: {
@@ -54,7 +57,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SignIn = () => {
+const SignIn = ({ login }) => {
   const classes = useStyles();
 
   const [singInData, setSingInData] = useState({});
@@ -68,11 +71,17 @@ const SignIn = () => {
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
   };
-  const handlerSignIn = () => {
+  const handlerSignIn = async () => {
     const resultSingIn = validateData(singInData, validateSingIn);
 
     if (resultSingIn.isValid) {
-      console.log(singInData);
+      await AuthService.signIn(singInData)
+        .then((data) => {
+          login(data.token);
+        })
+        .catch((error) => {
+          notificationCreator.showOnFailure(`${error.message}`);
+        });
     } else {
       setErrors(resultSingIn.errors);
     }
@@ -136,3 +145,7 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+SignIn.propTypes = {
+  login: PropTypes.func
+};
