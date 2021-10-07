@@ -1,5 +1,7 @@
 const createErrorMessage = (code) => {
   switch (code) {
+    case 401:
+      return 'Invalid username or password.';
     case 404:
       return 'PAGE NOT FOUND';
     case 405:

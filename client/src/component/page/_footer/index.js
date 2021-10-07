@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
+import Copyright from '../../copyright';
 
 const useStyles = makeStyles({
   footer: {
@@ -18,9 +19,7 @@ export default function Footer() {
   const classes = useStyles();
   return (
     <Box component="footer" className={classes.footer}>
-      <Typography className={classes.text} variant="body2">
-        Copyright &#169; Your Smile site 2021
-      </Typography>
+      <Copyright className={classes.text} />
     </Box>
   );
 }

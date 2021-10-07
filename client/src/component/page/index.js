@@ -18,12 +18,12 @@ const useStyles = makeStyles({
   }
 });
 
-const Page = ({ children }) => {
+const Page = ({ children, logout }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.container}>
-      <Header />
+      <Header logout={logout} />
       <main className={classes.main}>{children}</main>
       <Footer />
     </Box>
@@ -33,5 +33,6 @@ const Page = ({ children }) => {
 export default Page;
 
 Page.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  logout: PropTypes.func
 };
