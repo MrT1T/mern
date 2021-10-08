@@ -79,10 +79,8 @@ const SignIn = ({ login }) => {
         .then((data) => {
           login(data.token);
         })
-        .catch(() => {
-          notificationCreator.showOnFailure(
-            'Password or username is incorrect'
-          );
+        .catch((e) => {
+          notificationCreator.showOnFailure(`${e.response.data.message}`);
         });
     } else {
       setErrors(resultSingIn.errors);
