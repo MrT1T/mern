@@ -49,6 +49,9 @@ passport.use(
 
 module.exports = {
   registration,
-  signIn: passport.authenticate('local', { session: false }),
+  signIn: passport.authenticate('local', {
+    session: false,
+    failWithError: true
+  }),
   verifyToken: passport.authenticate('jwt', { session: false })
 };
