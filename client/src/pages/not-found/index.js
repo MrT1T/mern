@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { ReactComponent as NotFoundIcon } from '../../img/404.svg';
+import { PAGES_LINKS } from '../../constant/links.const';
 
 const useStyles = makeStyles({
   container: {
@@ -29,7 +30,11 @@ const NotFound = () => {
       <Typography variant="h6">
         Make sure the address is correct and page hasn`t moved
       </Typography>
-      <Button className={classes.button} variant="contained" href="/users">
+      <Button
+        className={classes.button}
+        variant="contained"
+        href={PAGES_LINKS.USERS}
+      >
         Back to users page
       </Button>
     </Box>

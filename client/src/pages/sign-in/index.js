@@ -11,12 +11,14 @@ import {
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Copyright from '../../component/copyright';
 import Background from '../../img/background.png';
 import EditField from '../../component/edit-field';
 import { validateData, validateSingIn } from '../../helpers/validation.helper';
 import { AuthService } from '../../services/auth.service';
 import notificationCreator from '../../helpers/notification.helper';
+import { PAGES_LINKS } from '../../constant/links.const';
 
 const useStyles = makeStyles({
   container: {
@@ -63,6 +65,8 @@ const SignIn = ({ login }) => {
   const [singInData, setSingInData] = useState({});
   const [errors, setErrors] = useState({});
 
+  const history = useHistory();
+
   const handlerChangeSingInData = (name, value) => {
     setSingInData((prevFormData) => ({
       ...prevFormData,
@@ -78,6 +82,7 @@ const SignIn = ({ login }) => {
       await AuthService.signIn(singInData)
         .then((data) => {
           login(data.token);
+          history.push(PAGES_LINKS.USERS);
         })
         .catch((e) => {
           notificationCreator.showOnFailure(`${e.response.data.message}`);
