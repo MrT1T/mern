@@ -36,30 +36,23 @@ describe('Sign in component view', () => {
 });
 
 describe('Sign in component logic', () => {
-  let mockLogin;
-  const history = createMemoryHistory();
-  beforeEach(() => {
-    mockLogin = jest.fn();
-    render(
-      <Router history={history}>
-        <SignIn login={mockLogin} />
-      </Router>
-    );
-  });
+  const emailData = 'mail@gmail.com';
+  const passwordData = '12345678';
 
   it('Change email data', () => {
+    render(<SignIn />);
     const email = document.getElementsByName('email')[0];
-    const emailData = 'mail@gmail.com';
     userEvent.type(email, emailData);
     expect(screen.getByDisplayValue(emailData)).toBeInTheDocument();
   });
   it('Change password data', () => {
+    render(<SignIn />);
     const password = document.getElementsByName('password')[0];
-    const passwordData = '12345678';
     userEvent.type(password, passwordData);
     expect(password.value).toEqual(passwordData);
   });
   it('Button click one time', () => {
+    render(<SignIn />);
     const mockHandler = jest.fn();
     const button = screen.getByRole('button');
     button.onclick = mockHandler;
@@ -67,24 +60,34 @@ describe('Sign in component logic', () => {
     expect(mockHandler).toHaveBeenCalledTimes(1);
   });
   it('Email error are exist', () => {
+    render(<SignIn />);
     const button = screen.getByRole('button');
     userEvent.click(button);
     expect(screen.getByText(ERROR_MESSAGES.EMAIL_REQUIRED)).toBeInTheDocument();
   });
   it('Password error are exist', () => {
+    render(<SignIn />);
     const button = screen.getByRole('button');
     userEvent.click(button);
     expect(screen.getByText(ERROR_MESSAGES.PASSWORD_REQUIRED)).toBeTruthy();
   });
   it('Sign in to the application', async () => {
+    const history = createMemoryHistory();
+
+    const mockLogin = jest.fn();
+
+    render(
+      <Router history={history}>
+        <SignIn login={mockLogin} />
+      </Router>
+    );
+
     const spyFunc = jest.spyOn(AuthService, 'signIn');
     const mockPost = jest.fn(() => Promise.resolve({ token: '222' }));
     spyFunc.mockImplementation(mockPost);
     const email = document.getElementsByName('email')[0];
-    const emailData = 'mail@gmail.com';
     userEvent.type(email, emailData);
     const password = document.getElementsByName('password')[0];
-    const passwordData = '12345678';
     userEvent.type(password, passwordData);
     const button = screen.getByRole('button');
     userEvent.click(button);
@@ -93,15 +96,14 @@ describe('Sign in component logic', () => {
     expect(history.location.pathname).toEqual(PAGES_LINKS.USERS);
   });
   it('Access error to the application', async () => {
+    render(<SignIn />);
     const spyFunc = jest.spyOn(AuthService, 'signIn');
     const spyNotification = jest.spyOn(notificationCreator, 'showOnFailure');
     const mockPost = jest.fn(() => Promise.reject(new Error()));
     spyFunc.mockImplementationOnce(mockPost);
     const email = document.getElementsByName('email')[0];
-    const emailData = 'mail@gmail.com';
     userEvent.type(email, emailData);
     const password = document.getElementsByName('password')[0];
-    const passwordData = '12345678';
     userEvent.type(password, passwordData);
     const button = screen.getByRole('button');
     userEvent.click(button);
