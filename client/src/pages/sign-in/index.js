@@ -85,7 +85,9 @@ const SignIn = ({ login }) => {
           history.push(PAGES_LINKS.USERS);
         })
         .catch((e) => {
-          notificationCreator.showOnFailure(`${e.response.data.message}`);
+          notificationCreator.showOnFailure(
+            `${e.response?.data.message || 'Connection error'}`
+          );
         });
     } else {
       setErrors(resultSingIn.errors);
