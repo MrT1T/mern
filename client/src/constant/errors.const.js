@@ -6,6 +6,7 @@ export const ERROR_MESSAGES = {
   NAME_REQUIRED: 'Please enter Name',
   TITLE_REQUIRED: 'Please enter Title',
   MAX_LENGTH: 'The maximum length must not exceed 30 characters',
+  PASSWORD_REQUIRED: 'Please enter Password',
   EMAIL_REQUIRED: 'Please enter Email',
   EMAIL_NOT_VALID: 'Please enter a valid email'
 };

@@ -67,7 +67,7 @@ export function validateSingIn({ email, password }) {
   const errors = {};
 
   if (!password) {
-    errors.password = ERROR_MESSAGES.TITLE_REQUIRED;
+    errors.password = ERROR_MESSAGES.PASSWORD_REQUIRED;
   }
 
   return emailValidate(errors, email);

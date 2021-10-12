@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true
+    node: true,
+    jest: true
   },
   parserOptions: {
     parser: 'babel-eslint',
@@ -41,6 +42,13 @@ module.exports = {
   overrides: [
     {
       files: ['*.jsx', '*.js']
+    },
+    {
+      files: ['*.test.js', '*.spec.js'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+        'node/no-extraneous-import': 'off'
+      }
     }
   ]
 };
