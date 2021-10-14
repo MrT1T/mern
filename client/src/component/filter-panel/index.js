@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 const FilterPanel = ({ filterOptions, filterData, onChange, fields }) => {
   const classes = useStyles();
   return (
-    <Box className={classes.filterContainer}>
+    <Box data-testid="filter" className={classes.filterContainer}>
       <Box className={classes.filterLabel}>
         <Filter className={classes.filterIcon} />
         <Typography variant="h6" color="textPrimary" gutterBottom>
