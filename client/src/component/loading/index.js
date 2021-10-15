@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 
 const Loading = () => {
   const classes = useStyles();
-  return <div className={classes.container} />;
+  return <div data-testid="loading" className={classes.container} />;
 };
 
 export default Loading;

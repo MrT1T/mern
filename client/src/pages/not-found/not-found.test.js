@@ -6,9 +6,7 @@ describe('Not found component', () => {
   beforeEach(() => render(<NotFound />));
 
   it('Not found page exists', () => {
-    expect(
-      document.querySelector('.makeStyles-container-1')
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('notFound')).toBeInTheDocument();
   });
   it('Not found image exists', () => {
     expect(document.querySelector('svg')).toBeTruthy();
