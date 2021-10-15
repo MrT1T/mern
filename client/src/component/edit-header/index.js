@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 const EditHeader = ({ breadcrumbLabel, breadcrumbLink, pageName, onClick }) => {
   const classes = useStyles();
   return (
-    <Paper className={classes.header}>
+    <Paper data-testid="editHeader" className={classes.header}>
       <Container>
         <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumb}>
           <Link underline="hover" color="inherit" href={breadcrumbLink}>

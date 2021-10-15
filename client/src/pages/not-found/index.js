@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 const NotFound = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.container}>
+    <Box data-testid="notFound" className={classes.container}>
       <NotFoundIcon />
       <Typography variant="h3">Page not found</Typography>
       <Typography variant="h6">

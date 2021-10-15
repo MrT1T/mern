@@ -49,7 +49,7 @@ const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
       <Grid justifyContent="center" container spacing={4}>
         {/* eslint-disable-next-line no-shadow */}
         {list?.map(({ name, value }) => (
-          <Grid item key={name} className={classes.card}>
+          <Grid data-testid="card" item key={name} className={classes.card}>
             <Card onClick={() => handleClickCard(name)}>
               <CardMedia
                 image={Image}

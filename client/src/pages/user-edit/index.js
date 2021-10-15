@@ -131,7 +131,7 @@ const UserEditPage = () => {
         pageName={user?.username}
         onClick={handlerSaveUserData}
       />
-      <Box className={classes.editContainer}>
+      <Box data-testid="editContainer" className={classes.editContainer}>
         <Box className={classes.editFields}>
           <Typography
             variant="h3"
