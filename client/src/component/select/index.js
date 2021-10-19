@@ -65,7 +65,7 @@ const SelectField = ({
   }, [value, parsedOptions]);
 
   return (
-    <Box className={classes.selectContainer}>
+    <Box data-testid="selectContainer" className={classes.selectContainer}>
       <Select
         placeholder={placeholder}
         id={name}
