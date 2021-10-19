@@ -66,14 +66,15 @@ describe('Group edit component', () => {
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
   it('Change user list', () => {
+    const testUser = allUsersMock[0].name;
     useGroup.mockImplementation(() => groupMock);
     render(<GroupEditPage />);
     expect(screen.getAllByTestId('card')).toHaveLength(3);
     userEvent.click(screen.getAllByRole('button')[1]); // delete user from userList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
     const addUser = screen.getByText('Add User');
-    userEvent.type(addUser, 'Jewel');
-    userEvent.click(screen.getByText('Jewel80')); // adding user to userList
+    userEvent.type(addUser, 'Test');
+    userEvent.click(screen.getByText(testUser)); // adding user to userList
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });
   it('Error with empty required field', () => {

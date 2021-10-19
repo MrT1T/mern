@@ -24,7 +24,10 @@ export default function Error({ message, className = '' }) {
   if (!message) return null;
 
   return (
-    <div className={classnames(classes.error, className)}>
+    <div
+      data-testid="errorMessage"
+      className={classnames(classes.error, className)}
+    >
       <ErrorIcon />
       <span className={classes.message}>{message}</span>
     </div>

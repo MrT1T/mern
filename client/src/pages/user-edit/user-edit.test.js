@@ -66,6 +66,7 @@ describe('User edit component', () => {
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
   it('Change group list', () => {
+    const testGroup = allGroupsMock[0].name;
     useUser.mockImplementation(() => userMock);
     render(<UserEditPage />);
     expect(screen.getAllByTestId('card')).toHaveLength(3);
@@ -73,7 +74,7 @@ describe('User edit component', () => {
     expect(screen.getAllByTestId('card')).toHaveLength(2);
     const addGroup = screen.getByText('Add Group');
     userEvent.type(addGroup, 'Test');
-    userEvent.click(screen.getByText('TestGroup')); // adding group to groupsList
+    userEvent.click(screen.getByText(testGroup)); // adding group to groupsList
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });
   it('Error with empty required field on UserEditPage', () => {
