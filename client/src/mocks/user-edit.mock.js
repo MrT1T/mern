@@ -17,7 +17,7 @@ export const userMock = {
     id: 8
   }
 };
-export const userEmptyMock = {
+export const userErrorsMock = {
   error: null,
   isLoading: false,
   user: {
@@ -25,7 +25,7 @@ export const userEmptyMock = {
     username: '',
     firstName: '',
     lastName: '',
-    email: '',
+    email: 'error@email@.com',
     groupsList: [],
     id: 8
   }

@@ -25,7 +25,7 @@ const TableContent = ({ cellBodyData, className }) => {
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
 
   return (
-    <Box className={className}>
+    <Box data-testid="tableBody" className={className}>
       <AutoSizer>
         {({ height, width }) => (
           <InfiniteLoader
