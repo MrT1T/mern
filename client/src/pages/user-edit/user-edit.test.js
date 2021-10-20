@@ -13,7 +13,7 @@ import { resetStore } from '../../store/thunks/reset-store.thunk';
 import UserEditPage from './index';
 import {
   allGroupsMock,
-  userEmptyMock,
+  userErrorsMock,
   userErrorMock,
   userLoadingMock,
   userMock,
@@ -77,14 +77,14 @@ describe('User edit component', () => {
     userEvent.click(screen.getByText(testGroup)); // adding group to groupsList
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });
-  it('Error with empty required field on UserEditPage', () => {
-    useUser.mockImplementation(() => userEmptyMock);
+  it('Error field on UserEditPage', () => {
+    useUser.mockImplementation(() => userErrorsMock);
     render(<UserEditPage />);
     userEvent.click(screen.getByText(/save/i)); // click to save button
     expect(screen.getByText(ERROR_MESSAGES.USERNAME_REQUIRED)).toBeTruthy();
     expect(screen.getByText(ERROR_MESSAGES.FIRSTNAME_REQUIRED)).toBeTruthy();
     expect(screen.getByText(ERROR_MESSAGES.LASTNAME_REQUIRED)).toBeTruthy();
-    expect(screen.getByText(ERROR_MESSAGES.EMAIL_REQUIRED)).toBeTruthy();
+    expect(screen.getByText(ERROR_MESSAGES.EMAIL_NOT_VALID)).toBeTruthy();
   });
   it('User update successful response', async () => {
     const history = createMemoryHistory();

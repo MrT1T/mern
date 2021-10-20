@@ -33,7 +33,7 @@ const Row = ({ data, index, style }) => {
   };
 
   const onClick = () => {
-    if (data.cellData.length !== 0) {
+    if (cellData.length !== 0) {
       history.push(link(currentElement.username || currentElement.name));
     }
   };

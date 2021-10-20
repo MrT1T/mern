@@ -22,13 +22,13 @@ export function validateData(data, validator) {
 }
 
 const emailValidate = (errors, email) => {
-  if (!email) {
-    errors.email = ERROR_MESSAGES.EMAIL_REQUIRED;
-  } else if (email) {
+  if (email) {
     const isEmail = validEmailReg.test(email);
     if (!isEmail) {
       errors.email = ERROR_MESSAGES.EMAIL_NOT_VALID;
     }
+  } else {
+    errors.email = ERROR_MESSAGES.EMAIL_REQUIRED;
   }
   return errors;
 };

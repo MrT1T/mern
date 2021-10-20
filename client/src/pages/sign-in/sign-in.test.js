@@ -59,17 +59,18 @@ describe('Sign in component logic', () => {
     userEvent.click(button);
     expect(mockHandler).toHaveBeenCalledTimes(1);
   });
-  it('Email error are exist', () => {
+  it('Email, Password error are exist', () => {
     render(<SignIn />);
     const button = screen.getByRole('button');
     userEvent.click(button);
     expect(screen.getByText(ERROR_MESSAGES.EMAIL_REQUIRED)).toBeInTheDocument();
-  });
-  it('Password error are exist', () => {
-    render(<SignIn />);
-    const button = screen.getByRole('button');
-    userEvent.click(button);
     expect(screen.getByText(ERROR_MESSAGES.PASSWORD_REQUIRED)).toBeTruthy();
+    userEvent.type(
+      document.getElementsByName('email')[0],
+      'line length is more than 30 symbols!!!'
+    );
+    userEvent.click(button);
+    expect(screen.getByText(ERROR_MESSAGES.MAX_LENGTH)).toBeTruthy();
   });
   it('Sign in to the application', async () => {
     const history = createMemoryHistory();
