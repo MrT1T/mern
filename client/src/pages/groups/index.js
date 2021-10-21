@@ -15,7 +15,7 @@ const GroupsPage = () => {
 
   let filterOptions = getFilterOptions(groups);
 
-  if (filterOptions.length !== 0) {
+  if (Object.keys(filterOptions).length !== 0) {
     filterOptions = getUniqueValue(filterOptions);
   }
 

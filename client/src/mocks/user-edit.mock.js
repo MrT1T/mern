@@ -33,7 +33,7 @@ export const userErrorsMock = {
 export const userErrorMock = {
   error: true,
   isLoading: false,
-  user: {}
+  user: null
 };
 export const userLoadingMock = {
   error: null,

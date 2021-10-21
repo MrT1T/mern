@@ -58,3 +58,8 @@ export const filteredUsersMock = {
   groupsStatus: STATUS.SUCCESS,
   countPages: 2
 };
+export const emptyUsersMock = {
+  users: [],
+  groupsStatus: STATUS.SUCCESS,
+  countPages: 0
+};

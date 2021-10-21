@@ -38,3 +38,9 @@ export const filteredGroupsMock = {
   groupsStatus: STATUS.SUCCESS,
   pagesCount: 2
 };
+
+export const emptyGroupsMock = {
+  groups: [],
+  groupsStatus: STATUS.SUCCESS,
+  pagesCount: 0
+};
