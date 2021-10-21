@@ -73,6 +73,8 @@ describe('Group edit component', () => {
     userEvent.click(screen.getAllByRole('button')[1]); // delete user from userList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
     const addUser = screen.getByText('Add User');
+    userEvent.type(addUser, '{backspace}'); // not adding user to userList
+    expect(screen.getAllByTestId('card')).toHaveLength(2);
     userEvent.type(addUser, 'Test');
     userEvent.click(screen.getByText(testUser)); // adding user to userList
     expect(screen.getAllByTestId('card')).toHaveLength(3);

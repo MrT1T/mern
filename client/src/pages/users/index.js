@@ -15,7 +15,7 @@ const UsersPage = () => {
 
   let filterOptions = getFilterOptions(users);
 
-  if (filterOptions.length !== 0) {
+  if (Object.keys(filterOptions).length !== 0) {
     filterOptions = getUniqueValue(filterOptions);
   }
 
@@ -30,7 +30,7 @@ const UsersPage = () => {
   };
 
   const loadNextPage = () => {
-    if (pagesCount > filterData.page) {
+    if (pagesCount !== filterData.page) {
       setFilterData((prevValues) => ({
         ...prevValues,
         page: filterData.page + 1

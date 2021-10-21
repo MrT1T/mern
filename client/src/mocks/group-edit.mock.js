@@ -29,7 +29,7 @@ export const groupEmptyMock = {
 export const groupErrorMock = {
   error: true,
   isLoading: false,
-  group: {}
+  group: null
 };
 export const groupLoadingMock = {
   error: null,
