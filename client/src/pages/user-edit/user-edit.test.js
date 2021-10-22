@@ -20,6 +20,7 @@ import {
   userName
 } from '../../mocks/user-edit.mock';
 import { UsersService } from '../../services/users.service';
+import { TEST } from '../../constant/variable.const';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -75,7 +76,7 @@ describe('User edit component', () => {
     const addGroup = screen.getByText('Add Group');
     userEvent.type(addGroup, '{backspace}'); // not adding group to groupsList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
-    userEvent.type(addGroup, 'Test');
+    userEvent.type(addGroup, TEST);
     userEvent.click(screen.getByText(testGroup)); // adding group to groupsList
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });

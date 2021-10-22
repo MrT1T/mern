@@ -41,6 +41,8 @@ export const filteredGroupsMock = {
 
 export const emptyGroupsMock = {
   groups: [],
-  groupsStatus: STATUS.SUCCESS,
-  pagesCount: 0
+  groupsStatus: STATUS.IDLE,
+  pagesCount: null
 };
+export const filterData = { page: 2 };
+export const filterUrl = '?page=2';

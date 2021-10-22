@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SelectField from './index';
 import { allUsersMock } from '../../mocks/group-edit.mock';
+import { TEST } from '../../constant/variable.const';
 
 describe('Select component', () => {
   const testUser = allUsersMock[0].name;
@@ -41,7 +42,7 @@ describe('Select component', () => {
   it('Handle change', () => {
     const onChange = jest.fn();
     render(<SelectField options={allUsersMock} onChange={onChange} />);
-    userEvent.type(screen.getByRole('combobox'), 'Test');
+    userEvent.type(screen.getByRole('combobox'), TEST);
     userEvent.click(screen.getByText(testUser));
     expect(onChange).toHaveBeenCalledTimes(1);
   });

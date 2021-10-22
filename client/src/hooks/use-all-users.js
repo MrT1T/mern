@@ -5,10 +5,8 @@ export const useAllUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(async () => {
-    if (users.length === 0) {
-      const data = await UsersService.getUsers();
-      setUsers(data);
-    }
+    const data = await UsersService.getUsers();
+    setUsers(data);
   }, []);
 
   return users;
