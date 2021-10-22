@@ -20,6 +20,7 @@ import { PAGES_LINKS } from '../../constant/links.const';
 import { GroupsService } from '../../services/groups.service';
 import notificationCreator from '../../helpers/notification.helper';
 import { resetStore } from '../../store/thunks/reset-store.thunk';
+import { TEST } from '../../constant/variable.const';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -75,7 +76,7 @@ describe('Group edit component', () => {
     const addUser = screen.getByText('Add User');
     userEvent.type(addUser, '{backspace}'); // not adding user to userList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
-    userEvent.type(addUser, 'Test');
+    userEvent.type(addUser, TEST);
     userEvent.click(screen.getByText(testUser)); // adding user to userList
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });
