@@ -55,11 +55,11 @@ export const usersMock = [
 
 export const filteredUsersMock = {
   users: usersMock,
-  groupsStatus: STATUS.SUCCESS,
-  countPages: 2
+  usersStatus: STATUS.SUCCESS,
+  pagesCount: 2
 };
 export const emptyUsersMock = {
   users: [],
-  groupsStatus: STATUS.SUCCESS,
-  countPages: 0
+  usersStatus: STATUS.IDLE,
+  pagesCount: null
 };
