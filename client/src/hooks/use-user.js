@@ -15,6 +15,7 @@ export const useUser = (username = '') => {
         setIsLoading(false);
       }
     } catch (e) {
+      setIsLoading(false);
       setError(e);
     }
   }, [username]);

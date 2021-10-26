@@ -14,6 +14,7 @@ export const useGroup = (groupName = '') => {
         setGroup(needGroup);
         setIsLoading(false);
       } catch (e) {
+        setIsLoading(false);
         setError(e);
       }
     }
