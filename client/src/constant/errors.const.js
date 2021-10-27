@@ -8,5 +8,7 @@ export const ERROR_MESSAGES = {
   MAX_LENGTH: 'The maximum length must not exceed 30 characters',
   PASSWORD_REQUIRED: 'Please enter Password',
   EMAIL_REQUIRED: 'Please enter Email',
-  EMAIL_NOT_VALID: 'Please enter a valid email'
+  EMAIL_NOT_VALID: 'Please enter a valid email',
+  NO_USERS: "Can't get users",
+  NO_GROUPS: "Can't get groups"
 };

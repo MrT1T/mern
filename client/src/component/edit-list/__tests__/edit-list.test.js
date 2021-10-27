@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import EditList from './index';
-import { allUsersMock } from '../../mocks/group-edit.mock';
-import { PAGES_LINKS } from '../../constant/links.const';
+import EditList from '../index';
+import { allUsersMock } from '../../../mocks/group-edit.mock';
+import { PAGES_LINKS } from '../../../constant/links.const';
 
 describe('Edit list component', () => {
   it('Edit list exist', () => {

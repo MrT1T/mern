@@ -8,11 +8,11 @@ import {
   rowGroupsMock,
   rowLoadMock,
   rowUsersMock
-} from '../../../mocks/table-body.mock';
-import Row from './index';
-import { PAGES_LINKS } from '../../../constant/links.const';
-import { usersMock } from '../../../mocks/users.mock';
-import { groupsMock } from '../../../mocks/groups.mock';
+} from '../../../../mocks/table-body.mock';
+import Row from '../index';
+import { PAGES_LINKS } from '../../../../constant/links.const';
+import { usersMock } from '../../../../mocks/users.mock';
+import { groupsMock } from '../../../../mocks/groups.mock';
 
 describe('Row component', () => {
   it('Row exist', () => {

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { STATUS } from '../../constant/status.const';
 
-const initialState = {
+export const initialState = {
   groups: [],
   pagesCount: null,
   status: STATUS.IDLE,
@@ -16,8 +16,8 @@ const groupsSlice = createSlice({
       state.status = action.payload;
     },
     setGroupsSuccess: (state, action) => {
-      state.groups = action.payload.data.groups;
-      state.pagesCount = action.payload.data.countPages;
+      state.groups = action.payload.groups;
+      state.pagesCount = action.payload.countPages;
       state.status = STATUS.SUCCESS;
     },
     setGroupsError: (state, action) => {

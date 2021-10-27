@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CellGroup from './index';
-import { usersMock } from '../../../mocks/users.mock';
-import { groupsMock } from '../../../mocks/groups.mock';
+import CellGroup from '../index';
+import { usersMock } from '../../../../mocks/users.mock';
+import { groupsMock } from '../../../../mocks/groups.mock';
 
 describe('Cell Group component', () => {
   it('Cell Group exist', () => {

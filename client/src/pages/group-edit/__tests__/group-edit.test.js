@@ -4,8 +4,8 @@ import { Router, useParams } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { useDispatch } from 'react-redux';
-import GroupEditPage from './index';
-import { useGroup } from '../../hooks/use-group';
+import GroupEditPage from '../index';
+import { useGroup } from '../../../hooks/use-group';
 import {
   allUsersMock,
   groupEmptyMock,
@@ -13,14 +13,14 @@ import {
   groupLoadingMock,
   groupMock,
   groupName
-} from '../../mocks/group-edit.mock';
-import { useAllUsers } from '../../hooks/use-all-users';
-import { ERROR_MESSAGES } from '../../constant/errors.const';
-import { PAGES_LINKS } from '../../constant/links.const';
-import { GroupsService } from '../../services/groups.service';
-import notificationCreator from '../../helpers/notification.helper';
-import { resetStore } from '../../store/thunks/reset-store.thunk';
-import { TEST } from '../../constant/variable.const';
+} from '../../../mocks/group-edit.mock';
+import { useAllUsers } from '../../../hooks/use-all-users';
+import { ERROR_MESSAGES } from '../../../constant/errors.const';
+import { PAGES_LINKS } from '../../../constant/links.const';
+import { GroupsService } from '../../../services/groups.service';
+import notificationCreator from '../../../helpers/notification.helper';
+import { resetStore } from '../../../store/thunks/reset-store.thunk';
+import { TEST } from '../../../constant/variable.const';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -32,15 +32,15 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn()
 }));
 
-jest.mock('../../hooks/use-group', () => ({
+jest.mock('../../../hooks/use-group', () => ({
   useGroup: jest.fn()
 }));
 
-jest.mock('../../hooks/use-all-users', () => ({
+jest.mock('../../../hooks/use-all-users', () => ({
   useAllUsers: jest.fn()
 }));
 
-jest.mock('../../store/thunks/reset-store.thunk', () => ({
+jest.mock('../../../store/thunks/reset-store.thunk', () => ({
   resetStore: jest.fn()
 }));
 

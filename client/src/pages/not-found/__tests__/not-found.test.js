@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import NotFound from './index';
+import NotFound from '../index';
 
 describe('Not found component', () => {
   beforeEach(() => render(<NotFound />));

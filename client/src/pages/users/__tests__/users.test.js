@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import UsersPage from './index';
-import { useFilteredUsers } from '../../hooks/use-filtered-users';
+import UsersPage from '../index';
+import { useFilteredUsers } from '../../../hooks/use-filtered-users';
 import {
   filteredUsersMock,
   emptyUsersMock,
   usersMock
-} from '../../mocks/users.mock';
+} from '../../../mocks/users.mock';
 
-jest.mock('../../hooks/use-filtered-users', () => ({
+jest.mock('../../../hooks/use-filtered-users', () => ({
   useFilteredUsers: jest.fn()
 }));
 

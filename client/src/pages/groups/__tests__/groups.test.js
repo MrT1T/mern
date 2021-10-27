@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import GroupsPage from './index';
-import { useFilteredGroups } from '../../hooks/use-filtered-groups';
+import GroupsPage from '../index';
+import { useFilteredGroups } from '../../../hooks/use-filtered-groups';
 import {
   emptyGroupsMock,
   filteredGroupsMock,
   groupsMock
-} from '../../mocks/groups.mock';
+} from '../../../mocks/groups.mock';
 
-jest.mock('../../hooks/use-filtered-groups', () => ({
+jest.mock('../../../hooks/use-filtered-groups', () => ({
   useFilteredGroups: jest.fn()
 }));
 

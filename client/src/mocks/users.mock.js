@@ -63,3 +63,8 @@ export const emptyUsersMock = {
   usersStatus: STATUS.IDLE,
   pagesCount: null
 };
+
+export const usersSliceData = {
+  users: usersMock,
+  countPages: 1
+};
