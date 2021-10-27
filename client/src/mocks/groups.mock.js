@@ -46,3 +46,8 @@ export const emptyGroupsMock = {
 };
 export const filterData = { page: 2 };
 export const filterUrl = '?page=2';
+
+export const groupsSliceData = {
+  groups: groupsMock,
+  countPages: 1
+};

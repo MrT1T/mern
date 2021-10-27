@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { STATUS } from '../../constant/status.const';
 
-const initialState = {
+export const initialState = {
   users: [],
   pagesCount: null,
   status: STATUS.IDLE,
@@ -16,8 +16,8 @@ const usersSlice = createSlice({
       state.status = action.payload;
     },
     setUsersSuccess: (state, action) => {
-      state.users = action.payload.data.users;
-      state.pagesCount = action.payload.data.countPages;
+      state.users = action.payload.users;
+      state.pagesCount = action.payload.countPages;
       state.status = STATUS.SUCCESS;
     },
     setUsersError: (state, action) => {

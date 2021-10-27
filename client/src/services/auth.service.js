@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { apiUrl } from '../constant/api.const';
+import { API_LINKS } from '../constant/links.const';
 
 export const AuthService = {
   signIn: (body) =>
-    axios.post(`${apiUrl}auth/signin`, body).then((response) => response.data)
+    axios.post(API_LINKS.SING_IN, body).then((response) => response.data)
 };

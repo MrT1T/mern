@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Error from './index';
+import Error from '../index';
 
 describe('Error component', () => {
   it('Error exists', () => {

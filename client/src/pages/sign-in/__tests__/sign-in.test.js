@@ -3,42 +3,25 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import SignIn from './index';
-import { ERROR_MESSAGES } from '../../constant/errors.const';
-import { AuthService } from '../../services/auth.service';
-import { PAGES_LINKS } from '../../constant/links.const';
-import notificationCreator from '../../helpers/notification.helper';
+import SignIn from '../index';
+import { ERROR_MESSAGES } from '../../../constant/errors.const';
+import { AuthService } from '../../../services/auth.service';
+import { PAGES_LINKS } from '../../../constant/links.const';
+import notificationCreator from '../../../helpers/notification.helper';
 
-describe('Sign in component view', () => {
-  beforeEach(() => render(<SignIn />));
-
-  it('Sign in page exists', () => {
-    expect(screen.getByRole('main')).toBeInTheDocument();
-  });
-  it('Name page exists', () => {
-    expect(screen.getByRole('heading')).toBeInTheDocument();
-  });
-  it('Lock icon exists', () => {
-    expect(document.querySelector('svg')).toBeInTheDocument();
-  });
-  it('Component has 2 inputs', () => {
-    expect(document.querySelectorAll('input')).toHaveLength(2);
-  });
-  it('Button exists', () => {
-    expect(screen.getByRole('button')).toBeInTheDocument();
-  });
-  it('Component has 2 links', () => {
-    expect(screen.getAllByRole('link')).toHaveLength(2);
-  });
-  it('Copyright exists', () => {
-    expect(screen.getByText(/Copyright/i)).toBeInTheDocument();
-  });
-});
-
-describe('Sign in component logic', () => {
+describe('Sign in component', () => {
   const emailData = 'mail@gmail.com';
   const passwordData = '12345678';
 
+  it('Sign in page exists', () => {
+    render(<SignIn />);
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByRole('heading')).toBeInTheDocument();
+    expect(document.querySelector('svg')).toBeInTheDocument();
+    expect(document.querySelectorAll('input')).toHaveLength(2);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByText(/Copyright/i)).toBeInTheDocument();
+  });
   it('Change email data', () => {
     render(<SignIn />);
     const email = document.getElementsByName('email')[0];

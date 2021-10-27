@@ -5,14 +5,14 @@ import {
   setUsersSuccess
 } from '../slices/users.slice';
 import { STATUS } from '../../constant/status.const';
+import { ERROR_MESSAGES } from '../../constant/errors.const';
 
 export const getAllUsers = (query) => async (dispatch) => {
   try {
     await dispatch(setUsersStatus(STATUS.LOADING));
     const data = await UsersService.getFilteredUsers(query);
-    await dispatch(setUsersSuccess({ data }));
+    await dispatch(setUsersSuccess({ ...data }));
   } catch (error) {
-    error.clientMessage = "Can't get user user-edit";
-    dispatch(setUsersError({ errorMessage: error.clientMessage }));
+    dispatch(setUsersError({ errorMessage: ERROR_MESSAGES.NO_USERS }));
   }
 };
