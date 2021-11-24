@@ -1,4 +1,4 @@
-export const usersFields = [
+export const usersFields: Array<string> = [
   'username',
   'firstName',
   'lastName',
@@ -6,7 +6,7 @@ export const usersFields = [
   'groupsList'
 ];
 
-export const groupFields = ['name', 'title', 'usersList'];
+export const groupFields: Array<string> = ['name', 'title', 'usersList'];
 
 export const usersEditFields = usersFields.slice(0, 4);
 

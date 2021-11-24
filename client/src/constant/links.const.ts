@@ -1,6 +1,7 @@
 import { apiUrl } from './api.const';
+import type { LinksObject } from '../types/objects.type';
 
-export const PAGES_LINKS = {
+export const PAGES_LINKS: LinksObject = {
   USERS: '/users',
   PROFILE: (id) => `/user/${id}`,
   GROUPS: '/groups',
@@ -8,7 +9,7 @@ export const PAGES_LINKS = {
   NOTFOUND: '/not-found'
 };
 
-export const API_LINKS = {
+export const API_LINKS: LinksObject = {
   SING_IN: `${apiUrl}auth/signin`,
   FILTERED_GROUPS: (query) => `group/filter/${query}`,
   FILTERED_USERS: (query) => `user/filter/${query}`,
