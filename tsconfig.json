@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "allowJs": true,
+    "importHelpers": true,
+    "jsx": "react-jsx",
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "error",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "noEmit": true
+  },
+  "include": [
+    "client/src"
+  ],
+  "exclude": [
+    "client/node_modules",
+    "**/__tests__/*"
+  ]
+}

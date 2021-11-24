@@ -1,4 +1,6 @@
-export const ERROR_MESSAGES = {
+import type { StringObject } from '../types/objects.type';
+
+export const ERROR_MESSAGES: StringObject = {
   REQUIRED: 'Please enter value',
   USERNAME_REQUIRED: 'Please enter Username',
   FIRSTNAME_REQUIRED: 'Please enter FirstName',
