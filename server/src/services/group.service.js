@@ -22,12 +22,12 @@ const groupService = {
       );
     }
 
-    const countPages = Math.ceil(groups.length / quantityPage);
+    const pagesCount = Math.ceil(groups.length / quantityPage);
 
     const needQuantity = (page || 1) * quantityPage;
     groups.splice(needQuantity);
 
-    return { groups, countPages };
+    return { groups, pagesCount };
   },
   updateGroup: async ({ groupId, name, title, usersList }) => {
     const oldGroup = await Group.findOne({ groupId });

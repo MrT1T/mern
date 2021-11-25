@@ -22,12 +22,12 @@ const userService = {
       );
     }
 
-    const countPages = Math.ceil(users.length / quantityPage);
+    const pagesCount = Math.ceil(users.length / quantityPage);
 
     const needQuantity = (page || 1) * quantityPage;
     users.splice(needQuantity);
 
-    return { users, countPages };
+    return { users, pagesCount };
   },
   updateUser: async ({
     id,
