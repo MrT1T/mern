@@ -21,15 +21,37 @@ interface SliceBasis {
 export type ErrorPayload = Pick<SliceBasis, 'error'>;
 
 // UsersSlice types
+interface GroupsListItem {
+  name: string;
+}
+
+interface User {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  groupsList: GroupsListItem[];
+}
+
 export interface UsersSliceType extends SliceBasis {
-  users: [];
+  users: User[];
 }
 
 export type UsersPayloadData = Pick<UsersSliceType, 'users' | 'pagesCount'>;
 
 // GroupsSlice types
+interface UsersListItem {
+  username: string;
+}
+
+interface Group {
+  name: string;
+  title: string;
+  usersList: UsersListItem[];
+}
+
 export interface GroupsSliceType extends SliceBasis {
-  groups: [];
+  groups: Group[];
 }
 
 export type GroupsPayloadData = Pick<GroupsSliceType, 'groups' | 'pagesCount'>;
