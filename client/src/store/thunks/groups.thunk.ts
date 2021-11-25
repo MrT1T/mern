@@ -6,10 +6,11 @@ import {
 import { GroupsService } from '../../services/groups.service';
 import { STATUS } from '../../constant/status.const';
 import { ERROR_MESSAGES } from '../../constant/errors.const';
-import type { AppDispatch } from '../../types/store.type';
+import type { AppDispatch, VoidThunk } from '../../types/store.type';
 
 export const getAllGroups =
-  (query: string) => async (dispatch: AppDispatch) => {
+  (query: string): VoidThunk =>
+  async (dispatch: AppDispatch) => {
     try {
       dispatch(setGroupsStatus(STATUS.LOADING));
       const data = await GroupsService.getFilteredGroups(query);
