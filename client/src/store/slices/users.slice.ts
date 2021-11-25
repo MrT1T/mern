@@ -1,7 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { STATUS } from '../../constant/status.const';
+import type {
+  ErrorPayload,
+  UsersPayloadData,
+  UsersSliceType
+} from '../../types/store.type';
 
-export const initialState = {
+export const initialState: UsersSliceType = {
   users: [],
   pagesCount: null,
   status: STATUS.IDLE,
@@ -12,17 +17,17 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setUsersStatus: (state, action) => {
+    setUsersStatus: (state, action: PayloadAction<STATUS>) => {
       state.status = action.payload;
     },
-    setUsersSuccess: (state, action) => {
+    setUsersSuccess: (state, action: PayloadAction<UsersPayloadData>) => {
       state.users = action.payload.users;
-      state.pagesCount = action.payload.countPages;
+      state.pagesCount = action.payload.pagesCount;
       state.status = STATUS.SUCCESS;
     },
-    setUsersError: (state, action) => {
+    setUsersError: (state, action: PayloadAction<ErrorPayload>) => {
       state.status = STATUS.FAILED;
-      state.error = action.payload.errorMessage;
+      state.error = action.payload.error;
     }
   }
 });

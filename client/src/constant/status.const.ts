@@ -1,8 +1,7 @@
-import type { StringObject } from '../types/objects.type';
-
-export const STATUS: StringObject = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  FAILED: 'failed',
-  SUCCESS: 'success'
-};
+// eslint-disable-next-line no-shadow
+export enum STATUS {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  FAILED = 'failed',
+  SUCCESS = 'success'
+}

@@ -1,7 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { STATUS } from '../../constant/status.const';
+import type {
+  ErrorPayload,
+  GroupsPayloadData,
+  GroupsSliceType
+} from '../../types/store.type';
 
-export const initialState = {
+export const initialState: GroupsSliceType = {
   groups: [],
   pagesCount: null,
   status: STATUS.IDLE,
@@ -12,17 +17,17 @@ const groupsSlice = createSlice({
   name: 'groups',
   initialState,
   reducers: {
-    setGroupsStatus: (state, action) => {
+    setGroupsStatus: (state, action: PayloadAction<STATUS>) => {
       state.status = action.payload;
     },
-    setGroupsSuccess: (state, action) => {
+    setGroupsSuccess: (state, action: PayloadAction<GroupsPayloadData>) => {
       state.groups = action.payload.groups;
-      state.pagesCount = action.payload.countPages;
+      state.pagesCount = action.payload.pagesCount;
       state.status = STATUS.SUCCESS;
     },
-    setGroupsError: (state, action) => {
+    setGroupsError: (state, action: PayloadAction<ErrorPayload>) => {
       state.status = STATUS.FAILED;
-      state.error = action.payload.errorMessage;
+      state.error = action.payload.error;
     }
   }
 });
