@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useState } from 'react';
 import { USERTOKEN } from '../constant/variable.const';
+import type { AuthHookType } from '../types/hooks.type';
 
-export const useAuth = () => {
-  const [token, setToken] = useState(null);
+export const useAuth = (): AuthHookType => {
+  const [isAuth, setIsAuth] = useState(false);
 
   const login = useCallback((jwtToken) => {
-    setToken(jwtToken);
+    setIsAuth(true);
     localStorage.setItem(USERTOKEN, JSON.stringify(jwtToken));
   }, []);
 
   const logout = useCallback(() => {
-    setToken(null);
+    setIsAuth(false);
 
     localStorage.removeItem(USERTOKEN);
   }, []);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(USERTOKEN));
+    const data = localStorage.getItem(USERTOKEN);
     if (data) {
-      login(data);
+      login(JSON.parse(data));
     }
   }, [login]);
 
-  return { login, logout, isAuth: !!token };
+  return { login, logout, isAuth };
 };

@@ -9,7 +9,7 @@ import { ERROR_MESSAGES } from '../../constant/errors.const';
 import type { AppDispatch, VoidThunk } from '../../types/store.type';
 
 export const getAllUsers =
-  (query: string): VoidThunk =>
+  (query?: string): VoidThunk =>
   async (dispatch: AppDispatch) => {
     try {
       await dispatch(setUsersStatus(STATUS.LOADING));

@@ -12,8 +12,10 @@ export type VoidThunk<ReturnType = void> = ThunkAction<
   AnyAction
 >;
 
+export type pagesCount = null | number;
+
 interface SliceBasis {
-  pagesCount: null | number;
+  pagesCount: pagesCount;
   status: STATUS;
   error: null | string;
 }
@@ -25,7 +27,7 @@ interface GroupsListItem {
   name: string;
 }
 
-interface User {
+export interface User {
   username: string;
   firstName: string;
   lastName: string;
@@ -44,7 +46,7 @@ interface UsersListItem {
   username: string;
 }
 
-interface Group {
+export interface Group {
   name: string;
   title: string;
   usersList: UsersListItem[];
@@ -55,3 +57,8 @@ export interface GroupsSliceType extends SliceBasis {
 }
 
 export type GroupsPayloadData = Pick<GroupsSliceType, 'groups' | 'pagesCount'>;
+
+export interface Item {
+  name: string;
+  value: string;
+}
