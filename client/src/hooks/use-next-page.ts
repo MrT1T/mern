@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import type { UseNextPage } from '../types/hooks.type';
 
-export const useNextPage = (pagesCount, currentPage, list) => {
+export const useNextPage: UseNextPage = (pagesCount, currentPage, list) => {
   const [hasNextPage, setHasNextPage] = useState(false);
 
   useEffect(() => {

@@ -1,7 +1,9 @@
 import { useRef } from 'react';
+import { UseDebouncedType } from '../types/hooks.type';
 
-export const useDebounced = (func, delay) => {
-  const timeoutRef = useRef();
+export const useDebounced: UseDebouncedType = (func, delay) => {
+  const timeoutRef: { current: ReturnType<typeof setTimeout> | undefined } =
+    useRef();
 
   const clearTimer = () => {
     if (timeoutRef.current) {
