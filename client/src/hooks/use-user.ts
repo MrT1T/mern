@@ -10,18 +10,17 @@ export const useUser: UseUserType = (username = '') => {
 
   useEffect(() => {
     (async () => {
-      try {
-        if (!user && username) {
-          setIsLoading(true);
+      if (!user && username) {
+        setIsLoading(true);
+        try {
           const needUser = await UsersService.getUser(username);
           setUser(needUser);
-          setIsLoading(false);
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+            setError(e.message);
+          }
         }
-      } catch (e: unknown) {
         setIsLoading(false);
-        if (e instanceof Error) {
-          setError(e.message);
-        }
       }
     })();
   }, [username]);

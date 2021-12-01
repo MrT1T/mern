@@ -7,7 +7,7 @@ export const useAuth = (): AuthHookType => {
 
   const login = useCallback((jwtToken) => {
     setIsAuth(true);
-    localStorage.setItem(USERTOKEN, JSON.stringify(jwtToken));
+    localStorage.setItem(USERTOKEN, jwtToken);
   }, []);
 
   const logout = useCallback(() => {
@@ -19,7 +19,7 @@ export const useAuth = (): AuthHookType => {
   useEffect(() => {
     const data = localStorage.getItem(USERTOKEN);
     if (data) {
-      login(JSON.parse(data));
+      login(data);
     }
   }, [login]);
 
