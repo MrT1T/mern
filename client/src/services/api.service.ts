@@ -7,7 +7,7 @@ export const Api = axios.create({
 });
 
 Api.interceptors.request.use((request) => {
-  const token = JSON.parse(localStorage.getItem(USERTOKEN));
-  request.headers.Authorization = `Bearer ${token}`;
+  const token = localStorage.getItem(USERTOKEN) || '';
+  request.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   return request;
 });

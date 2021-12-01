@@ -7,6 +7,7 @@ import type {
   pagesCount
 } from './store.type';
 import { STATUS } from '../constant/status.const';
+import type { GroupFetchType, UserFetchType } from './services.type';
 
 export const useAppDispatch: { (): AppDispatch } = () => useDispatch();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -42,10 +43,10 @@ interface FetchDataType {
 }
 
 interface ReturnUseGroup extends FetchDataType {
-  group: Group | null;
+  group: GroupFetchType | null;
 }
 interface ReturnUseUser extends FetchDataType {
-  user: User | null;
+  user: UserFetchType | null;
 }
 
 export interface UseGroupType {
@@ -55,5 +56,9 @@ export interface UseUserType {
   (username?: string): ReturnUseUser;
 }
 export interface UseNextPage {
-  (count: pagesCount, currentPage: pagesCount, list: []): boolean;
+  (
+    count: pagesCount,
+    currentPage: pagesCount,
+    list: Array<GroupFetchType | UserFetchType>
+  ): boolean;
 }

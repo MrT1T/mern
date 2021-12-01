@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { GroupsService } from '../services/groups.service';
-import type { Group } from '../types/store.type';
 import type { UseGroupType } from '../types/hooks.type';
+import type { GroupFetchType } from '../types/services.type';
 
 export const useGroup: UseGroupType = (groupName = '') => {
-  const [group, setGroup] = useState<Group | null>(null);
+  const [group, setGroup] = useState<GroupFetchType | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
