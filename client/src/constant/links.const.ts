@@ -1,22 +1,22 @@
 import { apiUrl } from './api.const';
-import type { LinksObject, ApiLinksObject } from '../types/objects.type';
+import { StringObject } from '../types/objects.type';
 
-export const PAGES_LINKS: LinksObject = {
+export const PAGES_LINKS: StringObject = {
   USERS: '/users',
-  PROFILE: (id) => `/user/${id}`,
+  PROFILE: '/user/',
   GROUPS: '/groups',
-  GROUP: (id) => `/group/${id}`,
+  GROUP: '/group/',
   NOTFOUND: '/not-found'
 };
 
-export const API_LINKS: ApiLinksObject = {
+export const API_LINKS: StringObject = {
   SING_IN: `${apiUrl}auth/signin`,
-  FILTERED_GROUPS: (query) => `group/filter/${query}`,
-  FILTERED_USERS: (query) => `user/filter/${query}`,
+  FILTERED_GROUPS: 'group/filter/',
+  FILTERED_USERS: 'user/filter/',
   UPDATE_GROUPS: 'group/update',
   UPDATE_USERS: 'user/update',
-  GROUP: (groupname) => `group/${groupname}`,
-  USER: (username) => `user/${username}`,
+  GROUP: 'group/',
+  USER: 'user/',
   ALL_GROUPS: 'group/all',
   ALL_USERS: 'user/all'
 };

@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import EditList from '../index';
 import { allUsersMock } from '../../../mocks/group-edit.mock';
 import { PAGES_LINKS } from '../../../constant/links.const';
+import { linksHelper } from '../../../helpers/links.helper';
 
 describe('Edit list component', () => {
   it('Edit list exist', () => {
@@ -25,7 +26,9 @@ describe('Edit list component', () => {
       </Router>
     );
     userEvent.click(screen.getByText(testUser));
-    expect(history.location.pathname).toEqual(PAGES_LINKS.PROFILE(testUser));
+    expect(history.location.pathname).toEqual(
+      linksHelper(PAGES_LINKS.PROFILE, testUser)
+    );
   });
   it('Button click handle work', () => {
     const onChange = jest.fn();

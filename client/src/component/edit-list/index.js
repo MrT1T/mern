@@ -14,6 +14,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Image from '../../img/icon.png';
+import { linksHelper } from '../../helpers/links.helper';
 
 const useStyles = makeStyles({
   card: {
@@ -28,7 +29,7 @@ const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
   const classes = useStyles();
   const history = useHistory();
   const handleClickCard = (item) => {
-    history.push(link(item));
+    history.push(linksHelper(link, item));
   };
   const handleClickButton = (event, item) => {
     onChange(name, item);
@@ -86,6 +87,6 @@ EditList.propTypes = {
   buttonText: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  link: PropTypes.func,
+  link: PropTypes.string,
   list: PropTypes.array
 };
