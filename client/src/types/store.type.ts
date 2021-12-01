@@ -27,33 +27,41 @@ interface GroupsListItem {
   name: string;
 }
 
-export interface User {
+export interface UserBasic {
+  id: number;
   username: string;
   firstName: string;
   lastName: string;
   email: string;
-  groupsList: GroupsListItem[];
+}
+
+export interface User extends UserBasic {
+  groupsList: Array<GroupsListItem>;
 }
 
 export interface UsersSliceType extends SliceBasis {
-  users: User[];
+  users: Array<User>;
 }
 
 export type UsersPayloadData = Pick<UsersSliceType, 'users' | 'pagesCount'>;
 
 // GroupsSlice types
-interface UsersListItem {
+export interface UsersListItem {
   username: string;
 }
 
-export interface Group {
+export interface GroupBasic {
+  groupId: number;
   name: string;
   title: string;
-  usersList: UsersListItem[];
+}
+
+export interface Group extends GroupBasic {
+  usersList: Array<UsersListItem>;
 }
 
 export interface GroupsSliceType extends SliceBasis {
-  groups: Group[];
+  groups: Array<Group>;
 }
 
 export type GroupsPayloadData = Pick<GroupsSliceType, 'groups' | 'pagesCount'>;

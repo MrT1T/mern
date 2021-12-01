@@ -10,7 +10,7 @@ const CellGroup = ({ item }) => {
         <Cell>{item.firstName}</Cell>
         <Cell>{item.lastName}</Cell>
         <Cell>{item.email}</Cell>
-        <Cell>{item.groupsList.join(', ')}</Cell>
+        <Cell>{item.groupsList.map(({ name }) => name).join(', ')}</Cell>
       </>
     );
   }
@@ -18,7 +18,7 @@ const CellGroup = ({ item }) => {
     <>
       <Cell>{item?.name}</Cell>
       <Cell>{item?.title}</Cell>
-      <Cell>{item?.usersList.join(', ')}</Cell>
+      <Cell>{item?.usersList.map(({ username }) => username).join(', ')}</Cell>
     </>
   );
 };
