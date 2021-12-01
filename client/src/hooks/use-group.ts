@@ -11,17 +11,16 @@ export const useGroup: UseGroupType = (groupName = '') => {
   useEffect(() => {
     (async () => {
       if (!group && groupName) {
+        setIsLoading(true);
         try {
-          setIsLoading(true);
           const needGroup = await GroupsService.getGroup(groupName);
           setGroup(needGroup);
-          setIsLoading(false);
         } catch (e: unknown) {
-          setIsLoading(false);
           if (e instanceof Error) {
             setError(e.message);
           }
         }
+        setIsLoading(false);
       }
     })();
   }, [groupName]);
