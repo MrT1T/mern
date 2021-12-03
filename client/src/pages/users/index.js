@@ -16,6 +16,9 @@ const UsersPage = () => {
   let filterOptions = getFilterOptions(users);
 
   if (Object.keys(filterOptions).length !== 0) {
+    filterOptions.groupsList = filterOptions.groupsList
+      .flat()
+      .map(({ name }) => name);
     filterOptions = getUniqueValue(filterOptions);
   }
 

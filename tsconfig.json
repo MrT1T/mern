@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "importsNotUsedAsValues": "error",
+    "downlevelIteration": true,
     "lib": [
       "dom",
       "dom.iterable",
