@@ -1,7 +1,13 @@
 import { ERROR_MESSAGES } from '../constant/errors.const';
 import { validEmailReg } from '../constant/variable.const';
+import { StringObject } from '../types/objects.type';
+import { SighInDataType, UserEditDataType } from '../types/users.type';
+import { GroupEditDataType } from '../types/groups.type';
 
-const validateMaxLength = (data, errors) => {
+const validateMaxLength = (
+  data: StringObject,
+  errors: StringObject
+): StringObject => {
   Object.keys(data).forEach((item) => {
     if (data[item].length > 30) {
       errors[item] = ERROR_MESSAGES.MAX_LENGTH;
@@ -10,7 +16,10 @@ const validateMaxLength = (data, errors) => {
   return errors;
 };
 
-export function validateData(data, validator) {
+export function validateData(
+  data: StringObject,
+  validator: (obj: StringObject) => StringObject
+): { errors: StringObject; isValid: boolean } {
   let errors = validator(data);
   errors = validateMaxLength(data, errors);
 
@@ -21,7 +30,7 @@ export function validateData(data, validator) {
   };
 }
 
-const emailValidate = (errors, email) => {
+const emailValidate = (errors: StringObject, email: string): StringObject => {
   if (email) {
     const isEmail = validEmailReg.test(email);
     if (!isEmail) {
@@ -33,8 +42,13 @@ const emailValidate = (errors, email) => {
   return errors;
 };
 
-export function validateUserEdit({ username, firstName, lastName, email }) {
-  const errors = {};
+export function validateUserEdit({
+  username,
+  firstName,
+  lastName,
+  email
+}: UserEditDataType): StringObject {
+  const errors: StringObject = {};
   if (!username) {
     errors.username = ERROR_MESSAGES.USERNAME_REQUIRED;
   }
@@ -50,8 +64,11 @@ export function validateUserEdit({ username, firstName, lastName, email }) {
   return emailValidate(errors, email);
 }
 
-export function validateGroupEdit({ name, title }) {
-  const errors = {};
+export function validateGroupEdit({
+  name,
+  title
+}: GroupEditDataType): StringObject {
+  const errors: StringObject = {};
   if (!name) {
     errors.name = ERROR_MESSAGES.NAME_REQUIRED;
   }
@@ -63,8 +80,11 @@ export function validateGroupEdit({ name, title }) {
   return errors;
 }
 
-export function validateSingIn({ email, password }) {
-  const errors = {};
+export function validateSingIn({
+  email,
+  password
+}: SighInDataType): StringObject {
+  const errors: StringObject = {};
 
   if (!password) {
     errors.password = ERROR_MESSAGES.PASSWORD_REQUIRED;

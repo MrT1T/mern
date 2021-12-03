@@ -3,6 +3,7 @@ import { makeStyles, TableRow } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import CellGroup from '../_cell-group';
+import { linksHelper } from '../../../helpers/links.helper';
 
 const useStyles = makeStyles({
   row: {
@@ -34,7 +35,9 @@ const Row = ({ data, index, style }) => {
 
   const onClick = () => {
     if (cellData.length !== 0) {
-      history.push(link(currentElement.username || currentElement.name));
+      history.push(
+        linksHelper(link, currentElement.username || currentElement.name)
+      );
     }
   };
 
