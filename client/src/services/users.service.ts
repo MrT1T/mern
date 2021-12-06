@@ -6,7 +6,6 @@ import type {
   UserFetchType,
   UserResponseType
 } from '../types/services.type';
-import type { StringObject } from '../types/objects.type';
 import { linksHelper } from '../helpers/links.helper';
 
 export const UsersService = {
@@ -27,10 +26,11 @@ export const UsersService = {
       })
     ),
   getUsers: (): Promise<Array<Item>> =>
-    Api.get<Array<StringObject>>(API_LINKS.ALL_USERS).then((response) =>
-      response.data.map(({ username, _id }) => ({
-        name: username,
-        value: _id
-      }))
+    Api.get<Array<Record<string, string>>>(API_LINKS.ALL_USERS).then(
+      (response) =>
+        response.data.map(({ username, _id }) => ({
+          name: username,
+          value: _id
+        }))
     )
 };
