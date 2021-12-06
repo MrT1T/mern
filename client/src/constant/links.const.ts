@@ -1,15 +1,14 @@
 import { apiUrl } from './api.const';
-import { StringObject } from '../types/objects.type';
 
-export const PAGES_LINKS: StringObject = {
+export const PAGES_LINKS = {
   USERS: '/users',
   PROFILE: '/user/',
   GROUPS: '/groups',
   GROUP: '/group/',
   NOTFOUND: '/not-found'
-};
+} as const;
 
-export const API_LINKS: StringObject = {
+export const API_LINKS = {
   SING_IN: `${apiUrl}auth/signin`,
   FILTERED_GROUPS: 'group/filter/',
   FILTERED_USERS: 'user/filter/',
@@ -19,4 +18,4 @@ export const API_LINKS: StringObject = {
   USER: 'user/',
   ALL_GROUPS: 'group/all',
   ALL_USERS: 'user/all'
-};
+} as const;

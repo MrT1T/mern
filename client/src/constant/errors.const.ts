@@ -1,6 +1,4 @@
-import type { StringObject } from '../types/objects.type';
-
-export const ERROR_MESSAGES: StringObject = {
+export const ERROR_MESSAGES = {
   REQUIRED: 'Please enter value',
   USERNAME_REQUIRED: 'Please enter Username',
   FIRSTNAME_REQUIRED: 'Please enter FirstName',
@@ -13,4 +11,4 @@ export const ERROR_MESSAGES: StringObject = {
   EMAIL_NOT_VALID: 'Please enter a valid email',
   NO_USERS: "Can't get users",
   NO_GROUPS: "Can't get groups"
-};
+} as const;

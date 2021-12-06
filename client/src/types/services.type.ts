@@ -1,5 +1,4 @@
 import type { GroupBasic, Item } from './store.type';
-import type { StringObject } from './objects.type';
 
 export interface AuthBodyType {
   email: string;
@@ -14,7 +13,7 @@ export interface GroupFetchType extends GroupBasic {
   usersList: Array<Item>;
 }
 export interface GroupResponseType extends GroupBasic {
-  usersList: Array<StringObject>;
+  usersList: Array<Record<string, string>>;
 }
 // Users Service
 export interface UpdateUserBodyType extends GroupBasic {
@@ -25,5 +24,5 @@ export interface UserFetchType extends GroupBasic {
   groupsList: Array<Item>;
 }
 export interface UserResponseType extends GroupBasic {
-  groupsList: Array<StringObject>;
+  groupsList: Array<Record<string, string>>;
 }

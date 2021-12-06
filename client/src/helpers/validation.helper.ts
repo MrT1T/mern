@@ -1,13 +1,12 @@
 import { ERROR_MESSAGES } from '../constant/errors.const';
 import { validEmailReg } from '../constant/variable.const';
-import { StringObject } from '../types/objects.type';
-import { SighInDataType, UserEditDataType } from '../types/users.type';
-import { GroupEditDataType } from '../types/groups.type';
+import type { SighInDataType, UserEditDataType } from '../types/users.type';
+import type { GroupEditDataType } from '../types/groups.type';
 
 const validateMaxLength = (
-  data: StringObject,
-  errors: StringObject
-): StringObject => {
+  data: Record<string, string>,
+  errors: Record<string, string>
+): Record<string, string> => {
   Object.keys(data).forEach((item) => {
     if (data[item].length > 30) {
       errors[item] = ERROR_MESSAGES.MAX_LENGTH;
@@ -17,9 +16,9 @@ const validateMaxLength = (
 };
 
 export function validateData(
-  data: StringObject,
-  validator: (obj: StringObject) => StringObject
-): { errors: StringObject; isValid: boolean } {
+  data: Record<string, string>,
+  validator: (obj: Record<string, string>) => Record<string, string>
+): { errors: Record<string, string>; isValid: boolean } {
   let errors = validator(data);
   errors = validateMaxLength(data, errors);
 
@@ -30,7 +29,10 @@ export function validateData(
   };
 }
 
-const emailValidate = (errors: StringObject, email: string): StringObject => {
+const emailValidate = (
+  errors: Record<string, string>,
+  email: string
+): Record<string, string> => {
   if (email) {
     const isEmail = validEmailReg.test(email);
     if (!isEmail) {
@@ -47,8 +49,8 @@ export function validateUserEdit({
   firstName,
   lastName,
   email
-}: UserEditDataType): StringObject {
-  const errors: StringObject = {};
+}: UserEditDataType): Record<string, string> {
+  const errors: Record<string, string> = {};
   if (!username) {
     errors.username = ERROR_MESSAGES.USERNAME_REQUIRED;
   }
@@ -67,8 +69,8 @@ export function validateUserEdit({
 export function validateGroupEdit({
   name,
   title
-}: GroupEditDataType): StringObject {
-  const errors: StringObject = {};
+}: GroupEditDataType): Record<string, string> {
+  const errors: Record<string, string> = {};
   if (!name) {
     errors.name = ERROR_MESSAGES.NAME_REQUIRED;
   }
@@ -83,8 +85,8 @@ export function validateGroupEdit({
 export function validateSingIn({
   email,
   password
-}: SighInDataType): StringObject {
-  const errors: StringObject = {};
+}: SighInDataType): Record<string, string> {
+  const errors: Record<string, string> = {};
 
   if (!password) {
     errors.password = ERROR_MESSAGES.PASSWORD_REQUIRED;

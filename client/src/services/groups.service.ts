@@ -6,7 +6,6 @@ import type {
   GroupResponseType,
   UpdateGroupBodyType
 } from '../types/services.type';
-import type { StringObject } from '../types/objects.type';
 import { linksHelper } from '../helpers/links.helper';
 
 export const GroupsService = {
@@ -27,7 +26,7 @@ export const GroupsService = {
       })
     ),
   getGroups: (): Promise<Array<Item>> =>
-    Api.get<Array<StringObject>>(API_LINKS.ALL_GROUPS).then((response) =>
-      response.data.map(({ _id, name }) => ({ name, value: _id }))
+    Api.get<Array<Record<string, string>>>(API_LINKS.ALL_GROUPS).then(
+      (response) => response.data.map(({ _id, name }) => ({ name, value: _id }))
     )
 };
