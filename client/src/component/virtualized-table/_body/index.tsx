@@ -1,11 +1,12 @@
+import React, { FC } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
-import React from 'react';
-import PropTypes from 'prop-types';
 import InfiniteLoader from 'react-window-infinite-loader';
 import Row from '../_row';
 import { STATUS } from '../../../constant/status.const';
+import { PAGES_LINKS } from '../../../constant/links.const';
+import type { Group, User } from '../../../types/store.type';
 
 const useStyles = makeStyles({
   body: {
@@ -13,14 +14,29 @@ const useStyles = makeStyles({
   }
 });
 
-const TableContent = ({ cellBodyData, className }) => {
+export interface CellBodyDataType {
+  loadNextPage: () => void;
+  status: STATUS;
+  hasNextPage: boolean;
+  pagesCount: number;
+  cellData: Array<User> | Array<Group>;
+  link: typeof PAGES_LINKS[keyof typeof PAGES_LINKS];
+}
+
+interface TableContentProps {
+  className: string;
+  cellBodyData: CellBodyDataType;
+}
+
+const TableContent: FC<TableContentProps> = ({ cellBodyData, className }) => {
   const classes = useStyles();
 
   const { loadNextPage, status, hasNextPage, pagesCount, cellData, link } =
     cellBodyData;
 
   const isNextPageLoading = [STATUS.LOADING, STATUS.IDLE].includes(status);
-  const isItemLoaded = (index) => !hasNextPage || index < cellData.length;
+  const isItemLoaded = (index: number): boolean =>
+    !hasNextPage || index < cellData.length;
   const itemCount = hasNextPage ? cellData.length + 1 : cellData.length;
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
 
@@ -61,8 +77,3 @@ const TableContent = ({ cellBodyData, className }) => {
 };
 
 export default TableContent;
-
-TableContent.propTypes = {
-  cellBodyData: PropTypes.object,
-  className: PropTypes.string
-};

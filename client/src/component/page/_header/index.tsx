@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -6,9 +6,9 @@ import {
   makeStyles,
   Button
 } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../_navbar';
+import type { AuthHookType } from '../../../types/hooks.type';
 
 const useStyles = makeStyles({
   header: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Header = ({ logout }) => {
+const Header: FC<Pick<AuthHookType, 'logout'>> = ({ logout }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -51,7 +51,3 @@ const Header = ({ logout }) => {
 };
 
 export default Header;
-
-Header.propTypes = {
-  logout: PropTypes.func
-};

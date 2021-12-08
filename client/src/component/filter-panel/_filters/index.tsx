@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import SelectField from '../../select';
 import { firstLetterUpperCase } from '../../../helpers/first-letter-upper-case.helper';
+import type { Item } from '../../../types/store.type';
 
 const useStyles = makeStyles({
   selectContainer: {
@@ -11,7 +11,19 @@ const useStyles = makeStyles({
   }
 });
 
-const Filters = ({ filterOptions, filterData, onChange, fields }) => {
+export interface FiltersPropsType {
+  filterOptions: Record<string, Array<Item> | Array<string>>;
+  onChange: () => void;
+  fields: Array<string>;
+  filterData: Record<string, string>;
+}
+
+const Filters: FC<FiltersPropsType> = ({
+  filterOptions,
+  filterData,
+  onChange,
+  fields
+}) => {
   const classes = useStyles();
   const selectGroup = fields.map((item) => (
     <SelectField
@@ -29,10 +41,3 @@ const Filters = ({ filterOptions, filterData, onChange, fields }) => {
 };
 
 export default Filters;
-
-Filters.propTypes = {
-  filterOptions: PropTypes.object,
-  onChange: PropTypes.func,
-  fields: PropTypes.array,
-  filterData: PropTypes.object
-};

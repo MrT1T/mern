@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import Copyright from '../../copyright';
 
@@ -15,11 +15,13 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Footer() {
+const Footer: FC = () => {
   const classes = useStyles();
   return (
     <Box component="footer" className={classes.footer}>
       <Copyright className={classes.text} />
     </Box>
   );
-}
+};
+
+export default Footer;

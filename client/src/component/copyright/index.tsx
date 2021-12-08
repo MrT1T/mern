@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Typography } from '@material-ui/core';
-import PropTypes from 'prop-types';
 
-const Copyright = ({ className }) => (
+interface CopyrightPropsType {
+  className: string;
+}
+
+const Copyright: FC<CopyrightPropsType> = ({ className }) => (
   <>
     <Typography className={className} variant="body2">
       Copyright &#169; Your Smile site 2021
@@ -11,7 +14,3 @@ const Copyright = ({ className }) => (
 );
 
 export default Copyright;
-
-Copyright.propTypes = {
-  className: PropTypes.string
-};

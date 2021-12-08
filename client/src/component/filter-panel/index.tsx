@@ -1,8 +1,7 @@
+import React, { FC } from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
 import { ReactComponent as Filter } from '../../img/filter.svg';
-import Filters from './_filters';
+import Filters, { FiltersPropsType } from './_filters';
 
 const useStyles = makeStyles({
   filterContainer: {
@@ -22,7 +21,12 @@ const useStyles = makeStyles({
   }
 });
 
-const FilterPanel = ({ filterOptions, filterData, onChange, fields }) => {
+const FilterPanel: FC<FiltersPropsType> = ({
+  filterOptions,
+  filterData,
+  onChange,
+  fields
+}) => {
   const classes = useStyles();
   return (
     <Box data-testid="filter" className={classes.filterContainer}>
@@ -42,10 +46,3 @@ const FilterPanel = ({ filterOptions, filterData, onChange, fields }) => {
   );
 };
 export default FilterPanel;
-
-FilterPanel.propTypes = {
-  filterOptions: PropTypes.object,
-  onChange: PropTypes.func,
-  fields: PropTypes.array,
-  filterData: PropTypes.object
-};

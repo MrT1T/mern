@@ -1,9 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { makeStyles, Box } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import Select from 'react-select';
 import classNames from 'classnames';
 import { useDebounced } from '../../hooks/use-debounced';
+import type {
+  OnClickHandlerType,
+  onInputChangeDelayType
+} from '../../types/func.type';
+import type { Item } from '../../types/store.type';
 
 const useStyles = makeStyles({
   selectContainer: {
@@ -14,7 +18,17 @@ const useStyles = makeStyles({
   }
 });
 
-const SelectField = ({
+interface SelectFieldPropsType {
+  name: string;
+  value?: string;
+  options: Array<Item> | Array<string>;
+  placeholder?: string;
+  className?: string;
+  onInputChange?: OnClickHandlerType;
+  onChange: OnClickHandlerType;
+}
+
+const SelectField: FC<SelectFieldPropsType> = ({
   onChange,
   onInputChange = () => {},
   options = [],
@@ -25,28 +39,41 @@ const SelectField = ({
 }) => {
   const classes = useStyles();
 
-  const handleChange = (selectedOptions) => {
-    if (!selectedOptions) return onChange(name, null);
-    return onChange(name, selectedOptions.value);
-  };
+  const handleChange = useCallback(
+    (selectedOptions) => {
+      if (selectedOptions) {
+        onChange(name, selectedOptions.value);
+      } else {
+        onChange(name, null);
+      }
+    },
+    [onChange]
+  );
 
-  const onInputChangeDelay = useDebounced(onInputChange, 1000);
+  const onInputChangeDelay: onInputChangeDelayType = useDebounced(
+    onInputChange,
+    1000
+  );
 
-  const handleInputChange = (searchText, actionMeta) => {
+  const handleInputChange = (
+    searchText: string,
+    actionMeta: { action: string }
+  ) => {
     if (actionMeta.action === 'input-change') {
       onInputChangeDelay(name, searchText);
     }
   };
 
   const parsedOptions = useMemo(() => {
-    if (options[0] !== Object(options[0])) {
-      return options.map((option) => ({
+    if (typeof options[0] === 'string') {
+      return (options as Array<string>).map((option) => ({
         value: option,
-        label: `${option}`
+        label: option
       }));
     }
-    return options.map((option) => ({
-      value: option,
+
+    return (options as Array<Item>).map((option) => ({
+      value: option.value,
       label: option.name
     }));
   }, [options]);
@@ -58,7 +85,7 @@ const SelectField = ({
     if (currentValue.length === 0 && value) {
       currentValue.push({
         value,
-        label: `${value}`
+        label: value
       });
     }
     return currentValue;
@@ -81,13 +108,3 @@ const SelectField = ({
 };
 
 export default SelectField;
-
-SelectField.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  options: PropTypes.array,
-  placeholder: PropTypes.string,
-  className: PropTypes.string,
-  onInputChange: PropTypes.func,
-  onChange: PropTypes.func
-};

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ChangeEventHandler, FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
+import type { OnClickHandlerType } from '../../types/func.type';
 
 const useStyles = makeStyles({
   input: {
@@ -12,16 +12,25 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Input({
+export interface InputPropsType {
+  name: string;
+  className?: string;
+  value?: string;
+  type?: string;
+  placeholder?: string;
+  onChange: OnClickHandlerType;
+}
+
+const Input: FC<InputPropsType> = ({
   name,
   value = '',
   placeholder = '',
   className = '',
   type = 'text',
   onChange
-}) {
+}) => {
   const classes = useStyles();
-  const handleChange = (e) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     onChange(e.target.name, e.target.value);
   };
 
@@ -36,13 +45,6 @@ export default function Input({
       id={name}
     />
   );
-}
-
-Input.propTypes = {
-  name: PropTypes.string,
-  className: PropTypes.string,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func
 };
+
+export default Input;

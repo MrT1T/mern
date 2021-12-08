@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import classnames from 'classnames';
 import { makeStyles } from '@material-ui/core';
 import { ReactComponent as ErrorIcon } from '../../img/error-icon.svg';
@@ -18,7 +17,12 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Error({ message, className = '' }) {
+interface ErrorPropsType {
+  message?: string;
+  className?: string;
+}
+
+const Error: FC<ErrorPropsType> = ({ message, className = '' }) => {
   const classes = useStyles();
 
   if (!message) return null;
@@ -32,9 +36,6 @@ export default function Error({ message, className = '' }) {
       <span className={classes.message}>{message}</span>
     </div>
   );
-}
-
-Error.propTypes = {
-  message: PropTypes.string,
-  className: PropTypes.string
 };
+
+export default Error;

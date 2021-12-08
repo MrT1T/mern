@@ -80,7 +80,8 @@ const GroupEditPage = () => {
     if (name === 'addUser') {
       if (value) {
         name = 'usersList';
-        value = groupData.usersList.concat(value);
+        const el = users.find((user) => user.value === value);
+        value = groupData.usersList.concat(el);
       }
     }
 
