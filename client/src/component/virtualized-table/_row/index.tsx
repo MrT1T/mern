@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { makeStyles, TableRow } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import CellGroup from '../_cell-group';
 import { linksHelper } from '../../../helpers/links.helper';
+import type { CellBodyDataType } from '../_body';
 
 const useStyles = makeStyles({
   row: {
@@ -16,7 +16,15 @@ const useStyles = makeStyles({
   }
 });
 
-const Row = ({ data, index, style }) => {
+interface RowPropsType {
+  data: Pick<CellBodyDataType, 'pagesCount' | 'cellData' | 'link'> & {
+    isItemLoaded: (arg: number) => boolean;
+  };
+  index: number;
+  style: CSSProperties;
+}
+
+const Row: FC<RowPropsType> = ({ data, index, style }) => {
   const classes = useStyles();
   const history = useHistory();
   const { cellData, isItemLoaded, pagesCount, link } = data;
@@ -36,7 +44,12 @@ const Row = ({ data, index, style }) => {
   const onClick = () => {
     if (cellData.length !== 0) {
       history.push(
-        linksHelper(link, currentElement.username || currentElement.name)
+        linksHelper(
+          link,
+          'username' in currentElement
+            ? currentElement.username
+            : currentElement.name
+        )
       );
     }
   };
@@ -55,9 +68,3 @@ const Row = ({ data, index, style }) => {
 };
 
 export default Row;
-
-Row.propTypes = {
-  data: PropTypes.object,
-  index: PropTypes.number,
-  style: PropTypes.object
-};

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 import { useRouteMatch, NavLink } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar: FC = () => {
   const routeMatch = useRouteMatch(['/users', '/groups']);
   const currentTab = routeMatch?.path || false;
 

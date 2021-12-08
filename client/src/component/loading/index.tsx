@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 import loadingIcon from '../../img/loading.svg';
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Loading = () => {
+const Loading: FC = () => {
   const classes = useStyles();
   return <div data-testid="loading" className={classes.container} />;
 };

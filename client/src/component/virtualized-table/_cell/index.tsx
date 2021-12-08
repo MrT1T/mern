@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { makeStyles, TableCell } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const useStyles = makeStyles({
@@ -10,7 +9,12 @@ const useStyles = makeStyles({
   }
 });
 
-const Cell = ({ children, className }) => {
+interface CellProps {
+  className?: string;
+  children?: ReactNode;
+}
+
+const Cell: FC<CellProps> = ({ children, className }) => {
   const classes = useStyles();
   const classnames = classNames(className, classes.cell);
   return (
@@ -21,8 +25,3 @@ const Cell = ({ children, className }) => {
 };
 
 export default Cell;
-
-Cell.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string
-};

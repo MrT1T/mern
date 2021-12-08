@@ -1,7 +1,6 @@
+import React, { FC } from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
-import Input from '../input';
+import Input, { InputPropsType } from '../input';
 import Error from '../error-massege';
 
 const useStyles = makeStyles({
@@ -12,7 +11,13 @@ const useStyles = makeStyles({
   }
 });
 
-const EditField = ({
+interface EditFieldPropsType extends InputPropsType {
+  fieldLabel?: string;
+  classNameInput?: string;
+  error?: string;
+}
+
+const EditField: FC<EditFieldPropsType> = ({
   fieldLabel,
   placeholder,
   value,
@@ -42,14 +47,3 @@ const EditField = ({
 };
 
 export default EditField;
-
-EditField.propTypes = {
-  fieldLabel: PropTypes.string,
-  onChange: PropTypes.func,
-  classNameInput: PropTypes.string,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  name: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  placeholder: PropTypes.string
-};

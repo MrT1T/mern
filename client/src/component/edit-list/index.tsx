@@ -1,3 +1,4 @@
+import React, { FC, MouseEvent } from 'react';
 import {
   Box,
   Button,
@@ -10,11 +11,11 @@ import {
   makeStyles,
   Typography
 } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Image from '../../img/icon.png';
 import { linksHelper } from '../../helpers/links.helper';
+import type { Item } from '../../types/store.type';
+import type { OnClickHandlerType } from '../../types/func.type';
 
 const useStyles = makeStyles({
   card: {
@@ -25,13 +26,29 @@ const useStyles = makeStyles({
   }
 });
 
-const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
+interface EditListPropsType {
+  labelList: string;
+  buttonText: string;
+  name: string;
+  onChange: OnClickHandlerType;
+  link: string;
+  list: Array<Item>;
+}
+
+const EditList: FC<EditListPropsType> = ({
+  labelList,
+  list,
+  onChange,
+  name,
+  buttonText,
+  link
+}) => {
   const classes = useStyles();
   const history = useHistory();
-  const handleClickCard = (item) => {
+  const handleClickCard = (item: string) => {
     history.push(linksHelper(link, item));
   };
-  const handleClickButton = (event, item) => {
+  const handleClickButton = (event: MouseEvent, item: string) => {
     onChange(name, item);
     event.stopPropagation();
   };
@@ -81,12 +98,3 @@ const EditList = ({ labelList, list, onChange, name, buttonText, link }) => {
 };
 
 export default EditList;
-
-EditList.propTypes = {
-  labelList: PropTypes.string,
-  buttonText: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  link: PropTypes.string,
-  list: PropTypes.array
-};

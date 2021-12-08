@@ -8,6 +8,7 @@ import type {
 } from './store.type';
 import { STATUS } from '../constant/status.const';
 import type { GroupFetchType, UserFetchType } from './services.type';
+import type { onInputChangeDelayType } from './func.type';
 
 export const useAppDispatch: { (): AppDispatch } = () => useDispatch();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -19,7 +20,7 @@ export interface AuthHookType {
 }
 
 export interface UseDebouncedType {
-  (func: () => void, delay: number): () => void;
+  (func: onInputChangeDelayType, delay: number): () => void;
 }
 
 export interface UseFilteredGroupsType {

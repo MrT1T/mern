@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import {
   Breadcrumbs,
   Button,
@@ -7,8 +8,6 @@ import {
   Paper,
   Typography
 } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
 import Background from '../../img/night.png';
 
 const useStyles = makeStyles({
@@ -35,7 +34,19 @@ const useStyles = makeStyles({
   }
 });
 
-const EditHeader = ({ breadcrumbLabel, breadcrumbLink, pageName, onClick }) => {
+interface EditHeaderPropsType {
+  onClick: () => void;
+  breadcrumbLabel: string;
+  breadcrumbLink: string;
+  pageName: string;
+}
+
+const EditHeader: FC<EditHeaderPropsType> = ({
+  breadcrumbLabel,
+  breadcrumbLink,
+  pageName,
+  onClick
+}) => {
   const classes = useStyles();
   return (
     <Paper data-testid="editHeader" className={classes.header}>
@@ -61,10 +72,3 @@ const EditHeader = ({ breadcrumbLabel, breadcrumbLink, pageName, onClick }) => {
 };
 
 export default EditHeader;
-
-EditHeader.propTypes = {
-  onClick: PropTypes.func,
-  breadcrumbLabel: PropTypes.string,
-  breadcrumbLink: PropTypes.string,
-  pageName: PropTypes.string
-};

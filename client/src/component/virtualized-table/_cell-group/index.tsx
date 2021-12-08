@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import Cell from '../_cell';
+import type { Group, User } from '../../../types/store.type';
 
-const CellGroup = ({ item }) => {
-  if (item?.username) {
+const CellGroup: FC<{ item: Group | User }> = ({ item }) => {
+  if ('username' in item) {
     return (
       <>
         <Cell>{item.username}</Cell>
@@ -24,7 +24,3 @@ const CellGroup = ({ item }) => {
 };
 
 export default CellGroup;
-
-CellGroup.propTypes = {
-  item: PropTypes.object
-};

@@ -1,6 +1,5 @@
+import React, { FC } from 'react';
 import { makeStyles, TableCell, TableHead, TableRow } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
 import { firstLetterUpperCase } from '../../../helpers/first-letter-upper-case.helper';
 
 const useStyles = makeStyles({
@@ -15,9 +14,13 @@ const useStyles = makeStyles({
   }
 });
 
-const TableHeader = ({ cellData }) => {
+export interface TableHeaderPropsType {
+  cellHeaderData: Array<string>;
+}
+
+const TableHeader: FC<TableHeaderPropsType> = ({ cellHeaderData }) => {
   const classes = useStyles();
-  const cell = cellData.map((item) => (
+  const cell = cellHeaderData.map((item) => (
     <TableCell
       className={classes.cell}
       component="div"
@@ -37,7 +40,3 @@ const TableHeader = ({ cellData }) => {
 };
 
 export default TableHeader;
-
-TableHeader.propTypes = {
-  cellData: PropTypes.array
-};

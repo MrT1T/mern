@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import Header from './_header';
 import Footer from './_footer';
+import type { AuthHookType } from '../../types/hooks.type';
 
 const useStyles = makeStyles({
   container: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Page = ({ children, logout }) => {
+const Page: FC<Pick<AuthHookType, 'logout'>> = ({ children, logout }) => {
   const classes = useStyles();
 
   return (
@@ -31,8 +31,3 @@ const Page = ({ children, logout }) => {
 };
 
 export default Page;
-
-Page.propTypes = {
-  children: PropTypes.node,
-  logout: PropTypes.func
-};
