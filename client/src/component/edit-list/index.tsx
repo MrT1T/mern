@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from 'react';
+import React, { FC, MouseEvent, useCallback } from 'react';
 import {
   Box,
   Button,
@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import Image from '../../img/icon.png';
 import { linksHelper } from '../../helpers/links.helper';
 import type { Item } from '../../types/store.type';
-import type { OnClickHandlerType } from '../../types/func.type';
+import type { OnChangeHandlerType } from '../../types/func.type';
 
 const useStyles = makeStyles({
   card: {
@@ -30,7 +30,7 @@ interface EditListPropsType {
   labelList: string;
   buttonText: string;
   name: string;
-  onChange: OnClickHandlerType;
+  onChange: OnChangeHandlerType;
   link: string;
   list: Array<Item>;
 }
@@ -48,10 +48,13 @@ const EditList: FC<EditListPropsType> = ({
   const handleClickCard = (item: string) => {
     history.push(linksHelper(link, item));
   };
-  const handleClickButton = (event: MouseEvent, item: string) => {
-    onChange(name, item);
-    event.stopPropagation();
-  };
+  const handleClickButton = useCallback(
+    (event: MouseEvent, item: string) => {
+      onChange(name, item);
+      event.stopPropagation();
+    },
+    [onChange]
+  );
   return (
     <Container>
       <Box>

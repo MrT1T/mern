@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -10,7 +10,6 @@ import {
   Typography
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Copyright from '../../component/copyright';
 import Background from '../../img/background.png';
@@ -19,6 +18,9 @@ import { validateData, validateSingIn } from '../../helpers/validation.helper';
 import { AuthService } from '../../services/auth.service';
 import notificationCreator from '../../helpers/notification.helper';
 import { PAGES_LINKS } from '../../constant/links.const';
+import type { AuthHookType } from '../../types/hooks.type';
+import type { AuthBodyType } from '../../types/services.type';
+import { OnChangeHandlerType } from '../../types/func.type';
 
 const useStyles = makeStyles({
   container: {
@@ -59,22 +61,25 @@ const useStyles = makeStyles({
   }
 });
 
-const SignIn = ({ login }) => {
+const SignIn: FC<Pick<AuthHookType, 'login'>> = ({ login }) => {
   const classes = useStyles();
 
-  const [singInData, setSingInData] = useState({});
-  const [errors, setErrors] = useState({});
+  const [singInData, setSingInData] = useState({} as AuthBodyType);
+  const [errors, setErrors] = useState({} as Record<string, string | null>);
 
   const history = useHistory();
 
-  const handlerChangeSingInData = (name, value) => {
-    setSingInData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value
-    }));
+  const handlerChangeSingInData = useCallback<OnChangeHandlerType>(
+    (name, value) => {
+      setSingInData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value
+      }));
 
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
-  };
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
+    },
+    [singInData]
+  );
   const handlerSignIn = async () => {
     const resultSingIn = validateData(singInData, validateSingIn);
 
@@ -152,7 +157,3 @@ const SignIn = ({ login }) => {
 };
 
 export default SignIn;
-
-SignIn.propTypes = {
-  login: PropTypes.func
-};

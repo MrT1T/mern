@@ -6,7 +6,7 @@ import InfiniteLoader from 'react-window-infinite-loader';
 import Row from '../_row';
 import { STATUS } from '../../../constant/status.const';
 import { PAGES_LINKS } from '../../../constant/links.const';
-import type { Group, User } from '../../../types/store.type';
+import type { Group, pagesCountType, User } from '../../../types/store.type';
 
 const useStyles = makeStyles({
   body: {
@@ -18,7 +18,7 @@ export interface CellBodyDataType {
   loadNextPage: () => void;
   status: STATUS;
   hasNextPage: boolean;
-  pagesCount: number;
+  pagesCount: pagesCountType;
   cellData: Array<User> | Array<Group>;
   link: typeof PAGES_LINKS[keyof typeof PAGES_LINKS];
 }

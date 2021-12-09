@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { ReactComponent as NotFoundIcon } from '../../img/404.svg';
 import { PAGES_LINKS } from '../../constant/links.const';
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-const NotFound = () => {
+const NotFound: FC = () => {
   const classes = useStyles();
   return (
     <Box data-testid="notFound" className={classes.container}>

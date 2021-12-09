@@ -2,7 +2,7 @@ import { Api } from './api.service';
 import { API_LINKS } from '../constant/links.const';
 import type { GroupsPayloadData, Item } from '../types/store.type';
 import type {
-  GroupFetchType,
+  GroupDataType,
   GroupResponseType,
   UpdateGroupBodyType
 } from '../types/services.type';
@@ -15,7 +15,7 @@ export const GroupsService = {
     ).then((response) => response.data),
   updateGroup: (body: UpdateGroupBodyType): Promise<void> =>
     Api.put(API_LINKS.UPDATE_GROUPS, body),
-  getGroup: (groupname: string): Promise<GroupFetchType> =>
+  getGroup: (groupname: string): Promise<GroupDataType> =>
     Api.get<GroupResponseType>(linksHelper(API_LINKS.GROUP, groupname)).then(
       (response) => ({
         ...response.data,

@@ -38,7 +38,7 @@ interface EditHeaderPropsType {
   onClick: () => void;
   breadcrumbLabel: string;
   breadcrumbLink: string;
-  pageName: string;
+  pageName?: string;
 }
 
 const EditHeader: FC<EditHeaderPropsType> = ({

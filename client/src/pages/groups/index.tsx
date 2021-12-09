@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import VirtualizedTable from '../../component/virtualized-table';
 import { useFilteredGroups } from '../../hooks/use-filtered-groups';
 import FilterPanel from '../../component/filter-panel';
@@ -7,36 +7,49 @@ import { getUniqueValue } from '../../helpers/get-unique-value.helper';
 import { groupFields } from '../../constant/table-header.const';
 import { useNextPage } from '../../hooks/use-next-page';
 import { PAGES_LINKS } from '../../constant/links.const';
+import type { OnChangeHandlerType } from '../../types/func.type';
+import type { GroupsFilterDataType } from '../../types/pages.type';
 
-const GroupsPage = () => {
-  const [filterData, setFilterData] = useState({ page: 1 });
+const GroupsPage: FC = () => {
+  const [filterData, setFilterData] = useState({
+    page: 1
+  } as GroupsFilterDataType);
   const { groups, groupsStatus, pagesCount } = useFilteredGroups(filterData);
   const hasNextPage = useNextPage(pagesCount, filterData.page, groups);
+  const { page, ...needDataFilter } = filterData;
 
-  let filterOptions = getFilterOptions(groups);
-
-  if (Object.keys(filterOptions).length !== 0) {
-    filterOptions.usersList = filterOptions.usersList
-      .flat()
-      .map(({ username }) => username);
-    filterOptions = getUniqueValue(filterOptions);
-  }
-
-  const handleChangeFilters = (name, value) => {
-    if (filterData[name] !== value) {
-      setFilterData((prevValues) => ({
-        ...prevValues,
-        [name]: value,
-        page: 1
-      }));
+  const filterOptions = useMemo(() => {
+    if (groups.length === 0) {
+      return {};
     }
-  };
+    const options = getFilterOptions(groups, groupFields);
+    const usersList = options?.usersList
+      ?.flat()
+      .map(({ username }) => username);
+    return getUniqueValue({ ...options, usersList }) as Record<
+      string,
+      Array<string>
+    >;
+  }, [groups]);
+
+  const handleChangeFilters = useCallback<OnChangeHandlerType>(
+    (name, value) => {
+      if (filterData[name as keyof GroupsFilterDataType] !== value) {
+        setFilterData((prevValues) => ({
+          ...prevValues,
+          [name]: value,
+          page: 1
+        }));
+      }
+    },
+    [filterData]
+  );
 
   const loadNextPage = () => {
-    if (pagesCount !== filterData.page) {
+    if (pagesCount !== page) {
       setFilterData((prevValues) => ({
         ...prevValues,
-        page: filterData.page + 1
+        page: page + 1
       }));
     }
   };
@@ -45,7 +58,7 @@ const GroupsPage = () => {
     <>
       <FilterPanel
         filterOptions={filterOptions}
-        filterData={filterData}
+        filterData={needDataFilter as Record<string, string | undefined>}
         onChange={handleChangeFilters}
         fields={groupFields}
       />
