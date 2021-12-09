@@ -4,11 +4,12 @@ import type {
   Group,
   RootState,
   User,
-  pagesCount
+  pagesCountType
 } from './store.type';
 import { STATUS } from '../constant/status.const';
-import type { GroupFetchType, UserFetchType } from './services.type';
+import type { GroupDataType, UserDataType } from './services.type';
 import type { onInputChangeDelayType } from './func.type';
+import type { GroupsFilterDataType, UsersFilterDataType } from './pages.type';
 
 export const useAppDispatch: { (): AppDispatch } = () => useDispatch();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -24,17 +25,17 @@ export interface UseDebouncedType {
 }
 
 export interface UseFilteredGroupsType {
-  (filterData: Group): {
+  (filterData: GroupsFilterDataType): {
     groups: Group[];
     groupsStatus: STATUS;
-    pagesCount: pagesCount;
+    pagesCount: pagesCountType;
   };
 }
 export interface UseFilteredUsersType {
-  (filterData: User): {
+  (filterData: UsersFilterDataType): {
     users: User[];
     usersStatus: STATUS;
-    pagesCount: pagesCount;
+    pagesCount: pagesCountType;
   };
 }
 
@@ -44,10 +45,10 @@ interface FetchDataType {
 }
 
 interface ReturnUseGroup extends FetchDataType {
-  group: GroupFetchType | null;
+  group: GroupDataType | null;
 }
 interface ReturnUseUser extends FetchDataType {
-  user: UserFetchType | null;
+  user: UserDataType | null;
 }
 
 export interface UseGroupType {
@@ -58,8 +59,8 @@ export interface UseUserType {
 }
 export interface UseNextPage {
   (
-    count: pagesCount,
-    currentPage: pagesCount,
-    list: Array<GroupFetchType | UserFetchType>
+    count: pagesCountType,
+    currentPage: pagesCountType,
+    list: Array<Group | User>
   ): boolean;
 }

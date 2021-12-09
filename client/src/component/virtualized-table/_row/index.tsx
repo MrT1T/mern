@@ -42,7 +42,7 @@ const Row: FC<RowPropsType> = ({ data, index, style }) => {
   };
 
   const onClick = () => {
-    if (cellData.length !== 0) {
+    if (cellData.length !== 0 && currentElement) {
       history.push(
         linksHelper(
           link,

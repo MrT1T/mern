@@ -1,7 +1,5 @@
 import { ERROR_MESSAGES } from '../constant/errors.const';
 import { validEmailReg } from '../constant/variable.const';
-import type { SighInDataType, UserEditDataType } from '../types/users.type';
-import type { GroupEditDataType } from '../types/groups.type';
 
 const validateMaxLength = (
   data: Record<string, string>,
@@ -15,8 +13,8 @@ const validateMaxLength = (
   return errors;
 };
 
-export function validateData(
-  data: Record<string, string>,
+export function validateData<T>(
+  data: Record<keyof T, string>,
   validator: (obj: Record<string, string>) => Record<string, string>
 ): { errors: Record<string, string>; isValid: boolean } {
   let errors = validator(data);
@@ -49,7 +47,7 @@ export function validateUserEdit({
   firstName,
   lastName,
   email
-}: UserEditDataType): Record<string, string> {
+}: Record<string, string>): Record<string, string> {
   const errors: Record<string, string> = {};
   if (!username) {
     errors.username = ERROR_MESSAGES.USERNAME_REQUIRED;
@@ -69,7 +67,7 @@ export function validateUserEdit({
 export function validateGroupEdit({
   name,
   title
-}: GroupEditDataType): Record<string, string> {
+}: Record<string, string>): Record<string, string> {
   const errors: Record<string, string> = {};
   if (!name) {
     errors.name = ERROR_MESSAGES.NAME_REQUIRED;
@@ -85,7 +83,7 @@ export function validateGroupEdit({
 export function validateSingIn({
   email,
   password
-}: SighInDataType): Record<string, string> {
+}: Record<string, string>): Record<string, string> {
   const errors: Record<string, string> = {};
 
   if (!password) {

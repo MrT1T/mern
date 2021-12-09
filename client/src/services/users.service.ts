@@ -3,7 +3,7 @@ import { API_LINKS } from '../constant/links.const';
 import type { Item, UsersPayloadData } from '../types/store.type';
 import type {
   UpdateUserBodyType,
-  UserFetchType,
+  UserDataType,
   UserResponseType
 } from '../types/services.type';
 import { linksHelper } from '../helpers/links.helper';
@@ -15,7 +15,7 @@ export const UsersService = {
     ).then((response) => response.data),
   updateUser: (body: UpdateUserBodyType): Promise<void> =>
     Api.put(API_LINKS.UPDATE_USERS, body),
-  getUser: (username: string): Promise<UserFetchType> =>
+  getUser: (username: string): Promise<UserDataType> =>
     Api.get<UserResponseType>(linksHelper(API_LINKS.USER, username)).then(
       (response) => ({
         ...response.data,

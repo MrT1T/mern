@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -20,6 +20,11 @@ import { useAllUsers } from '../../hooks/use-all-users';
 import SelectField from '../../component/select';
 import NotFound from '../not-found';
 import Loading from '../../component/loading';
+import type {
+  GroupDataType,
+  UpdateGroupBodyType
+} from '../../types/services.type';
+import type { Item } from '../../types/store.type';
 
 const useStyles = makeStyles({
   editContainer: {
@@ -35,10 +40,10 @@ const useStyles = makeStyles({
   }
 });
 
-const GroupEditPage = () => {
-  const [groupData, setGroupData] = useState({});
-  const [errors, setErrors] = useState({});
-  const { groupname } = useParams();
+const GroupEditPage: FC = () => {
+  const [groupData, setGroupData] = useState({} as GroupDataType);
+  const [errors, setErrors] = useState({} as Record<string, string | null>);
+  const { groupname } = useParams<{ groupname: string }>();
   const { group, isLoading, error } = useGroup(groupname);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -47,11 +52,7 @@ const GroupEditPage = () => {
 
   useEffect(() => {
     if (group) {
-      setGroupData({
-        name: group.name,
-        title: group.title,
-        usersList: group.usersList
-      });
+      setGroupData({ ...group } as GroupDataType);
     }
   }, [group]);
 
@@ -64,6 +65,30 @@ const GroupEditPage = () => {
     [groupData, users]
   );
 
+  const handlerChangeGroupData = useCallback(
+    (name, value) => {
+      if (name === 'usersList') {
+        value = groupData.usersList.filter((item) => item.value !== value);
+      }
+
+      if (name === 'addUser') {
+        if (value) {
+          name = 'usersList';
+          const needUser = users.find((user) => user.value === value);
+          value = groupData.usersList.concat(needUser as Item);
+        }
+      }
+
+      setGroupData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value
+      }));
+
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
+    },
+    [groupData]
+  );
+
   if (error) {
     return <NotFound />;
   }
@@ -72,33 +97,16 @@ const GroupEditPage = () => {
     return <Loading />;
   }
 
-  const handlerChangeGroupData = (name, value) => {
-    if (name === 'usersList') {
-      value = groupData.usersList.filter((item) => item.value !== value);
-    }
-
-    if (name === 'addUser') {
-      if (value) {
-        name = 'usersList';
-        const el = users.find((user) => user.value === value);
-        value = groupData.usersList.concat(el);
-      }
-    }
-
-    setGroupData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value
-    }));
-
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
-  };
-
   const handlerSaveGroupData = async () => {
-    const resultUserData = validateData(groupData, validateGroupEdit);
+    const { usersList, groupId, ...checkData } = groupData;
+    const resultUserData = validateData(checkData, validateGroupEdit);
 
     if (resultUserData.isValid) {
-      const body = { ...groupData, groupId: group.groupId };
-      body.usersList = body.usersList.map(({ value }) => value);
+      const body: UpdateGroupBodyType = {
+        ...groupData,
+        usersList: usersList.map(({ value }) => value),
+        groupId
+      };
       await GroupsService.updateGroup(body)
         .then(() => {
           notificationCreator.showOnSuccess('The group has been changed');
@@ -118,7 +126,7 @@ const GroupEditPage = () => {
   const editTableFields = groupEditFields.map((item) => (
     <EditField
       fieldLabel={firstLetterUpperCase(item)}
-      value={groupData[item]}
+      value={groupData[item] as string}
       name={item}
       key={item}
       onChange={handlerChangeGroupData}

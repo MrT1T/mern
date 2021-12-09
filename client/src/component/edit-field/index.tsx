@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 interface EditFieldPropsType extends InputPropsType {
   fieldLabel?: string;
   classNameInput?: string;
-  error?: string;
+  error?: string | null;
 }
 
 const EditField: FC<EditFieldPropsType> = ({

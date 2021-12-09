@@ -12,10 +12,10 @@ export type VoidThunk<ReturnType = void> = ThunkAction<
   AnyAction
 >;
 
-export type pagesCount = null | number;
+export type pagesCountType = null | number;
 
 interface SliceBasis {
-  pagesCount: pagesCount;
+  pagesCount: pagesCountType;
   status: STATUS;
   error: null | string;
 }

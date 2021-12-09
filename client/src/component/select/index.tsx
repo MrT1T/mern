@@ -4,7 +4,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { useDebounced } from '../../hooks/use-debounced';
 import type {
-  OnClickHandlerType,
+  OnChangeHandlerType,
   onInputChangeDelayType
 } from '../../types/func.type';
 import type { Item } from '../../types/store.type';
@@ -24,8 +24,8 @@ interface SelectFieldPropsType {
   options: Array<Item> | Array<string>;
   placeholder?: string;
   className?: string;
-  onInputChange?: OnClickHandlerType;
-  onChange: OnClickHandlerType;
+  onInputChange?: OnChangeHandlerType;
+  onChange: OnChangeHandlerType;
 }
 
 const SelectField: FC<SelectFieldPropsType> = ({
@@ -55,14 +55,14 @@ const SelectField: FC<SelectFieldPropsType> = ({
     1000
   );
 
-  const handleInputChange = (
-    searchText: string,
-    actionMeta: { action: string }
-  ) => {
-    if (actionMeta.action === 'input-change') {
-      onInputChangeDelay(name, searchText);
-    }
-  };
+  const handleInputChange = useCallback(
+    (searchText: string, actionMeta: { action: string }) => {
+      if (actionMeta.action === 'input-change') {
+        onInputChangeDelay(name, searchText);
+      }
+    },
+    [onInputChange]
+  );
 
   const parsedOptions = useMemo(() => {
     if (typeof options[0] === 'string') {

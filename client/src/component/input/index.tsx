@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, FC } from 'react';
+import React, { ChangeEventHandler, FC, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import type { OnClickHandlerType } from '../../types/func.type';
+import type { OnChangeHandlerType } from '../../types/func.type';
 
 const useStyles = makeStyles({
   input: {
@@ -18,7 +18,7 @@ export interface InputPropsType {
   value?: string;
   type?: string;
   placeholder?: string;
-  onChange: OnClickHandlerType;
+  onChange: OnChangeHandlerType;
 }
 
 const Input: FC<InputPropsType> = ({
@@ -30,9 +30,12 @@ const Input: FC<InputPropsType> = ({
   onChange
 }) => {
   const classes = useStyles();
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    onChange(e.target.name, e.target.value);
-  };
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      onChange(e.target.name, e.target.value);
+    },
+    [onChange]
+  );
 
   return (
     <input
