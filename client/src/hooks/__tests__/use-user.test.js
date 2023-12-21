@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { TEST } from '../../constant/variable.const';
 import { useUser } from '../use-user';
 import { UsersService } from '../../services/users.service';
@@ -10,9 +10,9 @@ describe('useUser tests', () => {
     const mockRequest = Promise.resolve(TEST);
     spyApi.mockImplementation(() => mockRequest);
 
-    const { result } = renderHook(() => useUser(userName));
+    const { result, waitForNextUpdate } = renderHook(() => useUser(userName));
 
-    await act(() => mockRequest);
+    await waitForNextUpdate();
 
     expect(spyApi).toBeCalledWith(userName);
     expect(result.current.user).toEqual(TEST);

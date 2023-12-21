@@ -10,5 +10,5 @@ export const ERROR_MESSAGES = {
   EMAIL_REQUIRED: 'Please enter Email',
   EMAIL_NOT_VALID: 'Please enter a valid email',
   NO_USERS: "Can't get users",
-  NO_GROUPS: "Can't get groups"
+  NO_PROJECTS: "Can't get projects"
 } as const;

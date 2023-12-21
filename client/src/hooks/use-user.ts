@@ -19,6 +19,9 @@ export const useUser: UseUserType = (username = '') => {
           if (e instanceof Error) {
             setError(e.message);
           }
+          if (typeof e === 'string') {
+            setError(e);
+          }
         }
         setIsLoading(false);
       }

@@ -1,4 +1,4 @@
-const groupsData = [
+const projectsData = [
   {
     name: 'Real Madrid funs',
     title: 'Football',
@@ -16,4 +16,4 @@ const groupsData = [
   }
 ];
 
-module.exports = groupsData;
+module.exports = projectsData;

@@ -1,24 +1,24 @@
 const createError = require('http-errors');
 const {
-  getFilteredGroups,
-  updateGroup,
-  getGroup,
-  getGroups
+  getFilteredProjects,
+  updateProject,
+  getProject,
+  getProjects
 } = require('../services/group.service');
 
-const groupController = {
-  getFilteredGroups: async (req, res, next) => {
+const projectController = {
+  getFilteredProjects: async (req, res, next) => {
     try {
-      const result = await getFilteredGroups(req.query);
+      const result = await getFilteredProjects(req.query);
 
       res.send(result);
     } catch (error) {
       next(error);
     }
   },
-  getGroups: async (req, res, next) => {
+  getProjects: async (req, res, next) => {
     try {
-      const result = await getGroups();
+      const result = await getProjects();
 
       if (!result) {
         throw createError(500);
@@ -29,28 +29,28 @@ const groupController = {
       next(error);
     }
   },
-  updateGroup: async (req, res, next) => {
+  updateProject: async (req, res, next) => {
     try {
-      await updateGroup(req.body);
+      await updateProject(req.body);
 
-      res.send('Group has been changed');
+      res.send('Project has been changed');
     } catch (error) {
       next(error);
     }
   },
-  getGroup: async (req, res, next) => {
+  getProject: async (req, res, next) => {
     try {
-      const group = await getGroup(req.params.groupname);
+      const project = await getProject(req.params.projectname);
 
-      if (!group) {
+      if (!project) {
         throw createError(406);
       }
 
-      res.send(group);
+      res.send(project);
     } catch (error) {
       next(error);
     }
   }
 };
 
-module.exports = groupController;
+module.exports = projectController;

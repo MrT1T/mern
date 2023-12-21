@@ -23,8 +23,8 @@ const UsersPage: FC = () => {
       return {};
     }
     const options = getFilterOptions(users, usersFields);
-    const groupsList = options?.groupsList?.flat().map(({ name }) => name);
-    return getUniqueValue({ ...options, groupsList }) as Record<
+    const projectsList = options?.projectsList?.flat().map(({ name }) => name);
+    return getUniqueValue({ ...options, projectsList }) as Record<
       string,
       Array<string>
     >;

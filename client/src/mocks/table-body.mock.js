@@ -1,7 +1,7 @@
 import { PAGES_LINKS } from '../constant/links.const';
 import { usersMock } from './users.mock';
 import { STATUS } from '../constant/status.const';
-import { groupsMock } from './groups.mock';
+import { projectsMock } from './projects.mock';
 
 const link = PAGES_LINKS.PROFILE;
 
@@ -20,11 +20,11 @@ export const rowUsersMock = {
   pagesCount: 2,
   link
 };
-export const rowGroupsMock = {
-  cellData: groupsMock,
+export const rowProjectsMock = {
+  cellData: projectsMock,
   isItemLoaded: () => true,
   pagesCount: 2,
-  link: PAGES_LINKS.GROUP
+  link: PAGES_LINKS.PROJECT
 };
 
 export const rowEmptyMock = {

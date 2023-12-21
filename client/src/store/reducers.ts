@@ -1,9 +1,9 @@
 import usersReducer from './slices/users.slice';
-import groupsSlice from './slices/groups.slice';
+import projectsSlice from './slices/projects.slice';
 
 const reducers = {
   usersData: usersReducer,
-  groupsData: groupsSlice
+  projectsData: projectsSlice
 };
 
 export default reducers;

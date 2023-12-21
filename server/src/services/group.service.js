@@ -1,41 +1,41 @@
-const Group = require('../models/Group.model');
+const Project = require('../models/Group.model');
 const { quantityPage } = require('../constant/page.const');
 const { regField } = require('../helpers/filter.helper');
 const User = require('../models/User.model');
 const difference = require('../helpers/difference.helper');
 
-const groupService = {
-  getFilteredGroups: async (data) => {
+const projectService = {
+  getFilteredProjects: async (data) => {
     const { page, usersList, ...filter } = data;
     const filterItem = regField(filter);
 
-    let groups = await Group.find(filterItem, { _id: 0 }).populate({
+    let projects = await Project.find(filterItem, { _id: 0 }).populate({
       path: 'usersList',
       select: 'username -_id'
     });
 
     if (usersList) {
-      groups = groups.filter((group) =>
-        group.usersList.some(({ username }) =>
+      projects = projects.filter((project) =>
+        project.usersList.some(({ username }) =>
           username.toUpperCase().includes(usersList.toUpperCase())
         )
       );
     }
 
-    const pagesCount = Math.ceil(groups.length / quantityPage);
+    const pagesCount = Math.ceil(projects.length / quantityPage);
 
     const needQuantity = (page || 1) * quantityPage;
-    groups.splice(needQuantity);
+    projects.splice(needQuantity);
 
-    return { groups, pagesCount };
+    return { projects, pagesCount };
   },
-  updateGroup: async ({ groupId, name, title, usersList }) => {
-    const oldGroup = await Group.findOne({ groupId });
-    const oldUsersList = oldGroup.usersList;
+  updateProject: async ({ projectId, name, title, usersList }) => {
+    const oldProject = await Project.findOne({ projectId });
+    const oldUsersList = oldProject.usersList;
 
-    await Group.updateOne(
+    await Project.updateOne(
       {
-        groupId
+        projectId
       },
       {
         name,
@@ -47,18 +47,19 @@ const groupService = {
     const removedUsers = difference(oldUsersList, usersList);
     await User.updateMany(
       { _id: addedUsers },
-      { $addToSet: { groupsList: oldGroup._id } }
+      { $addToSet: { projectsList: oldProject._id } }
     );
     await User.updateMany(
       { _id: removedUsers },
-      { $pull: { groupsList: oldGroup._id } }
+      { $pull: { projectsList: oldProject._id } }
     );
   },
-  getGroup: async (name) =>
-    Group.findOne({ name }).populate({
+  getProject: async (name) =>
+    Project.findOne({ name }).populate({
       path: 'usersList',
       select: 'username'
     }),
-  getGroups: async () => Group.find({}, { title: 0, usersList: 0, groupId: 0 })
+  getProjects: async () =>
+    Project.find({}, { title: 0, usersList: 0, projectId: 0 })
 };
-module.exports = groupService;
+module.exports = projectService;

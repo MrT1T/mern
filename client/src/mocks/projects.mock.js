@@ -1,6 +1,6 @@
 import { STATUS } from '../constant/status.const';
 
-export const groupsMock = [
+export const projectsMock = [
   {
     name: 'Los_Angeles',
     title: 'Basketball',
@@ -33,21 +33,21 @@ export const groupsMock = [
   }
 ];
 
-export const filteredGroupsMock = {
-  groups: groupsMock,
-  groupsStatus: STATUS.SUCCESS,
+export const filteredProjectsMock = {
+  projects: projectsMock,
+  projectsStatus: STATUS.SUCCESS,
   pagesCount: 2
 };
 
-export const emptyGroupsMock = {
-  groups: [],
-  groupsStatus: STATUS.IDLE,
+export const emptyProjectsMock = {
+  projects: [],
+  projectsStatus: STATUS.IDLE,
   pagesCount: null
 };
 export const filterData = { page: 2 };
 export const filterUrl = '?page=2';
 
-export const groupsSliceData = {
-  groups: groupsMock,
-  countPages: 1
+export const projectsSliceData = {
+  projects: projectsMock,
+  pagesCount: 1
 };

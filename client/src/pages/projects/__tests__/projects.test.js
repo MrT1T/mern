@@ -1,16 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import GroupsPage from '../index';
-import { useFilteredGroups } from '../../../hooks/use-filtered-groups';
+import ProjectsPage from '../index';
+import { useFilteredProjects } from '../../../hooks/use-filtered-projects';
 import {
-  emptyGroupsMock,
-  filteredGroupsMock,
-  groupsMock
-} from '../../../mocks/groups.mock';
+  emptyProjectsMock,
+  filteredProjectsMock,
+  projectsMock
+} from '../../../mocks/projects.mock';
 
-jest.mock('../../../hooks/use-filtered-groups', () => ({
-  useFilteredGroups: jest.fn()
+jest.mock('../../../hooks/use-filtered-projects', () => ({
+  useFilteredProjects: jest.fn()
 }));
 
 jest.mock(
@@ -20,27 +20,27 @@ jest.mock(
       children({ height: 1600, width: 1600 })
 );
 
-describe('Groups component', () => {
-  it('Groups page exists', () => {
-    useFilteredGroups.mockImplementation(() => filteredGroupsMock);
-    render(<GroupsPage />);
+describe('Projects component', () => {
+  it('Projects page exists', () => {
+    useFilteredProjects.mockImplementation(() => filteredProjectsMock);
+    render(<ProjectsPage />);
     expect(screen.getByTestId('filter')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
   });
-  it('Groups data null', () => {
-    useFilteredGroups.mockImplementation(() => emptyGroupsMock);
-    render(<GroupsPage />);
+  it('Projects data null', () => {
+    useFilteredProjects.mockImplementation(() => emptyProjectsMock);
+    render(<ProjectsPage />);
     expect(screen.getAllByRole('row')).toHaveLength(2); // table header and empty result
   });
   it('Filter data changed', () => {
-    useFilteredGroups.mockImplementation(() => filteredGroupsMock);
-    render(<GroupsPage />);
+    useFilteredProjects.mockImplementation(() => filteredProjectsMock);
+    render(<ProjectsPage />);
     const selectName = document.querySelectorAll('input')[0];
     userEvent.type(selectName, '{backspace}');
     expect(screen.getAllByRole('row')).toHaveLength(8);
     userEvent.type(selectName, '{backspace}');
     expect(screen.getAllByRole('row')).toHaveLength(8); // not a change
     userEvent.type(selectName, 'los{enter}');
-    expect(screen.getAllByText(groupsMock[0].name)).toHaveLength(2);
+    expect(screen.getAllByText(projectsMock[0].name)).toHaveLength(2);
   });
 });

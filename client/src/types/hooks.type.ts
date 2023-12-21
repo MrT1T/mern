@@ -1,15 +1,15 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import type {
   AppDispatch,
-  Group,
+  Project,
   RootState,
   User,
   pagesCountType
 } from './store.type';
 import { STATUS } from '../constant/status.const';
-import type { GroupDataType, UserDataType } from './services.type';
+import type { ProjectDataType, UserDataType } from './services.type';
 import type { onInputChangeDelayType } from './func.type';
-import type { GroupsFilterDataType, UsersFilterDataType } from './pages.type';
+import type { ProjectsFilterDataType, UsersFilterDataType } from './pages.type';
 
 export const useAppDispatch: { (): AppDispatch } = () => useDispatch();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -24,10 +24,10 @@ export interface UseDebouncedType {
   (func: onInputChangeDelayType, delay: number): () => void;
 }
 
-export interface UseFilteredGroupsType {
-  (filterData: GroupsFilterDataType): {
-    groups: Group[];
-    groupsStatus: STATUS;
+export interface UseFilteredProjectsType {
+  (filterData: ProjectsFilterDataType): {
+    projects: Project[];
+    projectsStatus: STATUS;
     pagesCount: pagesCountType;
   };
 }
@@ -44,15 +44,15 @@ interface FetchDataType {
   error: string | null;
 }
 
-interface ReturnUseGroup extends FetchDataType {
-  group: GroupDataType | null;
+interface ReturnUseProject extends FetchDataType {
+  project: ProjectDataType | null;
 }
 interface ReturnUseUser extends FetchDataType {
   user: UserDataType | null;
 }
 
-export interface UseGroupType {
-  (groupName?: string): ReturnUseGroup;
+export interface UseProjectType {
+  (projectName?: string): ReturnUseProject;
 }
 export interface UseUserType {
   (username?: string): ReturnUseUser;
@@ -61,6 +61,6 @@ export interface UseNextPage {
   (
     count: pagesCountType,
     currentPage: pagesCountType,
-    list: Array<Group | User>
+    list: Array<Project | User>
   ): boolean;
 }

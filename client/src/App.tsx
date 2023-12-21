@@ -1,15 +1,15 @@
 import { Route, Switch } from 'react-router-dom';
-import React from 'react';
+import React, { FC } from 'react';
 import Page from './component/page';
 import UsersPage from './pages/users';
 import UserEditPage from './pages/user-edit';
-import GroupsPage from './pages/groups';
-import GroupEditPage from './pages/group-edit';
+import ProjectsPage from './pages/projects';
+import ProjectEditPage from './pages/project-edit';
 import NotFound from './pages/not-found';
 import SignIn from './pages/sign-in';
 import { useAuth } from './hooks/use-auth';
 
-function App() {
+const App: FC = () => {
   const { isAuth, login, logout } = useAuth();
   if (isAuth) {
     return (
@@ -17,8 +17,12 @@ function App() {
         <Switch>
           <Route exact path="/users" component={UsersPage} />
           <Route exact path="/user/:username" component={UserEditPage} />
-          <Route exact path="/groups" component={GroupsPage} />
-          <Route exact path="/group/:groupname" component={GroupEditPage} />
+          <Route exact path="/projects" component={ProjectsPage} />
+          <Route
+            exact
+            path="/project/:projectname"
+            component={ProjectEditPage}
+          />
           <Route exact path="/*" component={NotFound} />
         </Switch>
       </Page>
@@ -31,6 +35,6 @@ function App() {
       </Route>
     </Switch>
   );
-}
+};
 
 export default App;

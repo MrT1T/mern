@@ -6,14 +6,14 @@ export const usersMock = [
     firstName: 'Christ',
     lastName: 'Rolf',
     email: 'Cordelia.Maggio31@yaaaa.com',
-    groupsList: [{ name: 'Frag_Robots' }]
+    projectsList: [{ name: 'Frag_Robots' }]
   },
   {
     username: 'Eudora.Watsica91',
     firstName: 'Sadye',
     lastName: 'Sch',
     email: 'Carlo27@yahasdf.com',
-    groupsList: [
+    projectsList: [
       { name: 'Grandiose_Racers' },
       { name: 'Supreme_Ravens' },
       { name: 'Real_Madrid_funs' }
@@ -24,7 +24,7 @@ export const usersMock = [
     firstName: 'Geovanyasd',
     lastName: 'aadMcKenzie',
     email: 'Abelardo66@yahoo.com',
-    groupsList: [
+    projectsList: [
       { name: 'Acidiewww' },
       { name: 'Detroit_Red' },
       { name: 'Los_Angeles' }
@@ -35,21 +35,21 @@ export const usersMock = [
     firstName: 'Lindsay',
     lastName: 'Gibson',
     email: 'asdasdas@fjfsdf.com',
-    groupsList: [{ name: 'Dream_Wildcats' }, { name: 'Ultimate_Knights' }]
+    projectsList: [{ name: 'Dream_Wildcats' }, { name: 'Ultimate_Knights' }]
   },
   {
     username: 'Fleta.Schneider68',
     firstName: 'Brooklyn',
     lastName: 'Nikolaus',
     email: 'Wilton.Gislason11@hotmail.com',
-    groupsList: [{ name: 'Royal_Stallions' }, { name: 'Venomous_Chargers' }]
+    projectsList: [{ name: 'Royal_Stallions' }, { name: 'Venomous_Chargers' }]
   },
   {
     username: 'Eleanora_Keebler',
     firstName: 'Jeffrey',
     lastName: 'Jakubowski',
     email: 'Casimir.Shields@hotmail.com',
-    groupsList: [{ name: 'Funs' }, { name: 'Frag_Robots' }]
+    projectsList: [{ name: 'Funs' }, { name: 'Frag_Robots' }]
   }
 ];
 
@@ -66,5 +66,5 @@ export const emptyUsersMock = {
 
 export const usersSliceData = {
   users: usersMock,
-  countPages: 1
+  pagesCount: 1
 };

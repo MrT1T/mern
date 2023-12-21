@@ -1,28 +1,29 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import VirtualizedTable from '../../component/virtualized-table';
-import { useFilteredGroups } from '../../hooks/use-filtered-groups';
+import { useFilteredProjects } from '../../hooks/use-filtered-projects';
 import FilterPanel from '../../component/filter-panel';
 import { getFilterOptions } from '../../helpers/get-filter-options.helper';
 import { getUniqueValue } from '../../helpers/get-unique-value.helper';
-import { groupFields } from '../../constant/table-header.const';
+import { projectFields } from '../../constant/table-header.const';
 import { useNextPage } from '../../hooks/use-next-page';
 import { PAGES_LINKS } from '../../constant/links.const';
 import type { OnChangeHandlerType } from '../../types/func.type';
-import type { GroupsFilterDataType } from '../../types/pages.type';
+import type { ProjectsFilterDataType } from '../../types/pages.type';
 
-const GroupsPage: FC = () => {
+const ProjectsPage: FC = () => {
   const [filterData, setFilterData] = useState({
     page: 1
-  } as GroupsFilterDataType);
-  const { groups, groupsStatus, pagesCount } = useFilteredGroups(filterData);
-  const hasNextPage = useNextPage(pagesCount, filterData.page, groups);
+  } as ProjectsFilterDataType);
+  const { projects, projectsStatus, pagesCount } =
+    useFilteredProjects(filterData);
+  const hasNextPage = useNextPage(pagesCount, filterData.page, projects);
   const { page, ...needDataFilter } = filterData;
 
   const filterOptions = useMemo(() => {
-    if (groups.length === 0) {
+    if (projects.length === 0) {
       return {};
     }
-    const options = getFilterOptions(groups, groupFields);
+    const options = getFilterOptions(projects, projectFields);
     const usersList = options?.usersList
       ?.flat()
       .map(({ username }) => username);
@@ -30,11 +31,11 @@ const GroupsPage: FC = () => {
       string,
       Array<string>
     >;
-  }, [groups]);
+  }, [projects]);
 
   const handleChangeFilters = useCallback<OnChangeHandlerType>(
     (name, value) => {
-      if (filterData[name as keyof GroupsFilterDataType] !== value) {
+      if (filterData[name as keyof ProjectsFilterDataType] !== value) {
         setFilterData((prevValues) => ({
           ...prevValues,
           [name]: value,
@@ -60,15 +61,15 @@ const GroupsPage: FC = () => {
         filterOptions={filterOptions}
         filterData={needDataFilter as Record<string, string | undefined>}
         onChange={handleChangeFilters}
-        fields={groupFields}
+        fields={projectFields}
       />
       <VirtualizedTable
-        cellHeaderData={groupFields}
+        cellHeaderData={projectFields}
         cellBodyData={{
-          cellData: groups,
+          cellData: projects,
           hasNextPage,
-          status: groupsStatus,
-          link: PAGES_LINKS.GROUP,
+          status: projectsStatus,
+          link: PAGES_LINKS.PROJECT,
           pagesCount,
           loadNextPage
         }}
@@ -77,4 +78,4 @@ const GroupsPage: FC = () => {
   );
 };
 
-export default GroupsPage;
+export default ProjectsPage;

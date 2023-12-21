@@ -4,39 +4,39 @@ export const allUsersMock = [
   { value: '61447046e6719c7f80110e7f', name: 'Jewel80' }
 ];
 
-export const groupMock = {
+export const projectMock = {
   error: null,
   isLoading: false,
-  group: {
+  project: {
     _id: '61447048e6719c7f80110e92',
     name: 'Los_Angeles',
     title: 'Basketball',
     usersList: allUsersMock,
-    groupId: 1
+    projectId: 1
   }
 };
-export const groupEmptyMock = {
+export const projectEmptyMock = {
   error: null,
   isLoading: false,
-  group: {
+  project: {
     _id: '61447048e6719c7f80110e92',
     name: '',
     title: '',
     usersList: [],
-    groupId: 1
+    projectId: 1
   }
 };
-export const groupErrorMock = {
+export const projectErrorMock = {
   error: true,
   isLoading: false,
-  group: null
+  project: null
 };
-export const groupLoadingMock = {
+export const projectLoadingMock = {
   error: null,
   isLoading: true,
-  group: {}
+  project: {}
 };
 
-export const groupName = {
-  groupname: 'BestGroup'
+export const projectName = {
+  projectname: 'BestProject'
 };

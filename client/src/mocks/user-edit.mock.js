@@ -1,5 +1,5 @@
-export const allGroupsMock = [
-  { value: '61447048e6719c7f80110e92', name: 'TestGroup' },
+export const allProjectsMock = [
+  { value: '61447048e6719c7f80110e92', name: 'TestProject' },
   { value: '61447048e6719c7f80110e93', name: 'Detroit_Red' },
   { value: '61447048e6719c7f80110e91', name: 'Real_Madrid_funs' }
 ];
@@ -13,7 +13,7 @@ export const userMock = {
     firstName: 'Judy',
     lastName: 'Schuster',
     email: 'Einar_Upton26@yahoo.com',
-    groupsList: allGroupsMock,
+    projectsList: allProjectsMock,
     id: 8
   }
 };
@@ -26,7 +26,7 @@ export const userErrorsMock = {
     firstName: '',
     lastName: '',
     email: 'error@email@.com',
-    groupsList: [],
+    projectsList: [],
     id: 8
   }
 };

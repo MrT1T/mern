@@ -23,7 +23,7 @@ describe('UsersSlice tests', () => {
       usersSlice(initialState, setUsersSuccess({ ...usersSliceData }))
     ).toEqual({
       users: usersSliceData.users,
-      pagesCount: usersSliceData.countPages,
+      pagesCount: usersSliceData.pagesCount,
       status: STATUS.SUCCESS,
       error: null
     });
@@ -32,7 +32,7 @@ describe('UsersSlice tests', () => {
     expect(
       usersSlice(
         initialState,
-        setUsersError({ errorMessage: ERROR_MESSAGES.NO_USERS })
+        setUsersError({ error: ERROR_MESSAGES.NO_USERS })
       ).error
     ).toEqual(ERROR_MESSAGES.NO_USERS);
   });

@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import Cell from '../_cell';
-import type { Group, User } from '../../../types/store.type';
+import type { Project, User } from '../../../types/store.type';
 
-const CellGroup: FC<{ item: Group | User }> = ({ item }) => {
-  if ('username' in item) {
+const CellProject: FC<{ item: Project | User }> = ({ item }) => {
+  if (item && 'username' in item) {
     return (
       <>
         <Cell>{item.username}</Cell>
         <Cell>{item.firstName}</Cell>
         <Cell>{item.lastName}</Cell>
         <Cell>{item.email}</Cell>
-        <Cell>{item.groupsList.map(({ name }) => name).join(', ')}</Cell>
+        <Cell>{item.projectsList.map(({ name }) => name).join(', ')}</Cell>
       </>
     );
   }
@@ -23,4 +23,4 @@ const CellGroup: FC<{ item: Group | User }> = ({ item }) => {
   );
 };
 
-export default CellGroup;
+export default CellProject;

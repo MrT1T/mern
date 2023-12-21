@@ -7,7 +7,7 @@ const createErrorMessage = (code) => {
     case 405:
       return 'User not found';
     case 406:
-      return 'Group not found';
+      return 'Project not found';
     case 500:
       return 'Internal Server Error ';
 

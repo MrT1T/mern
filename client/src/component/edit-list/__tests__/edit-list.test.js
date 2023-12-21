@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import EditList from '../index';
-import { allUsersMock } from '../../../mocks/group-edit.mock';
+import { allUsersMock } from '../../../mocks/project-edit.mock';
 import { PAGES_LINKS } from '../../../constant/links.const';
 import { linksHelper } from '../../../helpers/links.helper';
 

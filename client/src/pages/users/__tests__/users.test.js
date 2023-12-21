@@ -20,7 +20,7 @@ jest.mock(
       children({ height: 1600, width: 1600 })
 );
 
-describe('Groups component', () => {
+describe('Users component', () => {
   it('Users page exists', () => {
     useFilteredUsers.mockImplementation(() => filteredUsersMock);
     render(<UsersPage />);

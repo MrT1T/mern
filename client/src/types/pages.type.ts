@@ -1,4 +1,4 @@
-export interface GroupsFilterDataType {
+export interface ProjectsFilterDataType {
   page: number;
   name?: string;
   title?: string;
@@ -11,5 +11,5 @@ export interface UsersFilterDataType {
   firstName?: string;
   lastName?: string;
   email?: string;
-  groupsList?: string;
+  projectsList?: string;
 }

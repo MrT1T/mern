@@ -1,28 +1,28 @@
-import type { GroupBasic, Item, UserBasic } from './store.type';
+import type { ProjectBasic, Item, UserBasic } from './store.type';
 
 export interface AuthBodyType {
   email: string;
   password: string;
 }
-// Groups Service
-export interface UpdateGroupBodyType extends GroupBasic {
+// Projects Service
+export interface UpdateProjectBodyType extends ProjectBasic {
   usersList: Array<string>;
 }
 
-export interface GroupDataType extends GroupBasic {
+export interface ProjectDataType extends ProjectBasic {
   usersList: Array<Item>;
 }
-export interface GroupResponseType extends GroupBasic {
+export interface ProjectResponseType extends ProjectBasic {
   usersList: Array<Record<string, string>>;
 }
 // Users Service
 export interface UpdateUserBodyType extends UserBasic {
-  groupsList: Array<string>;
+  projectsList: Array<string>;
 }
 
 export interface UserDataType extends UserBasic {
-  groupsList: Array<Item>;
+  projectsList: Array<Item>;
 }
 export interface UserResponseType extends UserBasic {
-  groupsList: Array<Record<string, string>>;
+  projectsList: Array<Record<string, string>>;
 }

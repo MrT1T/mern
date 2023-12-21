@@ -5,14 +5,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   rowEmptyMock,
-  rowGroupsMock,
+  rowProjectsMock,
   rowLoadMock,
   rowUsersMock
 } from '../../../../mocks/table-body.mock';
 import Row from '../index';
 import { PAGES_LINKS } from '../../../../constant/links.const';
 import { usersMock } from '../../../../mocks/users.mock';
-import { groupsMock } from '../../../../mocks/groups.mock';
+import { projectsMock } from '../../../../mocks/projects.mock';
 
 describe('Row component', () => {
   it('Row exist', () => {
@@ -41,16 +41,16 @@ describe('Row component', () => {
     );
     userEvent.click(await screen.findByRole('row')); // push to user edit
     expect(history.location.pathname).toEqual(
-      PAGES_LINKS.PROFILE(usersMock[rowIndex].username)
+      `${PAGES_LINKS.PROFILE}${usersMock[rowIndex].username}`
     );
     await rerender(
       <Router history={history}>
-        <Row data={rowGroupsMock} index={rowIndex} />
+        <Row data={rowProjectsMock} index={rowIndex} />
       </Router>
     );
-    userEvent.click(screen.getByRole('row')); // push to group edit
+    userEvent.click(screen.getByRole('row')); // push to project edit
     expect(history.location.pathname).toEqual(
-      PAGES_LINKS.GROUP(groupsMock[rowIndex].name)
+      `${PAGES_LINKS.PROJECT}${projectsMock[rowIndex].name}`
     );
   });
 });

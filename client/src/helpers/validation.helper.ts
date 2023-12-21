@@ -64,7 +64,7 @@ export function validateUserEdit({
   return emailValidate(errors, email);
 }
 
-export function validateGroupEdit({
+export function validateProjectEdit({
   name,
   title
 }: Record<string, string>): Record<string, string> {

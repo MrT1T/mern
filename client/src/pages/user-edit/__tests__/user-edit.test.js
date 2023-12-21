@@ -5,14 +5,14 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { useDispatch } from 'react-redux';
 import { useUser } from '../../../hooks/use-user';
-import { useAllGroups } from '../../../hooks/use-all-groups';
+import { useAllProjects } from '../../../hooks/use-all-projects';
 import { ERROR_MESSAGES } from '../../../constant/errors.const';
 import { PAGES_LINKS } from '../../../constant/links.const';
 import notificationCreator from '../../../helpers/notification.helper';
 import { resetStore } from '../../../store/thunks/reset-store.thunk';
 import UserEditPage from '../index';
 import {
-  allGroupsMock,
+  allProjectsMock,
   userErrorsMock,
   userErrorMock,
   userLoadingMock,
@@ -36,8 +36,8 @@ jest.mock('../../../hooks/use-user', () => ({
   useUser: jest.fn()
 }));
 
-jest.mock('../../../hooks/use-all-groups', () => ({
-  useAllGroups: jest.fn()
+jest.mock('../../../hooks/use-all-projects', () => ({
+  useAllProjects: jest.fn()
 }));
 
 jest.mock('../../../store/thunks/reset-store.thunk', () => ({
@@ -47,7 +47,7 @@ jest.mock('../../../store/thunks/reset-store.thunk', () => ({
 describe('User edit component', () => {
   beforeEach(() => {
     useParams.mockImplementation(() => userName);
-    useAllGroups.mockImplementation(() => allGroupsMock);
+    useAllProjects.mockImplementation(() => allProjectsMock);
   });
 
   it('User edit page exists', () => {
@@ -66,18 +66,18 @@ describe('User edit component', () => {
     render(<UserEditPage />);
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
-  it('Change group list', () => {
-    const testGroup = allGroupsMock[0].name;
+  it('Change project list', () => {
+    const testProject = allProjectsMock[0].name;
     useUser.mockImplementation(() => userMock);
     render(<UserEditPage />);
     expect(screen.getAllByTestId('card')).toHaveLength(3);
-    userEvent.click(screen.getAllByRole('button')[1]); // delete group from groupsList
+    userEvent.click(screen.getAllByRole('button')[1]); // delete project from projectsList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
-    const addGroup = screen.getByText('Add Group');
-    userEvent.type(addGroup, '{backspace}'); // not adding group to groupsList
+    const addProject = screen.getByText('Add Project');
+    userEvent.type(addProject, '{backspace}'); // not adding project to projectsList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
-    userEvent.type(addGroup, TEST);
-    userEvent.click(screen.getByText(testGroup)); // adding group to groupsList
+    userEvent.type(addProject, TEST);
+    userEvent.click(screen.getByText(testProject)); // adding project to projectsList
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });
   it('Error field on UserEditPage', () => {

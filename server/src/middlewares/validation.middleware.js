@@ -8,12 +8,12 @@ const updateUserValidation = [
   check('lastName').isLength({ min: 1, max: 30 })
 ];
 
-const updateGroupValidation = [
+const updateProjectValidation = [
   check('name').isLength({ min: 1, max: 30 }),
   check('title').isLength({ min: 1, max: 30 })
 ];
 
 module.exports = {
   updateUserValidation,
-  updateGroupValidation
+  updateProjectValidation
 };

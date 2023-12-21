@@ -1,7 +1,7 @@
 import React, { CSSProperties, FC } from 'react';
 import { makeStyles, TableRow } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import CellGroup from '../_cell-group';
+import CellProject from '../_cell-project';
 import { linksHelper } from '../../../helpers/links.helper';
 import type { CellBodyDataType } from '../_body';
 
@@ -38,7 +38,7 @@ const Row: FC<RowPropsType> = ({ data, index, style }) => {
     if (!isItemLoaded(index)) {
       return 'Loading...';
     }
-    return <CellGroup item={currentElement} />;
+    return <CellProject item={currentElement} />;
   };
 
   const onClick = () => {

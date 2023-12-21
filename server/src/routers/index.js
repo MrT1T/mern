@@ -1,6 +1,6 @@
 const express = require('express');
 const userRouter = require('./user.router');
-const groupRouter = require('./group.router');
+const projectRouter = require('./group.router');
 const authRouter = require('./auth.router');
 
 const apiRouter = () =>
@@ -8,5 +8,5 @@ const apiRouter = () =>
     .Router()
     .use('/auth', authRouter())
     .use('/user', userRouter())
-    .use('/group', groupRouter());
+    .use('/project', projectRouter());
 module.exports = apiRouter;

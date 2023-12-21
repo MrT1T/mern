@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SelectField from '../index';
-import { allUsersMock } from '../../../mocks/group-edit.mock';
+import { allUsersMock } from '../../../mocks/project-edit.mock';
 import { TEST } from '../../../constant/variable.const';
 
 describe('Select component', () => {

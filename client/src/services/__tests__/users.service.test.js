@@ -10,7 +10,7 @@ describe('Users service tests', () => {
     const mockRequest = Promise.resolve({ data: { users: usersMock } });
     spyApi.mockImplementation(() => mockRequest);
     UsersService.getFilteredUsers(TEST);
-    expect(spyApi).toBeCalledWith(API_LINKS.FILTERED_USERS(TEST));
+    expect(spyApi).toBeCalledWith(`${API_LINKS.FILTERED_USERS}${TEST}`);
   });
   it('Update user ', () => {
     const spyApi = jest.spyOn(Api, 'put');
@@ -24,7 +24,7 @@ describe('Users service tests', () => {
     const mockRequest = Promise.resolve({ data: usersMock[0] });
     spyApi.mockImplementation(() => mockRequest);
     UsersService.getUser(TEST);
-    expect(spyApi).toBeCalledWith(API_LINKS.USER(TEST));
+    expect(spyApi).toBeCalledWith(`${API_LINKS.USER}${TEST}`);
   });
   it('Get all users ', () => {
     const spyApi = jest.spyOn(Api, 'get');

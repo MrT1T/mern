@@ -23,7 +23,7 @@ interface SliceBasis {
 export type ErrorPayload = Pick<SliceBasis, 'error'>;
 
 // UsersSlice types
-interface GroupsListItem {
+interface ProjectsListItem {
   name: string;
 }
 
@@ -36,7 +36,7 @@ export interface UserBasic {
 }
 
 export interface User extends UserBasic {
-  groupsList: Array<GroupsListItem>;
+  projectsList: Array<ProjectsListItem>;
 }
 
 export interface UsersSliceType extends SliceBasis {
@@ -45,26 +45,29 @@ export interface UsersSliceType extends SliceBasis {
 
 export type UsersPayloadData = Pick<UsersSliceType, 'users' | 'pagesCount'>;
 
-// GroupsSlice types
+// ProjectsSlice types
 export interface UsersListItem {
   username: string;
 }
 
-export interface GroupBasic {
-  groupId: number;
+export interface ProjectBasic {
+  projectId: number;
   name: string;
   title: string;
 }
 
-export interface Group extends GroupBasic {
+export interface Project extends ProjectBasic {
   usersList: Array<UsersListItem>;
 }
 
-export interface GroupsSliceType extends SliceBasis {
-  groups: Array<Group>;
+export interface ProjectsSliceType extends SliceBasis {
+  projects: Array<Project>;
 }
 
-export type GroupsPayloadData = Pick<GroupsSliceType, 'groups' | 'pagesCount'>;
+export type ProjectsPayloadData = Pick<
+  ProjectsSliceType,
+  'projects' | 'pagesCount'
+>;
 
 export interface Item {
   name: string;

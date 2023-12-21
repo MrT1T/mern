@@ -4,20 +4,20 @@ import { Router, useParams } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { useDispatch } from 'react-redux';
-import GroupEditPage from '../index';
-import { useGroup } from '../../../hooks/use-group';
+import ProjectEditPage from '../index';
+import { useProject } from '../../../hooks/use-project';
 import {
   allUsersMock,
-  groupEmptyMock,
-  groupErrorMock,
-  groupLoadingMock,
-  groupMock,
-  groupName
-} from '../../../mocks/group-edit.mock';
+  projectEmptyMock,
+  projectErrorMock,
+  projectLoadingMock,
+  projectMock,
+  projectName
+} from '../../../mocks/project-edit.mock';
 import { useAllUsers } from '../../../hooks/use-all-users';
 import { ERROR_MESSAGES } from '../../../constant/errors.const';
 import { PAGES_LINKS } from '../../../constant/links.const';
-import { GroupsService } from '../../../services/groups.service';
+import { ProjectsService } from '../../../services/projects.service';
 import notificationCreator from '../../../helpers/notification.helper';
 import { resetStore } from '../../../store/thunks/reset-store.thunk';
 import { TEST } from '../../../constant/variable.const';
@@ -32,8 +32,8 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn()
 }));
 
-jest.mock('../../../hooks/use-group', () => ({
-  useGroup: jest.fn()
+jest.mock('../../../hooks/use-project', () => ({
+  useProject: jest.fn()
 }));
 
 jest.mock('../../../hooks/use-all-users', () => ({
@@ -44,32 +44,32 @@ jest.mock('../../../store/thunks/reset-store.thunk', () => ({
   resetStore: jest.fn()
 }));
 
-describe('Group edit component', () => {
+describe('Project edit component', () => {
   beforeEach(() => {
-    useParams.mockImplementation(() => groupName);
+    useParams.mockImplementation(() => projectName);
     useAllUsers.mockImplementation(() => allUsersMock);
   });
 
-  it('Group edit page exists', () => {
-    useGroup.mockImplementation(() => groupMock);
-    render(<GroupEditPage />);
+  it('Project edit page exists', () => {
+    useProject.mockImplementation(() => projectMock);
+    render(<ProjectEditPage />);
     expect(screen.getByTestId('editHeader')).toBeInTheDocument();
     expect(screen.getByTestId('editContainer')).toBeInTheDocument();
   });
-  it('Group loading error ', () => {
-    useGroup.mockImplementation(() => groupErrorMock);
-    render(<GroupEditPage />);
+  it('Project loading error ', () => {
+    useProject.mockImplementation(() => projectErrorMock);
+    render(<ProjectEditPage />);
     expect(screen.getByTestId('notFound')).toBeInTheDocument();
   });
-  it('Group loading', () => {
-    useGroup.mockImplementation(() => groupLoadingMock);
-    render(<GroupEditPage />);
+  it('Project loading', () => {
+    useProject.mockImplementation(() => projectLoadingMock);
+    render(<ProjectEditPage />);
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
   it('Change user list', () => {
     const testUser = allUsersMock[0].name;
-    useGroup.mockImplementation(() => groupMock);
-    render(<GroupEditPage />);
+    useProject.mockImplementation(() => projectMock);
+    render(<ProjectEditPage />);
     expect(screen.getAllByTestId('card')).toHaveLength(3);
     userEvent.click(screen.getAllByRole('button')[1]); // delete user from userList
     expect(screen.getAllByTestId('card')).toHaveLength(2);
@@ -81,22 +81,22 @@ describe('Group edit component', () => {
     expect(screen.getAllByTestId('card')).toHaveLength(3);
   });
   it('Error with empty required field', () => {
-    useGroup.mockImplementation(() => groupEmptyMock);
-    render(<GroupEditPage />);
+    useProject.mockImplementation(() => projectEmptyMock);
+    render(<ProjectEditPage />);
     userEvent.click(screen.getByText(/save/i)); // click to save button
     expect(screen.getByText(ERROR_MESSAGES.NAME_REQUIRED)).toBeInTheDocument();
     expect(screen.getByText(ERROR_MESSAGES.TITLE_REQUIRED)).toBeInTheDocument();
   });
-  it('Group update successful response', async () => {
+  it('Project update successful response', async () => {
     const history = createMemoryHistory();
-    useGroup.mockImplementation(() => groupMock);
+    useProject.mockImplementation(() => projectMock);
     useDispatch.mockImplementation(() => jest.fn());
     render(
       <Router history={history}>
-        <GroupEditPage />
+        <ProjectEditPage />
       </Router>
     );
-    const spyApi = jest.spyOn(GroupsService, 'updateGroup');
+    const spyApi = jest.spyOn(ProjectsService, 'updateProject');
     const spyNotification = jest.spyOn(notificationCreator, 'showOnSuccess');
     const mockRequest = jest.fn(() => Promise.resolve());
     spyApi.mockImplementation(mockRequest);
@@ -106,12 +106,12 @@ describe('Group edit component', () => {
       expect(spyNotification).toBeCalled();
       expect(resetStore).toBeCalled();
     });
-    expect(history.location.pathname).toEqual(PAGES_LINKS.GROUPS);
+    expect(history.location.pathname).toEqual(PAGES_LINKS.PROJECTS);
   });
-  it('Group update error response', async () => {
-    useGroup.mockImplementation(() => groupMock);
-    render(<GroupEditPage />);
-    const spyApi = jest.spyOn(GroupsService, 'updateGroup');
+  it('Project update error response', async () => {
+    useProject.mockImplementation(() => projectMock);
+    render(<ProjectEditPage />);
+    const spyApi = jest.spyOn(ProjectsService, 'updateProject');
     const spyNotification = jest.spyOn(notificationCreator, 'showOnFailure');
     const mockRequest = jest.fn(() => Promise.reject(new Error()));
     spyApi.mockImplementation(mockRequest);

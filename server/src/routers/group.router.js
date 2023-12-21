@@ -1,23 +1,23 @@
 const express = require('express');
-const groupController = require('../controllers/group');
+const projectController = require('../controllers/group');
 const {
-  updateGroupValidation
+  updateProjectValidation
 } = require('../middlewares/validation.middleware');
 const validationError = require('../helpers/validation-error.helper');
 const { verifyToken } = require('../middlewares/passport.middleware');
 
-const groupRouter = () => {
+const projectRouter = () => {
   const router = express.Router();
 
-  router.get('/filter', verifyToken, groupController.getFilteredGroups);
-  router.get('/all', verifyToken, groupController.getGroups);
-  router.get('/:groupname', verifyToken, groupController.getGroup);
+  router.get('/filter', verifyToken, projectController.getFilteredProjects);
+  router.get('/all', verifyToken, projectController.getProjects);
+  router.get('/:projectname', verifyToken, projectController.getProject);
   router.put(
     '/update',
-    [...updateGroupValidation, verifyToken, validationError],
-    groupController.updateGroup
+    [...updateProjectValidation, verifyToken, validationError],
+    projectController.updateProject
   );
 
   return router;
 };
-module.exports = groupRouter;
+module.exports = projectRouter;

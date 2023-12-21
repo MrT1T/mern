@@ -33,7 +33,7 @@ describe('Users thunk tests', () => {
     await getAllUsers(TEST)(dispatch);
     expect(dispatch).toHaveBeenCalledTimes(2);
     expect(setUsersError).toHaveBeenCalledWith({
-      errorMessage: ERROR_MESSAGES.NO_USERS
+      error: ERROR_MESSAGES.NO_USERS
     });
   });
 });

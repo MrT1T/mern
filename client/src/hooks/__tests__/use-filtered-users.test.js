@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterData, filterUrl } from '../../mocks/groups.mock';
+import { filterData, filterUrl } from '../../mocks/projects.mock';
 import { emptyUsersMock, filteredUsersMock } from '../../mocks/users.mock';
 import { useFilteredUsers } from '../use-filtered-users';
 import { getAllUsers } from '../../store/thunks/users.thunk';

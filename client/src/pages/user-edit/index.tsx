@@ -17,7 +17,7 @@ import {
   validateUserEdit
 } from '../../helpers/validation.helper';
 import SelectField from '../../component/select';
-import { useAllGroups } from '../../hooks/use-all-groups';
+import { useAllProjects } from '../../hooks/use-all-projects';
 import Loading from '../../component/loading';
 import NotFound from '../not-found';
 import type { UserDataType } from '../../types/services.type';
@@ -45,7 +45,7 @@ const UserEditPage: FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const groups = useAllGroups();
+  const projects = useAllProjects();
 
   useEffect(() => {
     if (user) {
@@ -53,25 +53,27 @@ const UserEditPage: FC = () => {
     }
   }, [user]);
 
-  const groupsField = useMemo(
+  const projectsField = useMemo(
     () =>
-      groups.filter(
+      projects.filter(
         ({ name }) =>
-          !userData?.groupsList?.some((item) => item.name.includes(name))
+          !userData?.projectsList?.some((item) => item.name.includes(name))
       ),
-    [userData, groups]
+    [userData, projects]
   );
 
   const handlerChangeUserData = useCallback(
     (name, value) => {
-      if (name === 'groupsList') {
-        value = userData.groupsList.filter((item) => item.value !== value);
+      if (name === 'projectsList') {
+        value = userData.projectsList.filter((item) => item.value !== value);
       }
-      if (name === 'addGroup') {
+      if (name === 'addProject') {
         if (value) {
-          name = 'groupsList';
-          const needGroup = groups.find((group) => group.value === value);
-          value = userData.groupsList.concat(needGroup as Item);
+          name = 'projectsList';
+          const needProject = projects.find(
+            (project) => project.value === value
+          );
+          value = userData.projectsList.concat(needProject as Item);
         }
       }
       setUserData((prevFormData) => ({
@@ -93,14 +95,14 @@ const UserEditPage: FC = () => {
   }
 
   const handlerSaveUserData = async () => {
-    const { id, groupsList, ...checkData } = userData;
+    const { id, projectsList, ...checkData } = userData;
 
     const resultUserData = validateData(checkData, validateUserEdit);
 
     if (resultUserData.isValid) {
       const body = {
         ...userData,
-        groupsList: groupsList.map(({ value }) => value),
+        projectsList: projectsList.map(({ value }) => value),
         id
       };
       await UsersService.updateUser(body)
@@ -132,7 +134,7 @@ const UserEditPage: FC = () => {
     <>
       <EditHeader
         breadcrumbLabel="Users"
-        breadcrumbLink={PAGES_LINKS.GROUPS}
+        breadcrumbLink={PAGES_LINKS.PROJECTS}
         pageName={user?.username}
         onClick={handlerSaveUserData}
       />
@@ -147,21 +149,21 @@ const UserEditPage: FC = () => {
             Edit Fields
           </Typography>
           <SelectField
-            name="addGroup"
-            options={groupsField}
-            placeholder="Add Group"
+            name="addProject"
+            options={projectsField}
+            placeholder="Add Project"
             onChange={handlerChangeUserData}
             className={classes.selectFields}
           />
           {editTableFields}
         </Box>
         <EditList
-          list={userData?.groupsList}
-          labelList="Groups List"
+          list={userData?.projectsList}
+          labelList="Projects List"
           onChange={handlerChangeUserData}
-          name="groupsList"
-          buttonText="Delete group from user"
-          link={PAGES_LINKS.GROUP}
+          name="projectsList"
+          buttonText="Delete project from user"
+          link={PAGES_LINKS.PROJECT}
         />
       </Box>
     </>

@@ -2,27 +2,27 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { useGroup } from '../../hooks/use-group';
+import { useProject } from '../../hooks/use-project';
 import { PAGES_LINKS } from '../../constant/links.const';
 import EditHeader from '../../component/edit-header';
 import EditField from '../../component/edit-field';
 import EditList from '../../component/edit-list';
 import { firstLetterUpperCase } from '../../helpers/first-letter-upper-case.helper';
 import { resetStore } from '../../store/thunks/reset-store.thunk';
-import { GroupsService } from '../../services/groups.service';
-import { groupEditFields } from '../../constant/table-header.const';
+import { ProjectsService } from '../../services/projects.service';
+import { projectEditFields } from '../../constant/table-header.const';
 import notificationCreator from '../../helpers/notification.helper';
 import {
   validateData,
-  validateGroupEdit
+  validateProjectEdit
 } from '../../helpers/validation.helper';
 import { useAllUsers } from '../../hooks/use-all-users';
 import SelectField from '../../component/select';
 import NotFound from '../not-found';
 import Loading from '../../component/loading';
 import type {
-  GroupDataType,
-  UpdateGroupBodyType
+  ProjectDataType,
+  UpdateProjectBodyType
 } from '../../types/services.type';
 import type { Item } from '../../types/store.type';
 
@@ -40,53 +40,53 @@ const useStyles = makeStyles({
   }
 });
 
-const GroupEditPage: FC = () => {
-  const [groupData, setGroupData] = useState({} as GroupDataType);
+const ProjectEditPage: FC = () => {
+  const [projectData, setProjectData] = useState({} as ProjectDataType);
   const [errors, setErrors] = useState({} as Record<string, string | null>);
-  const { groupname } = useParams<{ groupname: string }>();
-  const { group, isLoading, error } = useGroup(groupname);
+  const { projectname } = useParams<{ projectname: string }>();
+  const { project, isLoading, error } = useProject(projectname);
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const users = useAllUsers();
 
   useEffect(() => {
-    if (group) {
-      setGroupData({ ...group } as GroupDataType);
+    if (project) {
+      setProjectData({ ...project } as ProjectDataType);
     }
-  }, [group]);
+  }, [project]);
 
   const usersField = useMemo(
     () =>
       users.filter(
         ({ name }) =>
-          !groupData.usersList?.some((item) => item.name.includes(name))
+          !projectData.usersList?.some((item) => item.name.includes(name))
       ),
-    [groupData, users]
+    [projectData, users]
   );
 
-  const handlerChangeGroupData = useCallback(
+  const handlerChangeProjectData = useCallback(
     (name, value) => {
       if (name === 'usersList') {
-        value = groupData.usersList.filter((item) => item.value !== value);
+        value = projectData.usersList.filter((item) => item.value !== value);
       }
 
       if (name === 'addUser') {
         if (value) {
           name = 'usersList';
           const needUser = users.find((user) => user.value === value);
-          value = groupData.usersList.concat(needUser as Item);
+          value = projectData.usersList.concat(needUser as Item);
         }
       }
 
-      setGroupData((prevFormData) => ({
+      setProjectData((prevFormData) => ({
         ...prevFormData,
         [name]: value
       }));
 
       setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
     },
-    [groupData]
+    [projectData]
   );
 
   if (error) {
@@ -97,25 +97,25 @@ const GroupEditPage: FC = () => {
     return <Loading />;
   }
 
-  const handlerSaveGroupData = async () => {
-    const { usersList, groupId, ...checkData } = groupData;
-    const resultUserData = validateData(checkData, validateGroupEdit);
+  const handlerSaveProjectData = async () => {
+    const { usersList, projectId, ...checkData } = projectData;
+    const resultUserData = validateData(checkData, validateProjectEdit);
 
     if (resultUserData.isValid) {
-      const body: UpdateGroupBodyType = {
-        ...groupData,
+      const body: UpdateProjectBodyType = {
+        ...projectData,
         usersList: usersList.map(({ value }) => value),
-        groupId
+        projectId
       };
-      await GroupsService.updateGroup(body)
+      await ProjectsService.updateProject(body)
         .then(() => {
-          notificationCreator.showOnSuccess('The group has been changed');
+          notificationCreator.showOnSuccess('The project has been changed');
           dispatch(resetStore());
-          return history.push(PAGES_LINKS.GROUPS);
+          return history.push(PAGES_LINKS.PROJECTS);
         })
         .catch(() => {
           notificationCreator.showOnFailure(
-            'Group changes have not been saved'
+            'Project changes have not been saved'
           );
         });
     } else {
@@ -123,13 +123,13 @@ const GroupEditPage: FC = () => {
     }
   };
 
-  const editTableFields = groupEditFields.map((item) => (
+  const editTableFields = projectEditFields.map((item) => (
     <EditField
       fieldLabel={firstLetterUpperCase(item)}
-      value={groupData[item] as string}
+      value={projectData[item] as string}
       name={item}
       key={item}
-      onChange={handlerChangeGroupData}
+      onChange={handlerChangeProjectData}
       error={errors[item]}
     />
   ));
@@ -137,10 +137,10 @@ const GroupEditPage: FC = () => {
   return (
     <>
       <EditHeader
-        breadcrumbLabel="Group"
-        breadcrumbLink={PAGES_LINKS.GROUPS}
-        pageName={group?.name}
-        onClick={handlerSaveGroupData}
+        breadcrumbLabel="Project"
+        breadcrumbLink={PAGES_LINKS.PROJECTS}
+        pageName={project?.name}
+        onClick={handlerSaveProjectData}
       />
       <Box data-testid="editContainer" className={classes.editContainer}>
         <Box className={classes.editFields}>
@@ -156,17 +156,17 @@ const GroupEditPage: FC = () => {
             name="addUser"
             options={usersField}
             placeholder="Add User"
-            onChange={handlerChangeGroupData}
+            onChange={handlerChangeProjectData}
             className={classes.selectFields}
           />
           {editTableFields}
         </Box>
         <EditList
-          list={groupData?.usersList}
+          list={projectData?.usersList}
           labelList="Users List"
-          onChange={handlerChangeGroupData}
+          onChange={handlerChangeProjectData}
           name="usersList"
-          buttonText="Delete user from group"
+          buttonText="Delete user from project"
           link={PAGES_LINKS.PROFILE}
         />
       </Box>
@@ -174,4 +174,4 @@ const GroupEditPage: FC = () => {
   );
 };
 
-export default GroupEditPage;
+export default ProjectEditPage;

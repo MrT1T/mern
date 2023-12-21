@@ -19,7 +19,7 @@ export const UsersService = {
     Api.get<UserResponseType>(linksHelper(API_LINKS.USER, username)).then(
       (response) => ({
         ...response.data,
-        groupsList: response.data.groupsList.map(({ _id, name }) => ({
+        projectsList: response.data.projectsList.map(({ _id, name }) => ({
           name,
           value: _id
         }))

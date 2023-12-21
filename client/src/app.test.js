@@ -50,7 +50,7 @@ describe('App component', () => {
     expect(screen.getByTestId('notFound')).toBeInTheDocument();
     userEvent.click(screen.getByRole('tab', { name: 'Users' }));
     expect(history.location.pathname).toEqual(PAGES_LINKS.USERS);
-    userEvent.click(screen.getByRole('tab', { name: 'Groups' }));
-    expect(history.location.pathname).toEqual(PAGES_LINKS.GROUPS);
+    userEvent.click(screen.getByRole('tab', { name: 'Projects' }));
+    expect(history.location.pathname).toEqual(PAGES_LINKS.PROJECTS);
   });
 });

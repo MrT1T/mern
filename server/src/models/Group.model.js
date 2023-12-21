@@ -13,6 +13,6 @@ const schema = new Schema(
   }
 );
 
-schema.plugin(AutoIncrement, { inc_field: 'groupId' });
+schema.plugin(AutoIncrement, { inc_field: 'projectId' });
 
-module.exports = model('Group', schema);
+module.exports = model('Project', schema);

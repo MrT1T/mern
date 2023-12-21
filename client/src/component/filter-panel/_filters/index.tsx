@@ -25,7 +25,7 @@ const Filters: FC<FiltersPropsType> = ({
   fields
 }) => {
   const classes = useStyles();
-  const selectGroup = fields.map((item) => (
+  const selectProject = fields.map((item) => (
     <SelectField
       name={item}
       key={item}
@@ -37,7 +37,7 @@ const Filters: FC<FiltersPropsType> = ({
     />
   ));
 
-  return <Box className={classes.selectContainer}>{selectGroup}</Box>;
+  return <Box className={classes.selectContainer}>{selectProject}</Box>;
 };
 
 export default Filters;
