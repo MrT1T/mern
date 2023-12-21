@@ -1,17 +1,12 @@
 {
   "name": "mern-app",
   "version": "1.0.0",
-  "description": "simple application based on mern technology",
+  "description": "projects and employees",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js"
   },
-  "keywords": [
-    "react",
-    "express",
-    "mongoDB"
-  ],
   "author": "Eugene Titov <eugene.tittitov@gmail.com>",
   "license": "ISC",
   "dependencies": {

@@ -8,7 +8,7 @@ interface CopyrightPropsType {
 const Copyright: FC<CopyrightPropsType> = ({ className }) => (
   <>
     <Typography className={className} variant="body2">
-      Copyright &#169; Your Smile site 2021
+      Copyright &#169; Instinctools 2023
     </Typography>
   </>
 );
